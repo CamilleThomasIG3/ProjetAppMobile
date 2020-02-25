@@ -9,18 +9,26 @@
 import SwiftUI
 import UIKit
 import Foundation
-
 struct ContentView: View {
     
     init(){
         UINavigationBar.appearance().backgroundColor = UIColor(named: "Turquoise")
         UINavigationBar.appearance().titleTextAttributes =
             [.foregroundColor: UIColor.white, .font: UIFont(name: "helvetica", size: 30)!]
+ 
+//        Webservice().getAllPosts(){
+//            print($0)
+//        }
     }
     
+    @ObservedObject var model = Webservice()
+    
     var body: some View {
+        
         NavigationView {
-            Text("body")
+            List(model.posts){ post in
+                Text(post.title)
+            }
                 .navigationBarTitle("Accueil", displayMode: .inline)
                 .navigationBarItems(leading:
                     HStack{
@@ -51,13 +59,3 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-
-extension UIColor {
-    convenience init(red: Int, green: Int, blue: Int) {
-        let newRed = CGFloat(red)/255
-        let newGreen = CGFloat(green)/255
-        let newBlue = CGFloat(blue)/255
-        
-        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
-    }
-}

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,10 @@
 		461840662402EF22001A05EA /* ProjetAppMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461840652402EF22001A05EA /* ProjetAppMobileTests.swift */; };
 		461840712402EF22001A05EA /* ProjetAppMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461840702402EF22001A05EA /* ProjetAppMobileUITests.swift */; };
 		46184081240319ED001A05EA /* infos.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 46184080240319ED001A05EA /* infos.rtf */; };
+		469EE7ED24056F4D00298341 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 469EE7EC24056F4D00298341 /* Alamofire */; };
+		469EE7F22405746600298341 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F12405746600298341 /* Webservice.swift */; };
+		469EE7F42405747C00298341 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F32405747C00298341 /* Post.swift */; };
+		469EE7F8240577A000298341 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F7240577A000298341 /* requestViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,9 @@
 		461840702402EF22001A05EA /* ProjetAppMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetAppMobileUITests.swift; sourceTree = "<group>"; };
 		461840722402EF22001A05EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46184080240319ED001A05EA /* infos.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = infos.rtf; sourceTree = "<group>"; };
+		469EE7F12405746600298341 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
+		469EE7F32405747C00298341 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		469EE7F7240577A000298341 /* requestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				469EE7ED24056F4D00298341 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +111,9 @@
 		4618404A2402EF21001A05EA /* ProjetAppMobile */ = {
 			isa = PBXGroup;
 			children = (
-				4618407F2402F625001A05EA /* View */,
-				4618407E2402F614001A05EA /* Model */,
+				469EE7F0240573EB00298341 /* Services */,
+				4618407F2402F625001A05EA /* Views */,
+				4618407E2402F614001A05EA /* Models */,
 				4618404B2402EF21001A05EA /* AppDelegate.swift */,
 				4618404D2402EF21001A05EA /* SceneDelegate.swift */,
 				461840542402EF22001A05EA /* Assets.xcassets */,
@@ -143,19 +152,29 @@
 			path = ProjetAppMobileUITests;
 			sourceTree = "<group>";
 		};
-		4618407E2402F614001A05EA /* Model */ = {
+		4618407E2402F614001A05EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				469EE7F32405747C00298341 /* Post.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		4618407F2402F625001A05EA /* View */ = {
+		4618407F2402F625001A05EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				461840522402EF21001A05EA /* AccueilView.swift */,
+				469EE7F7240577A000298341 /* requestViewModel.swift */,
 			);
-			path = View;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		469EE7F0240573EB00298341 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				469EE7F12405746600298341 /* Webservice.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +193,9 @@
 			dependencies = (
 			);
 			name = ProjetAppMobile;
+			packageProductDependencies = (
+				469EE7EC24056F4D00298341 /* Alamofire */,
+			);
 			productName = ProjetAppMobile;
 			productReference = 461840482402EF21001A05EA /* ProjetAppMobile.app */;
 			productType = "com.apple.product-type.application";
@@ -246,6 +268,9 @@
 				Base,
 			);
 			mainGroup = 4618403F2402EF21001A05EA;
+			packageReferences = (
+				469EE7EB24056F4D00298341 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 461840492402EF21001A05EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -293,6 +318,9 @@
 				461840512402EF21001A05EA /* ProjetAppMobile.xcdatamodeld in Sources */,
 				4618404C2402EF21001A05EA /* AppDelegate.swift in Sources */,
 				461840532402EF21001A05EA /* AccueilView.swift in Sources */,
+				469EE7F42405747C00298341 /* Post.swift in Sources */,
+				469EE7F22405746600298341 /* Webservice.swift in Sources */,
+				469EE7F8240577A000298341 /* requestViewModel.swift in Sources */,
 				4618404E2402EF21001A05EA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,6 +640,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		469EE7EB24056F4D00298341 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		469EE7EC24056F4D00298341 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 469EE7EB24056F4D00298341 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4618404F2402EF21001A05EA /* ProjetAppMobile.xcdatamodeld */ = {
