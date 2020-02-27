@@ -11,44 +11,41 @@ import UIKit
 import Foundation
 struct ContentView: View {
     
-    init(){
-        UINavigationBar.appearance().backgroundColor = UIColor(named: "Turquoise")
-        UINavigationBar.appearance().titleTextAttributes =
-            [.foregroundColor: UIColor.white, .font: UIFont(name: "helvetica", size: 30)!]
- 
-//        Webservice().getAllPosts(){
-//            print($0)
-//        }
-    }
-    
     @ObservedObject var model = Webservice()
     
     var body: some View {
-        
-        NavigationView {
-            List(model.posts){ post in
-                Text(post.title)
+        VStack{
+            ZStack{
+                Rectangle().fill(Color(UIColor(named: "Turquoise")!)).frame(height:40)
+                HStack{
+                    NavigationLink(destination: InscriptionView()){
+                        Text("Inscription")
+                    }.buttonStyle(PlainButtonStyle()).padding(10)
+                    
+                    Spacer()
+                    Text("Accueil")
+                    Spacer()
+                    
+                    NavigationLink(destination: ConnexionView()){
+                        Text("Connexion")
+                    }.buttonStyle(PlainButtonStyle()).padding(10)
             }
-                .navigationBarTitle("Accueil", displayMode: .inline)
-                .navigationBarItems(leading:
-                    HStack{
-                        Button(action:{}){
-                            Image("sign_in")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                        }.foregroundColor(.red)
-                        .padding(20)
-                    }, trailing:
-                    HStack{
-                        Button(action: {}){
-                            Image("profile")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50)
-                        }.foregroundColor(.red)
-                        .padding(10)
-                })
+        }
+        VStack(alignment: .center, spacing: 20){
+            HStack(alignment: .firstTextBaseline, spacing: 150) {
+                Text("Remarques sexistes")//.multilineTextAlignment(.leading)
+                Text("Fréquences")//.multilineTextAlignment(.trailing)
+            }.background(Color(UIColor(named: "Gris_clair")!))
+            
+            List{
+                HStack(alignment: .firstTextBaseline, spacing: 20){
+                    Text("remarque1")
+                    Text("3")
+                }
+                    Text("remarque2")
+                    Text("remarque3")
+                }
+           }
         }
     }
 }

@@ -17,10 +17,13 @@
 		461840662402EF22001A05EA /* ProjetAppMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461840652402EF22001A05EA /* ProjetAppMobileTests.swift */; };
 		461840712402EF22001A05EA /* ProjetAppMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461840702402EF22001A05EA /* ProjetAppMobileUITests.swift */; };
 		46184081240319ED001A05EA /* infos.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 46184080240319ED001A05EA /* infos.rtf */; };
+		4686D1A924084729001D0E06 /* navTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4686D1A824084729001D0E06 /* navTest.swift */; };
 		469EE7ED24056F4D00298341 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 469EE7EC24056F4D00298341 /* Alamofire */; };
 		469EE7F22405746600298341 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F12405746600298341 /* Webservice.swift */; };
 		469EE7F42405747C00298341 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F32405747C00298341 /* Post.swift */; };
 		469EE7F8240577A000298341 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F7240577A000298341 /* requestViewModel.swift */; };
+		46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A882406BFB20040B499 /* InscriptionView.swift */; };
+		46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A8A2406C06E0040B499 /* ConnexionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +60,12 @@
 		461840702402EF22001A05EA /* ProjetAppMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetAppMobileUITests.swift; sourceTree = "<group>"; };
 		461840722402EF22001A05EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46184080240319ED001A05EA /* infos.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = infos.rtf; sourceTree = "<group>"; };
+		4686D1A824084729001D0E06 /* navTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navTest.swift; sourceTree = "<group>"; };
 		469EE7F12405746600298341 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		469EE7F32405747C00298341 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		469EE7F7240577A000298341 /* requestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestViewModel.swift; sourceTree = "<group>"; };
+		46F86A882406BFB20040B499 /* InscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InscriptionView.swift; sourceTree = "<group>"; };
+		46F86A8A2406C06E0040B499 /* ConnexionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +171,9 @@
 			children = (
 				461840522402EF21001A05EA /* AccueilView.swift */,
 				469EE7F7240577A000298341 /* requestViewModel.swift */,
+				46F86A882406BFB20040B499 /* InscriptionView.swift */,
+				46F86A8A2406C06E0040B499 /* ConnexionView.swift */,
+				4686D1A824084729001D0E06 /* navTest.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -316,10 +325,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				461840512402EF21001A05EA /* ProjetAppMobile.xcdatamodeld in Sources */,
+				4686D1A924084729001D0E06 /* navTest.swift in Sources */,
 				4618404C2402EF21001A05EA /* AppDelegate.swift in Sources */,
+				46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */,
 				461840532402EF21001A05EA /* AccueilView.swift in Sources */,
 				469EE7F42405747C00298341 /* Post.swift in Sources */,
 				469EE7F22405746600298341 /* Webservice.swift in Sources */,
+				46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */,
 				469EE7F8240577A000298341 /* requestViewModel.swift in Sources */,
 				4618404E2402EF21001A05EA /* SceneDelegate.swift in Sources */,
 			);
