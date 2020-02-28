@@ -20,7 +20,6 @@ struct InscriptionView: View {
         NavigationView{
             Form{
                 Section{
-                   
                     VStack(alignment: .leading){
                         Text("Pseudo").font(.headline)
                         TextField("Pseudo", text: $pseudo).textFieldStyle(RoundedBorderTextFieldStyle())
