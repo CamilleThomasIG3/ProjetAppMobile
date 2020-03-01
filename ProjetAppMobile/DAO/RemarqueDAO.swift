@@ -9,14 +9,22 @@
 import Foundation
 
 class RemarqueDAO {
-    func getRemarque(id : String) -> RemarqueDAO
-    func getPersonne(id :String) -> String
-    func getContenu(id : String) -> String
+    func getRemarque(id : String) -> Remarque {}
+    func getPersonne(id :String) -> String {}
+    func getContenu(id : String) -> String {}
+    func getDate(id : String) -> String {}
+    func getCategorie(id : String) -> String {}
     
-    func setPersonne(id : String, idPersonne : String)
-    func setContenu(id : String, contenu : String)
+    func setDate(id : String) {}
+    func setPersonne(id : String, idPersonne : String) {}
+    func setContenu(id : String, contenu : String) {}
+    func setCategorie(id : String, categorie : String ) {}
     
-    func addRemarque(r : Remarque)
-    func deleteRemarque(id : String)
-    func count() -> Int
+    func addRemarque(r : Remarque) {}
+    func deleteRemarque(id : String) {}
+    func getAllRemarques() -> [Remarque] {}
+    func getRemarquesWithPersonne(idPersonne : String) -> [Remarque] {}
+    func getRemarquesWithCat(idCategorie : String) -> [Remarque] {}
+    //fonctions pour tri par rapport à la date
+    func count() -> Int {}
 }
