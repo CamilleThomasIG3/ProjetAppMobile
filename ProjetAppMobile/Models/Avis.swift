@@ -51,8 +51,7 @@ class Avis {
         self.label = label
     }
 
-    func setAvis(id : String, idPersonne : String, idReponse : String, label : Bool){
-        self.id = id
+    func setAvis(idPersonne : String, idReponse : String, label : Bool){
         self.idPersonne = idPersonne
         self.idReponse = idReponse
         self.label = label

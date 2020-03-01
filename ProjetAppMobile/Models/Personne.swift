@@ -51,8 +51,8 @@ class Personne {
         self.mdp = mdp
     }
     
-    func setPersonne(id : String, email : String, pseudo : String, mdp : String){
-        self.id = id
+    
+    func setPersonne(email : String, pseudo : String, mdp : String){
         self.email = email
         self.pseudo = pseudo
         self.mdp = mdp

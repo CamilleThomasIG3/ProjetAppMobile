@@ -8,15 +8,24 @@
 
 import SwiftUI
 
-struct AddRemarkView: View {
+struct AjoutRemarqueView: View {
     @Environment(\.presentationMode) var presentation
     @State private var remarque: String=""
+    var cats = ["Dans la rue", "Au travail", "Dans les transports"]
+    @State private var selectedCat = 0
+    
     var body: some View {
         NavigationView{
             Form{
                 Section{
                     VStack(){
-                        Text("Votre remarque :")
+                        Picker(selection: $selectedCat, label: Text("Catégorie")) {
+                            ForEach(0 ..< cats.count){
+                                Text(self.cats[$0])
+                            }
+                        }
+                        Spacer(minLength: 20)
+                        Text("Remarque sexiste :")
                         //MultilineTextView(text: $remarque)
                         TextField("Remarque", text: $remarque).textFieldStyle(RoundedBorderTextFieldStyle())
                         
@@ -52,9 +61,9 @@ struct AddRemarkView: View {
 //}
 
 
-struct AddRemarkView_Previews: PreviewProvider {
+struct AjoutRemarqueView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRemarkView()
+        AjoutRemarqueView()
     }
 }
   

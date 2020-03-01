@@ -9,15 +9,15 @@
 import Foundation
 
 class CategorieRemarqueDAO {
-    func getCategorieRemarque(id : String) -> CategorieRemarque {}
-    func getLabel(id : String) -> String {}
-    
-    func setLabel(id : String, label : String) {}
-    
-    func addCategorieRemarque(catRep : CategorieRemarque) {}
-    func deleteCategorieRemarque(id :String) {}
-    func getAllCategoriesRep() -> [CategorieRemarque] {}
-    func getCategoriesRepWithLabel(label : String) -> [CategorieRemarque] {}
-    func count() -> Int {}
+//    func getCategorieRemarque(id : String) -> CategorieRemarque {}
+//    func getLabel(id : String) -> String {}
+//    
+//    func setLabel(id : String, label : String) {}
+//    
+//    func addCategorieRemarque(catRep : CategorieRemarque) {}
+//    func deleteCategorieRemarque(id :String) {}
+//    func getAllCategoriesRep() -> [CategorieRemarque] {}
+//    func getCategoriesRepWithLabel(label : String) -> [CategorieRemarque] {}
+//    func count() -> Int {}
     
 }

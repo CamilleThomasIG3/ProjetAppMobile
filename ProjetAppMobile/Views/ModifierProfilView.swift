@@ -1,33 +1,27 @@
 //
-//  ConnexionView.swift
+//  ModifierProfilView.swift
 //  ProjetAppMobile
 //
-//  Created by user165000 on 2/26/20.
+//  Created by user165000 on 3/1/20.
 //  Copyright © 2020 BourratSanchezThomas. All rights reserved.
 //
 
 import SwiftUI
 
-struct ConnexionView: View {
+struct ModifierProfilView: View {
     @Environment(\.presentationMode) var presentation
-    @State private var email: String=""
+    @State private var pseudo: String="Cams"
     @State private var mdp: String=""
 
     var body: some View {
         NavigationView{
             Form{
                 Section{
-                   
                     VStack(alignment: .leading){
-                        Text("Email")
-                        TextField("Email",text: $email).textFieldStyle(RoundedBorderTextFieldStyle())
+                        Text("Pseudo").font(.headline)
+                        TextField("Pseudo", text: $pseudo).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
                         TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
-                        
-                        NavigationLink(destination: InscriptionView()){
-                            Text("S'incrire").underline()
-                            .foregroundColor(Color("Turquoise"))
-                        }.buttonStyle(PlainButtonStyle())
                     }.padding(50)
                 }
                 Section(){
@@ -37,14 +31,13 @@ struct ConnexionView: View {
                         Text("Valider")
                     }
                 }
-                                     
-            }.navigationBarTitle("Connexion")
+            }.navigationBarTitle("Modifier pseudo")
         }
     }
 }
 
-struct ConnexionView_Previews: PreviewProvider {
+struct ModifierProfilView_Previews: PreviewProvider {
     static var previews: some View {
-        ConnexionView()
+        ModifierProfilView()
     }
 }

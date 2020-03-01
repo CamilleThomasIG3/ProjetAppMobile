@@ -31,10 +31,4 @@ class CategorieReponse{
     func setLabel(label : String){
         self.label = label
     }
-    
-    func setCategorieReponse(id : String, label : String){
-        self.id = id
-        self.label = label
-    }
-
 }

@@ -10,17 +10,24 @@ import SwiftUI
 import UIKit
 import Foundation
 
-struct ContentView: View {
-    
-    @ObservedObject var model = Webservice()
+struct AccueilView: View {
+    var cats = ["Date", "Fréquence", "Catégorie"]
+    @State private var selectedCat = 0
     
     var body: some View {
         VStack{
             NavigationView{
                 VStack(alignment: .center, spacing: 20){
                      HStack(alignment: .firstTextBaseline, spacing: 150) {
-                         Text("Remarques sexistes")//.multilineTextAlignment(.leading)
-                         Text("Fréquences")//.multilineTextAlignment(.trailing)
+                        Text("Remarques sexistes")
+                        
+//                        Picker(selection: $selectedCat, label: Text("Catégorie")) {
+//                            ForEach(0 ..< cats.count){
+//                                Text(self.cats[$0])
+//                            }
+//                        }
+                        
+                        Text("Fréquences")
                      }.background(Color(UIColor(named: "Gris_clair")!))
                      
                      List{
@@ -31,42 +38,31 @@ struct ContentView: View {
                              Text("remarque2")
                              Text("remarque3")
                          }
-                   //  NavigationLink(destination: AddRemarkView()){
-                //         Text("add")
-                  //   }.buttonStyle(PlainButtonStyle()).padding(10)
-                     HStack{
-                         NavigationLink(destination: AddReponseView()){
-                                               Text("addRepTest")
-                         }.buttonStyle(PlainButtonStyle()).padding(10)
-                     }
+                     NavigationLink(destination: ConnexionView()){
+                         Text("Ajouter une remarque")
+                     }.buttonStyle(PlainButtonStyle()).padding(10)
                 }.navigationBarTitle("Accueil")
-//                    .navigationBarItems(leading:
-//
-//                    HStack{
-//                        NavigationLink(destination: InscriptionView()){
-//                            Text("Inscription")
-//                        }.buttonStyle(PlainButtonStyle()).padding(10)
-//
-//                        Spacer()
-//                        Text("Accueil")
-//                        Spacer()
-//
-//                        NavigationLink(destination: ConnexionView()){
-//                            Text("Connexion")
-//                        }.buttonStyle(PlainButtonStyle()).padding(10)
-//                    })
+                    .navigationBarItems(leading:
+                        HStack{
+                            NavigationLink(destination: InscriptionView()){
+                                Text("Inscription")
+                            }.buttonStyle(PlainButtonStyle()).padding(10)
+                            }, trailing :
+                        HStack{
+                            NavigationLink(destination: ConnexionView()){
+                                Text("Connexion")
+                            }.buttonStyle(PlainButtonStyle()).padding(10)
+                        }
+                    )
                 }
-                    
-            
-            
             }
         }
     }
 
 
-struct ContentView_Previews: PreviewProvider {
+struct AccueilView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        AccueilView()
     }
 }
 

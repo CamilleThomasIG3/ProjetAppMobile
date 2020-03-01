@@ -72,8 +72,7 @@ class Reponse{
         self.idCategorieReponse = idCategorieReponse
     }
     
-    func setReponse(id : String, date : String, contenu : String, idPersonne : String, idRemarque : String, idCategorieReponse : String){
-        self.id = id
+    func setReponse(date : String, contenu : String, idPersonne : String, idRemarque : String, idCategorieReponse : String){
         self.date = date
         self.contenu = contenu
         self.idPersonne = idPersonne

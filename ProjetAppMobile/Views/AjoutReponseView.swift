@@ -8,11 +8,12 @@
 
 import SwiftUI
 
-struct AddReponseView: View {
+struct AjoutReponseView: View {
     @Environment(\.presentationMode) var presentation
     @State private var reponse: String=""
     var cats = ["Humour", "Loi", "Citation"]
     @State private var selectedCat = 0
+    
     var body: some View {
         NavigationView{
             VStack(alignment: .center, spacing: 40){
@@ -24,12 +25,12 @@ struct AddReponseView: View {
                     Section{
                         
                         VStack(alignment: .leading){
-                            Picker(selection: $selectedCat, label: Text("Catégorie de réponse")) {
+                            Picker(selection: $selectedCat, label: Text("Catégorie")) {
                                 ForEach(0 ..< cats.count){
                                     Text(self.cats[$0])
                                 }
                             }
-                            Spacer()
+                            Spacer(minLength: 20)
                             Text("Votre réponse :")
                             TextField("réponse", text: $reponse).textFieldStyle(RoundedBorderTextFieldStyle())
                             
@@ -50,8 +51,8 @@ struct AddReponseView: View {
 }
 
 
-struct AddReponseView_Previews: PreviewProvider {
+struct AjoutReponseView_Previews: PreviewProvider {
     static var previews: some View {
-        AddReponseView()
+        AjoutReponseView()
     }
 }

@@ -62,8 +62,7 @@ class Remarque{
         self.idCategorieRemarque = idCategorieRemarque
     }
     
-    func setRemarque(id : String, date : String, contenu : String, idPersonne : String, idCategorieRemarque : String){
-        self.id = id
+    func setRemarque(date : String, contenu : String, idPersonne : String, idCategorieRemarque : String){
         self.date = date
         self.contenu = contenu
         self.idPersonne = idPersonne
