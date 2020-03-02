@@ -28,6 +28,7 @@ class ReponseDAO {
 //    func getReponsesWithCategorie(categorie : String) -> [Reponse] {}
 //    func getReponsesWithRemarque(idRemarque : String) -> [Reponse] {}
 //    func getReponsesWithPersonne(idPersonne :String) -> [Reponse] {}
+//    func getReponsesByDate(date : String) -> [Reponse] {}
 //    //fonctions pour tri par rapport à la date ???
 //    func count() -> Int {}
 }

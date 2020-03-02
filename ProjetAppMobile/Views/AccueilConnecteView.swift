@@ -16,17 +16,19 @@ struct AccueilConnecteView: View {
         
     var body: some View {
         VStack{
+            
             NavigationView{
                 VStack(alignment: .center, spacing: 20){
+                      
+                                            
                     HStack(alignment: .firstTextBaseline, spacing: 150) {
                         Text("Remarques sexistes")
-                            
-    //                  Picker(selection: $selectedCat, label: Text("Catégorie")) {
-    //                        ForEach(0 ..< cats.count){
-    //                                Text(self.cats[$0])
-    //                            }
-    //                        }
-                            
+//                        Picker(selection: $selectedCat, label: Text("Catégorie")) {
+//                            ForEach(0 ..< cats.count){
+//                                Text(self.cats[$0])
+//                            }
+//                        }.pickerStyle(DefaultPickerStyle())
+    
                         Text("Fréquences")
                     }.background(Color(UIColor(named: "Gris_clair")!))
                          
@@ -38,9 +40,15 @@ struct AccueilConnecteView: View {
                         Text("remarque2")
                         Text("remarque3")
                     }
-                    NavigationLink(destination: AjoutRemarqueView()){
-                        Text("Ajouter une remarque")
-                    }.buttonStyle(PlainButtonStyle()).padding(10)
+                    HStack {
+                        NavigationLink(destination: ProfilView()){
+                            Text("Mes contributions")
+                        }.buttonStyle(PlainButtonStyle()).padding(10)
+                        NavigationLink(destination: AjoutRemarqueView()){
+                            Text("Ajouter une remarque")
+                        }.buttonStyle(PlainButtonStyle()).padding(10)
+                        
+                    }
                 }.navigationBarTitle("Accueil")
                 .navigationBarItems(leading:
                     HStack{
@@ -49,7 +57,7 @@ struct AccueilConnecteView: View {
                         }.buttonStyle(PlainButtonStyle()).padding(10)
                     }, trailing :
                     HStack{
-                        NavigationLink(destination: ConnexionView()){
+                        NavigationLink(destination: ProfilView()){
                             Text("Profil")
                         }.buttonStyle(PlainButtonStyle()).padding(10)
                     })

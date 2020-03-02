@@ -25,6 +25,7 @@ class RemarqueDAO {
 //    func getAllRemarques() -> [Remarque] {}
 //    func getRemarquesWithPersonne(idPersonne : String) -> [Remarque] {}
 //    func getRemarquesWithCat(idCategorie : String) -> [Remarque] {}
+//    func getRemarquesByDate(date : String) -> [Remarque] {}
 //    //fonctions pour tri par rapport à la date
 //    func count() -> Int {}
 }

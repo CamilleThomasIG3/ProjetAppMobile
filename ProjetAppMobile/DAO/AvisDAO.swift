@@ -24,7 +24,7 @@ class AvisDAO {
 //    func getAvisWithPersonne(idPersonne : String) -> [Avis] {}
 //    func getAvisWithReponse(idReponse : String) -> [Avis] {}
 //    func getAvisWithLabel(label : Bool) -> [Avis] {}
-//    func countWithReponse(idReponse : String) -> Int {} // utile ou pas?
-//    func countWithLabel(label : Bool) -> Int {} // utile ou pas?
+//    func countWithReponse(idReponse : String) -> Int {} 
+//    func countWithLabel(label : Bool) -> Int {}
 //    func count() -> Int {}
 }

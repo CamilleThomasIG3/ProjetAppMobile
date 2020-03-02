@@ -14,7 +14,8 @@ struct ModifierProfilView: View {
     @State private var mdp: String=""
 
     var body: some View {
-        NavigationView{
+        VStack {
+            Text("Modifier pseudo").font(.largeTitle)
             Form{
                 Section{
                     VStack(alignment: .leading){
@@ -31,7 +32,7 @@ struct ModifierProfilView: View {
                         Text("Valider")
                     }
                 }
-            }.navigationBarTitle("Modifier pseudo")
+            }
         }
     }
 }

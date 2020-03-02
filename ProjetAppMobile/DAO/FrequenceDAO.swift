@@ -19,8 +19,9 @@ class FrequenceDAO {
 //    func addFrequence(f : Frequence) {}
 //    func deleteFrequence(id : String) {}
 //    func getAllFrequences() -> [Frequence] {}
-//    func getFrequencesWithPersonne(idPersonne : String) -> [Frequence] {} //peut etre juste count et ça renvoie un entier pour ces deux fonctions, ou les deux
+//    func getFrequencesWithPersonne(idPersonne : String) -> [Frequence] {} 
 //    func getFrequencesWithRemarque(idRemarque : String) -> [Frequence] {}
-//       //fonctions pour tri par rapport à la date
+//    func countFrequencesWithPersonne(idPersonne : String) -> Int {}
+//    func countFrequencesWithRemarque(idRemarque : String) -> Int {}
 //    func count() -> Int {}
 }

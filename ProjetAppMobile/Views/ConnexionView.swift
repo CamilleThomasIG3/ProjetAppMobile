@@ -14,7 +14,7 @@ struct ConnexionView: View {
     @State private var mdp: String=""
 
     var body: some View {
-        NavigationView{
+       // NavigationView{
             Form{
                 Section{
                    
@@ -39,7 +39,7 @@ struct ConnexionView: View {
                 }
                                      
             }.navigationBarTitle("Connexion")
-        }
+       //}
     }
 }
 

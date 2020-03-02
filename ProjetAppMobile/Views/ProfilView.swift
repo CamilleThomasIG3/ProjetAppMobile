@@ -17,22 +17,33 @@ struct ProfilView: View {
     @State private var confMdp: String=""
 
     var body: some View {
-        NavigationView{
+       // NavigationView{
             VStack(alignment: .leading, spacing : 20){
+                Text("Mon profil").font(.largeTitle)
+                
+                Image("profile")
+                
                 Text("Pseudo").font(.headline)
                 Text("Cams").font(.subheadline)
                 Text("Email").font(.headline)
                 Text("test@test.fr").font(.subheadline)
                         
                 NavigationLink(destination: ModifierProfilView()){
-                    Text("Modifier le pseudo")
-                }.buttonStyle(PlainButtonStyle())
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20).fill(Color("Turquoise")).frame(width: 200, height:40)
+                        Text("Modifier le pseudo").foregroundColor(Color.black).padding(5)
+                    }
+                }
+     
+                    
                         
                 NavigationLink(destination: AccueilView()){
                     Text("Supprimer le compte").underline().foregroundColor(Color("Turquoise"))
                 }.buttonStyle(PlainButtonStyle())
-            }.padding(50)
-        }.navigationBarTitle("Profil")
+                
+                Spacer()
+            }.padding()//.offset(y: -200)
+        //}.navigationBarTitle("Profil")
     }
 }
 
