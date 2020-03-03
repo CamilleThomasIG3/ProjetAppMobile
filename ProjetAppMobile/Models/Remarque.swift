@@ -36,7 +36,6 @@ class Remarque : Codable, ObservableObject{
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
-        self.date = try container.decode(Date.self, forKey: .date)
         self.contenu = try container.decode(String.self, forKey: .contenu)
         self.idPersonne = try container.decode(String.self, forKey: .idPersonne)
         self.idCategorieRemarque = try container.decode(String.self, forKey: .idCategorieRemarque)
@@ -51,7 +50,6 @@ class Remarque : Codable, ObservableObject{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(date, forKey: .date)
         try container.encode(contenu, forKey: .contenu)
         try container.encode(idPersonne, forKey: .idPersonne)
         try container.encode(idCategorieRemarque, forKey: .idCategorieRemarque)

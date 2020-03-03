@@ -8,8 +8,12 @@
 
 import Foundation
 
-class RemarqueDAO {
-    static func getRemarque(id : String) -> Remarque? {
+class RemarqueDAO : ObservableObject{
+    init() {
+        
+    }
+    
+    func getRemarque(id : String) -> Remarque? {
         let preString = "https://whispering-river-73122.herokuapp.com/api/remarks"
         let postString = "/"+String(id)
         let url = URL(string: preString+postString)
@@ -43,7 +47,7 @@ class RemarqueDAO {
         }
         task.resume()
         semaphore.wait()
-        
+        print(res)
         return res
     }
 //    func getPersonne(id :String) -> String {}

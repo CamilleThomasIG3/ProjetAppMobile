@@ -15,13 +15,15 @@ struct ProfilView: View {
     @State private var confEmail: String=""
     @State private var mdp: String=""
     @State private var confMdp: String=""
+    
+    @ObservedObject var remarqueDAO = RemarqueDAO()
 
     var body: some View {
        // NavigationView{
             VStack(alignment: .leading, spacing : 20){
                 Text("Mon profil").font(.largeTitle)
                 
-                Text(RemarqueDAO.getRemarque(id : "5e5cd73c3acf1f0aa4cb2c80")!.getContenu())
+                Text(remarqueDAO.getRemarque(id : "5e5e8d26d508643fb434c862")!.getContenu())
                 
                 Image("profile")
                 
