@@ -9,7 +9,43 @@
 import Foundation
 
 class RemarqueDAO {
-//    func getRemarque(id : String) -> Remarque {}
+    static func getRemarque(id : String) -> Remarque? {
+        let preString = "https://whispering-river-73122.herokuapp.com/api/remarks"
+        let postString = "/"+String(id)
+        let url = URL(string: preString+postString)
+        guard let requestURL = url else {fatalError()}
+        
+        //Prepare URL request object
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "GET"
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        //Perform HTTP Request
+        var res : Remarque? = nil
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            
+            //check for error
+            if let error = error{
+                print("Error took place \(error)")
+                return
+            }
+            
+            //convert HTTP response data to String
+            if let data = data{
+                do{
+                    res = try JSONDecoder().decode(Remarque.self, from: data)
+                }catch let error{
+                    print(error)
+                }
+            }
+            semaphore.signal()
+        }
+        task.resume()
+        semaphore.wait()
+        
+        return res
+    }
 //    func getPersonne(id :String) -> String {}
 //    func getContenu(id : String) -> String {}
 //    func getDate(id : String) -> String {}

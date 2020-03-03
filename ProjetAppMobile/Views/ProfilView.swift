@@ -21,6 +21,8 @@ struct ProfilView: View {
             VStack(alignment: .leading, spacing : 20){
                 Text("Mon profil").font(.largeTitle)
                 
+                Text(RemarqueDAO.getRemarque(id : "5e5cd73c3acf1f0aa4cb2c80")!.getContenu())
+                
                 Image("profile")
                 
                 Text("Pseudo").font(.headline)
