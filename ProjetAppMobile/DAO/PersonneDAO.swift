@@ -8,17 +8,19 @@
 
 import Foundation
 
+
 class PersonneDAO{
-    func getPersonne(id : String) -> Personne {}
-    func getEmail(id : String) -> String {}
-    func getPseudo(id : String) -> String {}
-    func getMdP(id : String) -> String {}
-    
-    func setEmail(id : String, email : String) {}
-    func setPseudo(id : String, pseudo : String) -> String {}
-    func setMdp(id : String, mdp : String) -> String {}
-    
-    func addPersonne(p : Personne) {}
-    func deletePersonne(id : String) {}
-    func count() -> Int {}
+//    func getPersonne(id : String) -> Personne? {}
+//    func getEmail(id : String) -> String {}
+//    func getPseudo(id : String) -> String {}
+//    func getMdP(id : String) -> String {}
+//    
+//    func setEmail(id : String, email : String) {}
+//    func setPseudo(id : String, pseudo : String) -> String {}
+//    func setMdp(id : String, mdp : String) -> String {}
+//
+//    func login(email : String, password : String) -> Personne?
+//    func addPersonne(p : Personne) {} //inscription
+//    func deletePersonne(id : String) {}
+//    func count() -> Int {}
 }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct AjoutRemarqueView: View {
     @Environment(\.presentationMode) var presentation
@@ -14,8 +15,9 @@ struct AjoutRemarqueView: View {
     var cats = ["Dans la rue", "Au travail", "Dans les transports"]
     @State private var selectedCat = 0
     
+    
     var body: some View {
-        NavigationView{
+
             Form{
                 Section{
                     VStack(){
@@ -26,7 +28,8 @@ struct AjoutRemarqueView: View {
                         }
                         Spacer(minLength: 20)
                         Text("Remarque sexiste :")
-                        //MultilineTextView(text: $remarque)
+//                        UITextView()
+                        
                         TextField("Remarque", text: $remarque).textFieldStyle(RoundedBorderTextFieldStyle())
                         
                     }.padding(50)
@@ -41,7 +44,7 @@ struct AjoutRemarqueView: View {
                 }
                 
             }.navigationBarTitle("Ajouter une remarque")
-        }
+   
     }
 }
 
