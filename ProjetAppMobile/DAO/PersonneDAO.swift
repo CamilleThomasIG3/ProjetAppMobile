@@ -7,15 +7,15 @@
 //
 
 import Foundation
-
+import BCrypt
 
 
 struct ServerMessage: Decodable {
    let res, message: String
 }
 class PersonneDAO: ObservableObject{
-    @Published var personnes = [Personne]()
-    @Published var currentUser = [Personne]()
+    @Published var personnes = [User]()//problème ici
+    @Published var currentUser = [User]()
     
     init() {
         
@@ -25,27 +25,28 @@ class PersonneDAO: ObservableObject{
         guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users") else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
           guard let data = data else { return }
-          let res = try! JSONDecoder().decode([Personne].self, from: data)
+          let res = try! JSONDecoder().decode([User].self, from: data)
           DispatchQueue.main.async{
             print(res)
             self.personnes = res
+            print("ok")
           }
         }.resume()
     }
     
-    func getPersonneByEmail(email : String, completionHandler: @escaping ([Personne]) -> ()) {
-        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users/"+email) else { return }
-            URLSession.shared.dataTask(with: url){(data, _, _) in
-              guard let data = data else { return }
-              let res = try! JSONDecoder().decode([Personne].self, from: data)
-              DispatchQueue.main.async{
-                print(res)
-                self.currentUser = res
-                completionHandler(res)
-                print(res[0].getPseudo())
-              }
-            }.resume()
-    }
+//    func getPersonneByEmail(email : String, completionHandler: @escaping ([User]) -> ()) {
+//        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users/"+email) else { return }
+//            URLSession.shared.dataTask(with: url){(data, _, _) in
+//              guard let data = data else { return }
+//              let res = try! JSONDecoder().decode([User].self, from: data)
+//              DispatchQueue.main.async{
+//                print(res)
+//                self.currentUser = res
+//                completionHandler(res)
+//                print(res[0].pseudo)
+//              }
+//            }.resume()
+ //   }
 //    func getPersonne(id : String) -> Personne? {}
 //    func getEmail(id : String) -> String {}
 //    func getPseudo(id : String) -> String {}
