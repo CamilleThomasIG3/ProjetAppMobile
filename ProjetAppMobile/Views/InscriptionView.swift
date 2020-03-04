@@ -17,7 +17,7 @@ struct InscriptionView: View {
     @State private var confMdp: String=""
 
     var body: some View {
-        NavigationView{
+        //NavigationView{
             Form{
                 Section{
                     VStack(alignment: .leading){
@@ -42,7 +42,7 @@ struct InscriptionView: View {
                 }
                                      
             }.navigationBarTitle("Créer un compte")
-        }
+        //}
     }
 }
 
