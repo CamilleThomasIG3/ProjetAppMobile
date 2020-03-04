@@ -9,7 +9,43 @@
 import Foundation
 
 
-class PersonneDAO{
+
+struct ServerMessage: Decodable {
+   let res, message: String
+}
+class PersonneDAO: ObservableObject{
+    @Published var personnes = [Personne]()
+    @Published var currentUser = [Personne]()
+    
+    init() {
+        
+    }
+    
+    func getAllPersonnes() {
+        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users") else { return }
+        URLSession.shared.dataTask(with: url){(data, _, _) in
+          guard let data = data else { return }
+          let res = try! JSONDecoder().decode([Personne].self, from: data)
+          DispatchQueue.main.async{
+            print(res)
+            self.personnes = res
+          }
+        }.resume()
+    }
+    
+    func getPersonneByEmail(email : String, completionHandler: @escaping ([Personne]) -> ()) {
+        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users/"+email) else { return }
+            URLSession.shared.dataTask(with: url){(data, _, _) in
+              guard let data = data else { return }
+              let res = try! JSONDecoder().decode([Personne].self, from: data)
+              DispatchQueue.main.async{
+                print(res)
+                self.currentUser = res
+                completionHandler(res)
+                print(res[0].getPseudo())
+              }
+            }.resume()
+    }
 //    func getPersonne(id : String) -> Personne? {}
 //    func getEmail(id : String) -> String {}
 //    func getPseudo(id : String) -> String {}

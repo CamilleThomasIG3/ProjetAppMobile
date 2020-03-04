@@ -43,6 +43,7 @@
 		469EE7F8240577A000298341 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F7240577A000298341 /* requestViewModel.swift */; };
 		46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A882406BFB20040B499 /* InscriptionView.swift */; };
 		46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A8A2406C06E0040B499 /* ConnexionView.swift */; };
+		B7431FED2410016C002EAF0D /* BCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = B7431FEC2410016C002EAF0D /* BCrypt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7431FED2410016C002EAF0D /* BCrypt in Frameworks */,
 				469EE7ED24056F4D00298341 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +271,7 @@
 			name = ProjetAppMobile;
 			packageProductDependencies = (
 				469EE7EC24056F4D00298341 /* Alamofire */,
+				B7431FEC2410016C002EAF0D /* BCrypt */,
 			);
 			productName = ProjetAppMobile;
 			productReference = 461840482402EF21001A05EA /* ProjetAppMobile.app */;
@@ -344,6 +347,7 @@
 			mainGroup = 4618403F2402EF21001A05EA;
 			packageReferences = (
 				469EE7EB24056F4D00298341 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B7431FEB2410016C002EAF0D /* XCRemoteSwiftPackageReference "bcrypt" */,
 			);
 			productRefGroup = 461840492402EF21001A05EA /* Products */;
 			projectDirPath = "";
@@ -746,6 +750,14 @@
 				minimumVersion = 5.0.2;
 			};
 		};
+		B7431FEB2410016C002EAF0D /* XCRemoteSwiftPackageReference "bcrypt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor-community/bcrypt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -753,6 +765,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 469EE7EB24056F4D00298341 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		B7431FEC2410016C002EAF0D /* BCrypt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7431FEB2410016C002EAF0D /* XCRemoteSwiftPackageReference "bcrypt" */;
+			productName = BCrypt;
 		};
 /* End XCSwiftPackageProductDependency section */
 

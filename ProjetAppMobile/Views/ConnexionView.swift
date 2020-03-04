@@ -7,12 +7,13 @@
 //
 
 import SwiftUI
+import BCrypt
 
 struct ConnexionView: View {
     @Environment(\.presentationMode) var presentation
     @State private var email: String=""
     @State private var mdp: String=""
-
+     @ObservedObject var personneDAO = PersonneDAO()
     var body: some View {
        // NavigationView{
             Form{
@@ -32,14 +33,37 @@ struct ConnexionView: View {
                 }
                 Section(){
                     Button(action: {
+                        self.login()
                         self.presentation.wrappedValue.dismiss()
                     }){
                         Text("Valider")
                     }
                 }
+                
+                
                                      
             }.navigationBarTitle("Connexion")
        //}
+    }
+    
+    func login(){
+        personneDAO.getPersonneByEmail(email: "ezoilsvn", completionHandler : {
+            user in
+            if(user.count == 0){
+                print("No User")
+            }
+            else{
+                print("user trouvé!!")
+//                let result = try! BCrypt.Hash.verify(message: self.password , matches: user[0].password )
+//                print(result)
+//                if(result){
+//                  print("connecté")
+//                }
+//                else{
+//                    print("pas connecté)")
+//                }
+            }
+        })
     }
 }
 
