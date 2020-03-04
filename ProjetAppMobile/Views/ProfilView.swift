@@ -17,37 +17,33 @@ struct ProfilView: View {
     @State private var confMdp: String=""
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
-
+    
     var body: some View {
-       // NavigationView{
-            VStack(alignment: .leading, spacing : 20){
-                Text("Mon profil").font(.largeTitle)
-                
-                Text(remarqueDAO.getRemarque(id : "5e5e8d26d508643fb434c862")!.getContenu())
-                
-                Image("profile")
-                
-                Text("Pseudo").font(.headline)
-                Text("Cams").font(.subheadline)
-                Text("Email").font(.headline)
-                Text("test@test.fr").font(.subheadline)
-                        
-                NavigationLink(destination: ModifierProfilView()){
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20).fill(Color("Turquoise")).frame(width: 200, height:40)
-                        Text("Modifier le pseudo").foregroundColor(Color.black).padding(5)
-                    }
+        VStack(alignment: .leading, spacing : 20){
+            Text("Mon profil").font(.largeTitle)
+            
+            Text(remarqueDAO.getRemarqueById(id : "5e5e8d26d508643fb434c862")!.getContenu())
+            
+            Image("profile")
+            
+            Text("Pseudo").font(.headline)
+            Text("Cams").font(.subheadline)
+            Text("Email").font(.headline)
+            Text("test@test.fr").font(.subheadline)
+            
+            NavigationLink(destination: ModifierProfilView()){
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20).fill(Color("Turquoise")).frame(width: 200, height:40)
+                    Text("Modifier le pseudo").foregroundColor(Color.black).padding(5)
                 }
-     
-                    
-                        
-                NavigationLink(destination: AccueilView()){
-                    Text("Supprimer le compte").underline().foregroundColor(Color("Turquoise"))
-                }.buttonStyle(PlainButtonStyle())
-                
-                Spacer()
-            }.padding()//.offset(y: -200)
-        //}.navigationBarTitle("Profil")
+            }
+            
+            NavigationLink(destination: AccueilView()){
+                Text("Supprimer le compte").underline().foregroundColor(Color("Turquoise"))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Spacer()
+        }.padding()
     }
 }
 

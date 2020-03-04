@@ -11,8 +11,8 @@ import UIKit
 import Foundation
 import Combine
 
-struct AccueilView: View {//ok
-    var cats = ["All","Date", "Fréquence", "Catégorie"]
+struct AccueilView: View {
+    var cats = ["Date", "Fréquence", "Catégorie"]
     @State private var selectedCat = 0
     var estConnecte : Bool
 
@@ -22,11 +22,11 @@ struct AccueilView: View {//ok
         estConnecte = (UIApplication.shared.delegate as! AppDelegate).estConnecte
     }
     
-    var body: some View {//ok
-        VStack{//ok
-            NavigationView{//ok
-                VStack(alignment: .center, spacing: 20){ //ok
-                    VStack{ //ok
+    var body: some View {
+        VStack{
+            NavigationView{
+                VStack(alignment: .center, spacing: 20){
+                    VStack{
                         HStack{
                             Picker(selection: $selectedCat, label: Text("Catégorie")) {
                                 ForEach(0 ..< cats.count){
@@ -41,8 +41,9 @@ struct AccueilView: View {//ok
                             Spacer()
                             Text("Fréquences").padding(.trailing, 10)
                         }.background(Color(UIColor(named: "Gris_clair")!)).padding(10)
-                    }//ok
-                    List{//ok
+                    }
+                    
+                    List{
                         HStack(alignment: .firstTextBaseline, spacing: 20){
                             Text("remarque1")
                             Spacer()
@@ -50,28 +51,30 @@ struct AccueilView: View {//ok
                         }
                         Text("remarque2")
                         Text("remarque3")
-                    }//ok
-                    HStack{ //ok
+                    }
+                    
+                    HStack{
+                        if(estConnecte){
+                            NavigationLink(destination: AccueilView()){
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 200, height:30)
+                                    Text("Mes contributions").foregroundColor(Color.black).padding(3)
+                                }
+                            }
+                        }
+                        
                         NavigationLink(destination: AjoutRemarqueView()){
                             ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 200, height:30)
+                                RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
                                 Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
                             }
                         }
-//                        VStack{
-//                            if(estConnecte){
-//                                NavigationLink(destination: nil){
-//                                    ZStack {
-//                                        RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 200, height:30)
-//                                        Text("Mes contributions").foregroundColor(Color.black).padding(5)
-//                                    }
-//                                }
-//                            }
-//                        }
-                    }//ok
-                }.navigationBarTitle("Accueil", displayMode: .inline) //ok 2e vstack
+
+                    }
+                    
+                }.navigationBarTitle("Accueil", displayMode: .inline)
                     .navigationBarItems(leading:
-                        HStack{//ok
+                        HStack{
                             if(!estConnecte){
                                 NavigationLink(destination: InscriptionView()){
                                     ZStack {
@@ -90,8 +93,8 @@ struct AccueilView: View {//ok
                                     (UIApplication.shared.delegate as! AppDelegate).estConnecte = false
                                 }))
                             }
-                        }, trailing ://ok
-                        HStack{//ok
+                        }, trailing :
+                        HStack{
                             if(!estConnecte){
                                 NavigationLink(destination: ConnexionView()){
                                     ZStack {
@@ -108,12 +111,12 @@ struct AccueilView: View {//ok
                                 }
                             }
 
-                        }//ok
+                        }
                 )
-            }.background(Color("Turquoise"))//ok
-        }//ok
-    }//ok
-}//ok
+            }.background(Color("Turquoise"))
+        }
+    }
+}
 
 
 struct AccueilView_Previews: PreviewProvider {
