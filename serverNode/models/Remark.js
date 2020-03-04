@@ -6,9 +6,11 @@ const RemarkSchema = new Schema({
         type: String,
         required: true
     },
-    User: {
-        type: Schema.Types.ObjectId,
-        ref:'user'
+    user: {
+        //type: Schema.Types.ObjectId,
+        type: String,
+        ref:'user',
+        default: "camille"
     },
     idCategory: {
         type: String,
@@ -26,18 +28,17 @@ const RemarkSchema = new Schema({
             }
         }
     ],
-    comments: [
+    answers: [
         {
             user: {
-                type: Schema.Types.ObjectId,
-                ref: 'user'
+                //type: Schema.Types.ObjectId,
+                type: String,
+                ref: 'user',
+                default: "mathis"
             },
             content: {
                 type: String,
                 required: true
-            },
-            pseudo: {
-                type: String
             },
             date: {
                 type: Date,
@@ -45,8 +46,10 @@ const RemarkSchema = new Schema({
             },
 
             categoryResponse: {
-                type : Schema.Types.ObjectId,
-                ref: 'categoryResponse'
+                //type : Schema.Types.ObjectId,
+                type: String,
+                ref: 'categoryResponse',
+                default: "drole"
             },
 
             likes: [
