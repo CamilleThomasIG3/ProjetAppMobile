@@ -11,14 +11,17 @@ import BCrypt
 
 
 struct ServerMessage: Decodable {
-   let res, message: String
+    let token : String
+    let user : [String:String]
+    //voir avec Mathis mettre en format comme Matt
 }
+
 class PersonneDAO: ObservableObject{
-    @Published var personnes = [User]()//problème ici
+    @Published var personnes = [User]()
     @Published var currentUser = [User]()
     
     init() {
-        
+        getAllPersonnes()
     }
     
     func getAllPersonnes() {
@@ -29,35 +32,65 @@ class PersonneDAO: ObservableObject{
           DispatchQueue.main.async{
             print(res)
             self.personnes = res
-            print("ok")
           }
         }.resume()
     }
     
-//    func getPersonneByEmail(email : String, completionHandler: @escaping ([User]) -> ()) {
-//        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users/"+email) else { return }
-//            URLSession.shared.dataTask(with: url){(data, _, _) in
-//              guard let data = data else { return }
-//              let res = try! JSONDecoder().decode([User].self, from: data)
-//              DispatchQueue.main.async{
-//                print(res)
-//                self.currentUser = res
-//                completionHandler(res)
-//                print(res[0].pseudo)
-//              }
-//            }.resume()
- //   }
-//    func getPersonne(id : String) -> Personne? {}
-//    func getEmail(id : String) -> String {}
-//    func getPseudo(id : String) -> String {}
-//    func getMdP(id : String) -> String {}
-//    
-//    func setEmail(id : String, email : String) {}
-//    func setPseudo(id : String, pseudo : String) -> String {}
-//    func setMdp(id : String, mdp : String) -> String {}
-//
-//    func login(email : String, password : String) -> Personne?
-//    func addPersonne(p : Personne) {} //inscription
+    func getPersonneById(id : String, completionHandler: @escaping ([User]) -> ()) {
+        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users/"+id) else { return }
+            URLSession.shared.dataTask(with: url){(data, _, _) in
+              guard let data = data else { return }
+              let res = try! JSONDecoder().decode(User.self, from: data)
+              DispatchQueue.main.async{
+                print(res)
+                self.currentUser = [res]
+                completionHandler([res])
+                print(res.pseudo)
+              }
+            }.resume()
+    }
+    
+    
+    func addUser(user: UserWithoutId, completionHandler: @escaping (Bool) -> ()) {
+           
+           guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users") else { return }
+           
+           let newUser:[String: Any] = [
+               "email" : user.email,
+               "password" : user.password,
+               "pseudo" : user.pseudo,
+               "register_date" : user.register_date
+           ]
+           
+           let body = try! JSONSerialization.data(withJSONObject: newUser)
+           
+           var request = URLRequest(url: url)
+           request.httpMethod = "POST"
+           request.httpBody = body
+           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+           
+           URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+               guard let data = data else { return }
+               
+               let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+               print(resData.token)
+
+            if resData.user.count != 0 {
+                   DispatchQueue.main.async {
+                       completionHandler(true)
+                   }
+
+               }
+               else{
+                  DispatchQueue.main.async {
+                       completionHandler(false)
+                   }
+               }
+           }.resume()
+       }
+
+    
 //    func deletePersonne(id : String) {}
-//    func count() -> Int {}
 }

@@ -13,9 +13,10 @@ struct ConnexionView: View {
     @Environment(\.presentationMode) var presentation
     @State private var email: String=""
     @State private var mdp: String=""
-     @ObservedObject var personneDAO = PersonneDAO()
+    
+    @ObservedObject var personneDAO = PersonneDAO()
+    
     var body: some View {
-       // NavigationView{
             Form{
                 Section{
                    
@@ -33,8 +34,7 @@ struct ConnexionView: View {
                 }
                 Section(){
                     Button(action: {
-                       // self.login()
-                        self.personneDAO.getAllPersonnes()
+                        self.login()
                         self.presentation.wrappedValue.dismiss()
                     }){
                         Text("Valider")
@@ -44,28 +44,27 @@ struct ConnexionView: View {
                 
                                      
             }.navigationBarTitle("Connexion")
-       //}
     }
     
-//    func login(){
-//       // personneDAO.getPersonneByEmail(email: "ezoilsvn", completionHandler : {
-//            user in
-//            if(user.count == 0){
-//                print("No User")
-//            }
-//            else{
-//                print("user trouvé!!")
-////                let result = try! BCrypt.Hash.verify(message: self.password , matches: user[0].password )
-////                print(result)
-////                if(result){
-////                  print("connecté")
-////                }
-////                else{
-////                    print("pas connecté)")
-////                }
-//            }
-//        })
-//    }
+    func login(){
+        personneDAO.getPersonneById(id: "5e5e732fc3f7040ebc491de2", completionHandler : {
+            user in
+            if(user.count == 0){
+                print("No User")
+            }
+            else{
+                print("user trouvé!!")
+//                let result = try! BCrypt.Hash.verify(message: self.password , matches: user[0].password )
+//                print(result)
+//                if(result){
+//                  print("connecté")
+//                }
+//                else{
+//                    print("pas connecté)")
+//                }
+            }
+        })
+    }
 }
 
 struct ConnexionView_Previews: PreviewProvider {

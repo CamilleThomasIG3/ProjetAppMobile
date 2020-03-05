@@ -16,8 +16,9 @@ struct InscriptionView: View {
     @State private var mdp: String=""
     @State private var confMdp: String=""
 
+    @ObservedObject var personneDAO = PersonneDAO()
+    
     var body: some View {
-        //NavigationView{
             Form{
                 Section{
                     VStack(alignment: .leading){
@@ -35,6 +36,7 @@ struct InscriptionView: View {
                 }
                 Section(){
                     Button(action: {
+                        self.inscription()
                         self.presentation.wrappedValue.dismiss()
                     }){
                         Text("Valider")
@@ -42,8 +44,21 @@ struct InscriptionView: View {
                 }
                                      
             }.navigationBarTitle("Créer un compte")
-        //}
     }
+    
+    func inscription(){
+        var user = UserWithoutId(email: "test", pseudo: "test", password: "test", date: "test")
+            personneDAO.addUser(user: user, completionHandler: {
+                res in
+                if(res){
+                    print("enregistré")
+                }
+                else{
+                    print("register error")
+                }
+            })
+        }
+
 }
 
 struct InscriptionView_Previews: PreviewProvider {

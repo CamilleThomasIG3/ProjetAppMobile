@@ -8,18 +8,20 @@
 
 import Foundation
 
-class Personne: Decodable, Identifiable {
-    var id : String
+class User: Decodable, Identifiable {
+    var _id : String
     var description: String {return " \(self.pseudo) "}
-    private var email : String
-    private var pseudo : String
-    private var mdp : String
+    var email : String
+    var pseudo : String
+    var password : String
+    var register_date : Date
     
-    init(id : String, email : String, pseudo : String, mdp : String){
-        self.id = id
+    init(id : String, email : String, pseudo : String, password : String){
+        self._id = id
         self.email = email
         self.pseudo = pseudo
-        self.mdp = mdp
+        self.password = password
+        self.register_date = Date.init()
     }
     
 //    private enum CodingKeys : String, CodingKey{
@@ -46,7 +48,7 @@ class Personne: Decodable, Identifiable {
 //    }
     
     func getId() -> String {
-        return self.id
+        return self._id
     }
     
     func getEmail() -> String{
@@ -58,7 +60,7 @@ class Personne: Decodable, Identifiable {
     }
     
     func getMdp() -> String {
-        return self.mdp
+        return self.password
     }
     
     
@@ -71,13 +73,13 @@ class Personne: Decodable, Identifiable {
     }
     
     func setMdp(mdp : String) {
-        self.mdp = mdp
+        self.password = mdp
     }
     
     
     func setPersonne(email : String, pseudo : String, mdp : String){
         self.email = email
         self.pseudo = pseudo
-        self.mdp = mdp
+        self.password = mdp
     }
 }
