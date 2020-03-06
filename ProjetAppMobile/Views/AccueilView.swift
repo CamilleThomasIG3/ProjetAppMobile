@@ -80,7 +80,7 @@ struct AccueilView: View {
                     .navigationBarItems(leading:
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: ProfilView()){
+                                NavigationLink(destination: InscriptionView()){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Inscription").foregroundColor(Color.black).padding(5)
