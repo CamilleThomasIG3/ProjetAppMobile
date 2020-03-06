@@ -8,7 +8,31 @@
 
 import Foundation
 
-class ReponseDAO {
+class ReponseDAO : ObservableObject {
+    
+    @Published var currentRemarque = [Remarque]()
+    @Published var answers = [Reponse]()
+    private var idRemarque : String
+    let urlRemarques : String = "https://whispering-river-73122.herokuapp.com/api/remarks/"
+    
+    init(idRemarque : String){
+        self.idRemarque = idRemarque
+    }
+    
+    func getAnswers(){
+        guard let url = URL(string: urlRemarques+self.idRemarque+"/answers") else { return }
+        URLSession.shared.dataTask(with: url){(data, _, _) in
+          guard let data = data else { return }
+          let res = try! JSONDecoder().decode(Reponse.self, from: data)
+          DispatchQueue.main.async{
+            print(res)
+            self.answers = [res]
+            print(res.content)
+          }
+        }.resume()
+    }
+    
+   
 //    func getReponse(id : String) -> Reponse {}
 //    func getRemarque(id :String) -> String {}
 //    func getContenu(id : String) -> String {}

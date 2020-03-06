@@ -8,10 +8,12 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 struct AjoutRemarqueView: View {
     @Environment(\.presentationMode) var presentation
     @State private var remarque: String=""
+    @State var textHeight: CGFloat = 80
     var cats = ["Dans la rue", "Au travail", "Dans les transports"]
     @State private var selectedCat = 0
     
@@ -30,8 +32,16 @@ struct AjoutRemarqueView: View {
                         Text("Remarque sexiste :")
 //                        UITextView()
                         
-                        TextField("Remarque", text: $remarque).textFieldStyle(RoundedBorderTextFieldStyle())
-                        
+                        //TextField("Remarque", text: $remarque).textFieldStyle(RoundedBorderTextFieldStyle())
+                        VStack {
+                        //ScrollView {
+                            Text("Zone de saisie mieux que TextField:").bold()
+                            TextView(placeholder: "tapez un truc un peu long pour voir", text: self.$remarque, minHeight: self.textHeight, calculatedHeight: self.$textHeight)
+                            .frame(minHeight: self.textHeight, maxHeight: self.textHeight)
+                            Spacer()
+                            Text("Contenu de la variable récupérant le texte tapé par l'utilisateur dans le 'TextView' du haut :").bold().padding().foregroundColor(.blue)
+                            Text(remarque).foregroundColor(.red)
+                        }
                     }.padding(50)
                       
                 }
