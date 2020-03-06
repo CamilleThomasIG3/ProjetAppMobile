@@ -14,8 +14,10 @@ import Combine
 struct AccueilView: View {
     var cats = ["Date", "Fréquence", "Catégorie"]
     @State private var selectedCat = 0
+    
     var estConnecte : Bool
-
+    
+    @ObservedObject var remarqueDAO = RemarqueDAO()
 
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
@@ -43,14 +45,16 @@ struct AccueilView: View {
                         }.background(Color(UIColor(named: "Gris_clair")!)).padding(10)
                     }
                     
+                    
                     List{
-                        HStack(alignment: .firstTextBaseline, spacing: 20){
-                            Text("remarque1")
-                            Spacer()
-                            Text("3")
+                        ForEach(remarqueDAO.remarques){
+                            remarque in
+                            HStack(alignment: .firstTextBaseline, spacing: 20){
+                                Text(remarque.content)
+                                Spacer()
+                                Text("3")
+                            }
                         }
-                        Text("remarque2")
-                        Text("remarque3")
                     }
                     
                     HStack{

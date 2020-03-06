@@ -11,33 +11,34 @@ import BCrypt
 
 
 struct ServerMessage: Decodable {
+    let msg : String
+    let res : String
     let token : String
-    let user : [String:String]
-    //voir avec Mathis mettre en format comme Matt
 }
 
 class PersonneDAO: ObservableObject{
     @Published var personnes = [User]()
     @Published var currentUser = [User]()
     
+    var urlPersonnes : String = "https://whispering-river-73122.herokuapp.com/api/users/"
+    
     init() {
         getAllPersonnes()
     }
     
     func getAllPersonnes() {
-        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users") else { return }
+        guard let url = URL(string: urlPersonnes) else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
           guard let data = data else { return }
           let res = try! JSONDecoder().decode([User].self, from: data)
           DispatchQueue.main.async{
-            print(res)
             self.personnes = res
           }
         }.resume()
     }
     
     func getPersonneById(id : String, completionHandler: @escaping ([User]) -> ()) {
-        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users/"+id) else { return }
+        guard let url = URL(string: urlPersonnes+id) else { return }
             URLSession.shared.dataTask(with: url){(data, _, _) in
               guard let data = data else { return }
               let res = try! JSONDecoder().decode(User.self, from: data)
@@ -51,15 +52,14 @@ class PersonneDAO: ObservableObject{
     }
     
     
-    func addUser(user: UserWithoutId, completionHandler: @escaping (Bool) -> ()) {
+    func addUser(user: UserWithoutId) {
            
-           guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/users") else { return }
+           guard let url = URL(string: urlPersonnes) else { return }
            
            let newUser:[String: Any] = [
                "email" : user.email,
                "password" : user.password,
-               "pseudo" : user.pseudo,
-               "register_date" : user.register_date
+               "pseudo" : user.pseudo
            ]
            
            let body = try! JSONSerialization.data(withJSONObject: newUser)
@@ -71,26 +71,36 @@ class PersonneDAO: ObservableObject{
            
            URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-               guard let data = data else { return }
+            guard let data = data else { return }
                
-               let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-               print(resData.token)
-
-            if resData.user.count != 0 {
-                   DispatchQueue.main.async {
-                       completionHandler(true)
-                   }
-
-               }
-               else{
-                  DispatchQueue.main.async {
-                       completionHandler(false)
-                   }
-               }
+            print(resData.msg)
            }.resume()
        }
 
     
-//    func deletePersonne(id : String) {}
+    func deletePersonne(id : String){
+         guard let url = URL(string: urlPersonnes) else { return }
+         
+         let personneToDelete:[String: Any] = [
+             "_id" : id
+         ]
+
+         let body = try! JSONSerialization.data(withJSONObject: personneToDelete)
+         
+         var request = URLRequest(url: url)
+         request.httpMethod = "DELETE"
+         request.httpBody = body
+         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+         
+         URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+             guard let data = data else { return }
+             
+             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+            print(resData.msg)
+         }.resume()
+    }
 }

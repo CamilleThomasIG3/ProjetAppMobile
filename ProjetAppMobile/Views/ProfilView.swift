@@ -16,13 +16,9 @@ struct ProfilView: View {
     @State private var mdp: String=""
     @State private var confMdp: String=""
     
-    @ObservedObject var remarqueDAO = RemarqueDAO()
-    
     var body: some View {
         VStack(alignment: .leading, spacing : 20){
             Text("Mon profil").font(.largeTitle)
-            
-            Text(remarqueDAO.getRemarqueById(id : "5e5e8d26d508643fb434c862")!.getContenu())
             
             Image("profile")
             

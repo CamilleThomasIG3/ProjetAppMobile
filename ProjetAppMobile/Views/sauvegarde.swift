@@ -12,7 +12,6 @@ import Foundation
 
 struct ContentView2: View {
     
-    @ObservedObject var model = Webservice()
     
     var body: some View {
         VStack{

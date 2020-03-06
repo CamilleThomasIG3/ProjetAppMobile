@@ -29,9 +29,9 @@ struct InscriptionView: View {
                         Text("Confirmation d'email")
                         TextField("Confirmation d'email",text: $confEmail).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
-                        TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        SecureField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Confirmation du mot de passe")
-                        TextField("Confirmez votre mot de passe",text: $confMdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        SecureField("Confirmez votre mot de passe",text: $confMdp).textFieldStyle(RoundedBorderTextFieldStyle())
                     }.padding(50)
                 }
                 Section(){
@@ -47,16 +47,8 @@ struct InscriptionView: View {
     }
     
     func inscription(){
-        var user = UserWithoutId(email: "test", pseudo: "test", password: "test", date: "test")
-            personneDAO.addUser(user: user, completionHandler: {
-                res in
-                if(res){
-                    print("enregistré")
-                }
-                else{
-                    print("register error")
-                }
-            })
+        let user = UserWithoutId(email: self.email, pseudo: self.pseudo, password: self.mdp)
+            personneDAO.addUser(user: user)
         }
 
 }

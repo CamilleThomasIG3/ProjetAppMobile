@@ -39,9 +39,6 @@
 		469D7A8B24096E370046F7F5 /* PersonneDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A8A24096E370046F7F5 /* PersonneDAO.swift */; };
 		469D7A8F240972890046F7F5 /* RemarqueDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A8E240972890046F7F5 /* RemarqueDAO.swift */; };
 		469EE7ED24056F4D00298341 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 469EE7EC24056F4D00298341 /* Alamofire */; };
-		469EE7F22405746600298341 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F12405746600298341 /* Webservice.swift */; };
-		469EE7F42405747C00298341 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F32405747C00298341 /* Post.swift */; };
-		469EE7F8240577A000298341 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469EE7F7240577A000298341 /* requestViewModel.swift */; };
 		46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A882406BFB20040B499 /* InscriptionView.swift */; };
 		46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A8A2406C06E0040B499 /* ConnexionView.swift */; };
 		B7431FED2410016C002EAF0D /* BCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = B7431FEC2410016C002EAF0D /* BCrypt */; };
@@ -102,9 +99,6 @@
 		469D7A87240962A80046F7F5 /* sauvegarde.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sauvegarde.swift; sourceTree = "<group>"; };
 		469D7A8A24096E370046F7F5 /* PersonneDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneDAO.swift; sourceTree = "<group>"; };
 		469D7A8E240972890046F7F5 /* RemarqueDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarqueDAO.swift; sourceTree = "<group>"; };
-		469EE7F12405746600298341 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
-		469EE7F32405747C00298341 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		469EE7F7240577A000298341 /* requestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestViewModel.swift; sourceTree = "<group>"; };
 		46F86A882406BFB20040B499 /* InscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InscriptionView.swift; sourceTree = "<group>"; };
 		46F86A8A2406C06E0040B499 /* ConnexionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				469D7A8924096DDB0046F7F5 /* DAO */,
-				469EE7F0240573EB00298341 /* Services */,
 				4618407F2402F625001A05EA /* Views */,
 				4618407E2402F614001A05EA /* Models */,
 				4618404B2402EF21001A05EA /* AppDelegate.swift */,
@@ -204,15 +197,14 @@
 		4618407E2402F614001A05EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				469EE7F32405747C00298341 /* Post.swift */,
+				46352BF9241025BC00EB83BD /* User.swift */,
+				462C4240241178E0006A624A /* UserWithoutId.swift */,
 				46792A132409BC3D00BD6F91 /* Remarque.swift */,
 				46792A152409BF5F00BD6F91 /* Reponse.swift */,
 				46792A172409C09D00BD6F91 /* CategorieReponse.swift */,
 				46792A192409C31C00BD6F91 /* CategorieRemarque.swift */,
 				46792A1B2409C35700BD6F91 /* Frequence.swift */,
 				468D7E0D240C377100C95C25 /* Avis.swift */,
-				46352BF9241025BC00EB83BD /* User.swift */,
-				462C4240241178E0006A624A /* UserWithoutId.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -227,7 +219,6 @@
 				46F86A8A2406C06E0040B499 /* ConnexionView.swift */,
 				464260C5240949DA00274276 /* AjoutRemarqueView.swift */,
 				464260C9240954D500274276 /* AjoutReponseView.swift */,
-				469EE7F7240577A000298341 /* requestViewModel.swift */,
 				469D7A87240962A80046F7F5 /* sauvegarde.swift */,
 				461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */,
 			);
@@ -246,14 +237,6 @@
 				468D7E19240C3F4900C95C25 /* AvisDAO.swift */,
 			);
 			path = DAO;
-			sourceTree = "<group>";
-		};
-		469EE7F0240573EB00298341 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				469EE7F12405746600298341 /* Webservice.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,10 +393,8 @@
 				461CAA96240CF1FC005A1291 /* RemarqueDetailView.swift in Sources */,
 				468D7E0E240C377100C95C25 /* Avis.swift in Sources */,
 				46792A1A2409C31C00BD6F91 /* CategorieRemarque.swift in Sources */,
-				469EE7F42405747C00298341 /* Post.swift in Sources */,
 				469D7A88240962A80046F7F5 /* sauvegarde.swift in Sources */,
 				464260C6240949DA00274276 /* AjoutRemarqueView.swift in Sources */,
-				469EE7F22405746600298341 /* Webservice.swift in Sources */,
 				468D7E12240C3AAB00C95C25 /* CategorieReponseDAO.swift in Sources */,
 				46792A162409BF5F00BD6F91 /* Reponse.swift in Sources */,
 				46792A182409C09D00BD6F91 /* CategorieReponse.swift in Sources */,
@@ -422,7 +403,6 @@
 				468D7E14240C3D6C00C95C25 /* CategorieRemarqueDAO.swift in Sources */,
 				4671F9C6240C6126002BE20A /* ProfilView.swift in Sources */,
 				468D7E16240C3DFA00C95C25 /* FrequenceDAO.swift in Sources */,
-				469EE7F8240577A000298341 /* requestViewModel.swift in Sources */,
 				468D7E10240C390E00C95C25 /* ReponseDAO.swift in Sources */,
 				4618404E2402EF21001A05EA /* SceneDelegate.swift in Sources */,
 				464260CA240954D500274276 /* AjoutReponseView.swift in Sources */,
