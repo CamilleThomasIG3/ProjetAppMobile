@@ -23,7 +23,8 @@ const RemarkSchema = new Schema({
     likes: [
         {
             user: {
-                type: Schema.Types.ObjectId,
+                //type: Schema.Types.ObjectId,
+                type: String,
                 ref: 'user'
             }
         }
@@ -55,8 +56,9 @@ const RemarkSchema = new Schema({
             likes: [
                 {
                     user: {
-                        type: Schema.Types.ObjectId,
-                        ref: 'user'
+                        //type: Schema.Types.ObjectId,
+                        type: String,
+                        ref: 'user',
                     }
                 }
             ]
