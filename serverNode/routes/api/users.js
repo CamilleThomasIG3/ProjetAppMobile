@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 //model
 const User = require('../../models/User');
 
+const auth = require('../../middleware/auth');
 
 //@route POST api/users
 //@desc register new user
@@ -15,13 +16,13 @@ router.post('/', (req,res)=>{
     const {pseudo, email, password} = req.body;
     //validation
     if(!pseudo || !email || !password){
-        return res.status(400).json({msg: "incorrect syntax"});
+        return res.status(400).json({res: "incorrect", msg: "incorrect syntax"});
     }
 
     //check existing
     User.findOne({email})
     .then(user => {
-        if(user) return res.status(400).json({msg: "user already exist"});
+        if(user) return res.status(400).json({res: "incorrect", msg: "user already exist"});
 
         const newUser = new User({
             pseudo,
@@ -45,10 +46,10 @@ router.post('/', (req,res)=>{
                             if (err) throw err;
                             res.json({
                                 token: token,
-                                user: {
-                                id: user.id,
-                                email: user.email
-                        }})
+                                res: "correct",
+                                msg : "user has been created"
+                                
+                        })
                         }
                     )
                     
@@ -62,10 +63,19 @@ router.post('/', (req,res)=>{
 //@route GET api/users
 //@desc GET User by id
 //@access Public
-router.get('/:id', async(req,res)=>{
-    User.findById(req.params.id)
+router.get('/:id', auth, async(req,res)=>{
+    User.findById(req.id)
         .then(user => res.json(user))
         .catch(err => res.status(404).json({error: 'user does not exists'}))
+});
+
+//@route GET api/user
+//@desc GET all user
+//@access Public
+router.get('/', async(req,res)=>{
+    User.find()
+        .sort({date: 1})
+        .then(remarks => res.json(remarks))
 });
 
 

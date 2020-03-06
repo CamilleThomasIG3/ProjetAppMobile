@@ -56,7 +56,6 @@ router.post('/', (req,res)=>{
 //@access Public
 router.get('/user', auth, (req, res)=> {
     User.findById(req.user.id)
-    .select('-password')
     .then(user => res.json(user));
 })
 

@@ -11,7 +11,7 @@ const users = require('./routes/api/users');
 
 const app = express();
 
-//Bodyparser middleware
+//Bodyparser middleware 
 app.use(express.json());
 
 //mongo config
