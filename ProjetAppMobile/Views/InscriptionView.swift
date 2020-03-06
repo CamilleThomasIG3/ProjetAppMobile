@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct InscriptionView: View {
     @Environment(\.presentationMode) var presentation
@@ -16,6 +17,8 @@ struct InscriptionView: View {
     @State private var mdp: String=""
     @State private var confMdp: String=""
 
+    @Binding var estConnecte : Bool
+    
     @ObservedObject var personneDAO = PersonneDAO()
     
     var body: some View {
@@ -46,15 +49,25 @@ struct InscriptionView: View {
             }.navigationBarTitle("Créer un compte")
     }
     
-    func inscription(){
+  func inscription(){
         let user = UserWithoutId(email: self.email, pseudo: self.pseudo, password: self.mdp)
-            personneDAO.addUser(user: user)
-        }
-
-}
-
-struct InscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        InscriptionView()
+    
+        personneDAO.addUser(user: user, completionHandler: {
+            res in
+            if(res){
+                //NE MARHCE PAS VRAIMENT
+                self.estConnecte.toggle()
+            }else{
+                print("oops")
+                //AFFICHER MESSAGE ERREUR !
+            }
+        })
     }
+
 }
+
+//struct InscriptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        InscriptionView(estConnecte: $estConnecte)
+//    }
+//}

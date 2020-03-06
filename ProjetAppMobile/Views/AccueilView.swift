@@ -15,13 +15,13 @@ struct AccueilView: View {
     var cats = ["Date", "Fréquence", "Catégorie"]
     @State private var selectedCat = 0
     
-    var estConnecte : Bool
+    //JE NE SUIS TJR PAS ARRIVER A GERER estConnecte
+    @State var estConnecte  = false
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
 
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
-        estConnecte = (UIApplication.shared.delegate as! AppDelegate).estConnecte
     }
     
     var body: some View {
@@ -50,7 +50,9 @@ struct AccueilView: View {
                         ForEach(remarqueDAO.remarques){
                             remarque in
                             HStack(alignment: .firstTextBaseline, spacing: 20){
-                                Text(remarque.content)
+                                NavigationLink(destination: RemarqueDetailView(remarque : remarque)){
+                                    Text(remarque.content)
+                                }
                                 Spacer()
                                 Text("3")
                             }
@@ -80,7 +82,7 @@ struct AccueilView: View {
                     .navigationBarItems(leading:
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: InscriptionView()){
+                                NavigationLink(destination: InscriptionView(estConnecte: $estConnecte)){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Inscription").foregroundColor(Color.black).padding(5)
@@ -94,13 +96,13 @@ struct AccueilView: View {
                                         Text("Déconnexion").foregroundColor(Color.black).padding(5)
                                     }
                                 }.simultaneousGesture(TapGesture().onEnded({
-                                    (UIApplication.shared.delegate as! AppDelegate).estConnecte = false
+                                    self.estConnecte = false
                                 }))
                             }
                         }, trailing :
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: ProfilView()){
+                                NavigationLink(destination: ConnexionView(estConnecte : $estConnecte)){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Connexion").foregroundColor(Color.black).padding(5)

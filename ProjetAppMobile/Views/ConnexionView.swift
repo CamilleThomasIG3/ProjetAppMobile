@@ -11,8 +11,11 @@ import BCrypt
 
 struct ConnexionView: View {
     @Environment(\.presentationMode) var presentation
+    
     @State private var email: String=""
     @State private var mdp: String=""
+    
+    @Binding var estConnecte : Bool
     
     @ObservedObject var personneDAO = PersonneDAO()
     
@@ -26,7 +29,7 @@ struct ConnexionView: View {
                         Text("Mot de passe")
                         TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        NavigationLink(destination: InscriptionView()){
+                        NavigationLink(destination: InscriptionView(estConnecte: $estConnecte)){
                             Text("S'incrire").underline()
                             .foregroundColor(Color("Turquoise"))
                         }.buttonStyle(PlainButtonStyle())
@@ -40,9 +43,7 @@ struct ConnexionView: View {
                         Text("Valider")
                     }
                 }
-                
-                
-                                     
+                                   
             }.navigationBarTitle("Connexion")
     }
     
@@ -67,8 +68,8 @@ struct ConnexionView: View {
     }
 }
 
-struct ConnexionView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnexionView()
-    }
-}
+//struct ConnexionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ConnexionView()
+//    }
+//}

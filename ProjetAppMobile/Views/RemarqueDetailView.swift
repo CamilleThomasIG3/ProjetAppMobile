@@ -8,22 +8,35 @@
 
 import SwiftUI
 import UIKit
+import Foundation
 
 struct RemarqueDetailView: View {
     var cats = ["Dans la rue", "Au travail", "Dans les transports"]
     @State private var selectedCat = 0
+    
+    var remarque : Remarque
+    
     var body: some View {
         VStack {
             Text("Remarque").font(.largeTitle)
             ZStack {
                 Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
                 HStack {
-                    Text("Pseudo").multilineTextAlignment(.leading)
-                    Text("21/02/20").multilineTextAlignment(.trailing)
+                    Text(remarque.user).padding(20)
+                    
+                    Spacer()
+                    
+                    Text(remarque.idCategory).padding(20).foregroundColor(.green)
+                    
+                    Spacer()
+                    
+                    Text(self.convertDate(date : remarque.date)).padding(20)
                 }
             }
-                Text("remarque longue")
+            Text(remarque.content)
+            
             Divider()
+            
             ZStack {
                 Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
                 HStack {
@@ -73,10 +86,23 @@ struct RemarqueDetailView: View {
         }
         
     }
-}
-
-struct RemarqueDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RemarqueDetailView()
+    
+    func convertDate(date : String) -> String{
+        //String to date
+        let formatter4 = DateFormatter()
+        formatter4.locale = Locale(identifier: "en_US_POSIX")
+        formatter4.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date2 : Date? = formatter4.date(from: date)
+        
+        //Date to string
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: date2!)
     }
 }
+
+//struct RemarqueDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RemarqueDetailView()
+//    }
+//}

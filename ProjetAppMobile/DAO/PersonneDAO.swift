@@ -13,7 +13,7 @@ import BCrypt
 struct ServerMessage: Decodable {
     let msg : String
     let res : String
-    let token : String
+    let token : String = ""
 }
 
 class PersonneDAO: ObservableObject{
@@ -52,7 +52,7 @@ class PersonneDAO: ObservableObject{
     }
     
     
-    func addUser(user: UserWithoutId) {
+    func addUser(user: UserWithoutId, completionHandler: @escaping (Bool) -> ()) {
            
            guard let url = URL(string: urlPersonnes) else { return }
            
@@ -75,11 +75,23 @@ class PersonneDAO: ObservableObject{
                
             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
+            if resData.res == "correct" {
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                }
+            }
+            else{
+               DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
+            
             print(resData.msg)
            }.resume()
        }
 
     
+    //PAS TESTER !!!
     func deletePersonne(id : String){
          guard let url = URL(string: urlPersonnes) else { return }
          

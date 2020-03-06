@@ -37,7 +37,6 @@
 		468D7E14240C3D6C00C95C25 /* CategorieRemarqueDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468D7E13240C3D6C00C95C25 /* CategorieRemarqueDAO.swift */; };
 		468D7E16240C3DFA00C95C25 /* FrequenceDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468D7E15240C3DFA00C95C25 /* FrequenceDAO.swift */; };
 		468D7E1A240C3F4900C95C25 /* AvisDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468D7E19240C3F4900C95C25 /* AvisDAO.swift */; };
-		469D7A88240962A80046F7F5 /* sauvegarde.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A87240962A80046F7F5 /* sauvegarde.swift */; };
 		469D7A8B24096E370046F7F5 /* PersonneDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A8A24096E370046F7F5 /* PersonneDAO.swift */; };
 		469D7A8F240972890046F7F5 /* RemarqueDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A8E240972890046F7F5 /* RemarqueDAO.swift */; };
 		469EE7ED24056F4D00298341 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 469EE7EC24056F4D00298341 /* Alamofire */; };
@@ -100,7 +99,6 @@
 		468D7E13240C3D6C00C95C25 /* CategorieRemarqueDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorieRemarqueDAO.swift; sourceTree = "<group>"; };
 		468D7E15240C3DFA00C95C25 /* FrequenceDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequenceDAO.swift; sourceTree = "<group>"; };
 		468D7E19240C3F4900C95C25 /* AvisDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvisDAO.swift; sourceTree = "<group>"; };
-		469D7A87240962A80046F7F5 /* sauvegarde.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sauvegarde.swift; sourceTree = "<group>"; };
 		469D7A8A24096E370046F7F5 /* PersonneDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneDAO.swift; sourceTree = "<group>"; };
 		469D7A8E240972890046F7F5 /* RemarqueDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarqueDAO.swift; sourceTree = "<group>"; };
 		46F86A882406BFB20040B499 /* InscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InscriptionView.swift; sourceTree = "<group>"; };
@@ -224,7 +222,6 @@
 				46F86A8A2406C06E0040B499 /* ConnexionView.swift */,
 				464260C5240949DA00274276 /* AjoutRemarqueView.swift */,
 				464260C9240954D500274276 /* AjoutReponseView.swift */,
-				469D7A87240962A80046F7F5 /* sauvegarde.swift */,
 				461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */,
 				4648619D2412A85B000618D1 /* EncapsulatingView.swift */,
 			);
@@ -399,7 +396,6 @@
 				461CAA96240CF1FC005A1291 /* RemarqueDetailView.swift in Sources */,
 				468D7E0E240C377100C95C25 /* Avis.swift in Sources */,
 				46792A1A2409C31C00BD6F91 /* CategorieRemarque.swift in Sources */,
-				469D7A88240962A80046F7F5 /* sauvegarde.swift in Sources */,
 				464260C6240949DA00274276 /* AjoutRemarqueView.swift in Sources */,
 				46176F162412CF95007616F9 /* ReponseWithoutId.swift in Sources */,
 				468D7E12240C3AAB00C95C25 /* CategorieReponseDAO.swift in Sources */,

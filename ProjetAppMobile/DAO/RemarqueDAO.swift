@@ -25,7 +25,6 @@ class RemarqueDAO : ObservableObject{
           guard let data = data else { return }
           let res = try! JSONDecoder().decode([Remarque].self, from: data)
           DispatchQueue.main.async{
-            print(res)
             self.remarques = res
           }
         }.resume()
