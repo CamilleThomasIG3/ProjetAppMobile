@@ -15,7 +15,7 @@ struct ConnexionView: View {
     @State private var mdp: String=""
     
     @ObservedObject var personneDAO = PersonneDAO()
-    @ObservedObject var reponseDAO = ReponseDAO(idRemarque: "5e5fad3ddbc6392fd08438b7") //attention à enlever
+    
     var body: some View {
             Form{
                 Section{
@@ -25,13 +25,7 @@ struct ConnexionView: View {
                         TextField("Email",text: $email).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
                         TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
-                        Button(action: {// attention à enlever
-                            self.testReponses()
-                            self.presentation.wrappedValue.dismiss()
-                        }){
-                            Text("Valider")
-                        }
-
+                        
                         NavigationLink(destination: InscriptionView()){
                             Text("S'incrire").underline()
                             .foregroundColor(Color("Turquoise"))
@@ -70,10 +64,6 @@ struct ConnexionView: View {
 //                }
             }
         })
-    }
-    
-    func testReponses() {// a enlever
-        reponseDAO.getAnswers()
     }
 }
 

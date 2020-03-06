@@ -80,7 +80,7 @@ struct AccueilView: View {
                     .navigationBarItems(leading:
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: InscriptionView()){
+                                NavigationLink(destination: ProfilView()){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Inscription").foregroundColor(Color.black).padding(5)
@@ -100,7 +100,7 @@ struct AccueilView: View {
                         }, trailing :
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: ConnexionView()){
+                                NavigationLink(destination: ProfilView()){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Connexion").foregroundColor(Color.black).padding(5)

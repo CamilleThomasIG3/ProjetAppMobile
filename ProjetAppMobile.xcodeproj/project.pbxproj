@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46176F162412CF95007616F9 /* ReponseWithoutId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46176F152412CF95007616F9 /* ReponseWithoutId.swift */; };
 		4618404C2402EF21001A05EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618404B2402EF21001A05EA /* AppDelegate.swift */; };
 		4618404E2402EF21001A05EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618404D2402EF21001A05EA /* SceneDelegate.swift */; };
 		461840512402EF21001A05EA /* ProjetAppMobile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4618404F2402EF21001A05EA /* ProjetAppMobile.xcdatamodeld */; };
@@ -22,6 +23,7 @@
 		46352BFA241025BC00EB83BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46352BF9241025BC00EB83BD /* User.swift */; };
 		464260C6240949DA00274276 /* AjoutRemarqueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464260C5240949DA00274276 /* AjoutRemarqueView.swift */; };
 		464260CA240954D500274276 /* AjoutReponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464260C9240954D500274276 /* AjoutReponseView.swift */; };
+		4648619E2412A85B000618D1 /* EncapsulatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4648619D2412A85B000618D1 /* EncapsulatingView.swift */; };
 		4671F9C6240C6126002BE20A /* ProfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671F9C5240C6126002BE20A /* ProfilView.swift */; };
 		4671F9C8240C6287002BE20A /* ModifierProfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671F9C7240C6287002BE20A /* ModifierProfilView.swift */; };
 		46792A142409BC3D00BD6F91 /* Remarque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46792A132409BC3D00BD6F91 /* Remarque.swift */; };
@@ -62,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		46176F152412CF95007616F9 /* ReponseWithoutId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseWithoutId.swift; sourceTree = "<group>"; };
 		461840482402EF21001A05EA /* ProjetAppMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjetAppMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4618404B2402EF21001A05EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4618404D2402EF21001A05EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		46352BF9241025BC00EB83BD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		464260C5240949DA00274276 /* AjoutRemarqueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutRemarqueView.swift; sourceTree = "<group>"; };
 		464260C9240954D500274276 /* AjoutReponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutReponseView.swift; sourceTree = "<group>"; };
+		4648619D2412A85B000618D1 /* EncapsulatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncapsulatingView.swift; sourceTree = "<group>"; };
 		4671F9C5240C6126002BE20A /* ProfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilView.swift; sourceTree = "<group>"; };
 		4671F9C7240C6287002BE20A /* ModifierProfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierProfilView.swift; sourceTree = "<group>"; };
 		46792A132409BC3D00BD6F91 /* Remarque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remarque.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				46792A192409C31C00BD6F91 /* CategorieRemarque.swift */,
 				46792A1B2409C35700BD6F91 /* Frequence.swift */,
 				468D7E0D240C377100C95C25 /* Avis.swift */,
+				46176F152412CF95007616F9 /* ReponseWithoutId.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				464260C9240954D500274276 /* AjoutReponseView.swift */,
 				469D7A87240962A80046F7F5 /* sauvegarde.swift */,
 				461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */,
+				4648619D2412A85B000618D1 /* EncapsulatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 				46792A1A2409C31C00BD6F91 /* CategorieRemarque.swift in Sources */,
 				469D7A88240962A80046F7F5 /* sauvegarde.swift in Sources */,
 				464260C6240949DA00274276 /* AjoutRemarqueView.swift in Sources */,
+				46176F162412CF95007616F9 /* ReponseWithoutId.swift in Sources */,
 				468D7E12240C3AAB00C95C25 /* CategorieReponseDAO.swift in Sources */,
 				46792A162409BF5F00BD6F91 /* Reponse.swift in Sources */,
 				46792A182409C09D00BD6F91 /* CategorieReponse.swift in Sources */,
@@ -402,6 +409,7 @@
 				46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */,
 				468D7E14240C3D6C00C95C25 /* CategorieRemarqueDAO.swift in Sources */,
 				4671F9C6240C6126002BE20A /* ProfilView.swift in Sources */,
+				4648619E2412A85B000618D1 /* EncapsulatingView.swift in Sources */,
 				468D7E16240C3DFA00C95C25 /* FrequenceDAO.swift in Sources */,
 				468D7E10240C390E00C95C25 /* ReponseDAO.swift in Sources */,
 				4618404E2402EF21001A05EA /* SceneDelegate.swift in Sources */,

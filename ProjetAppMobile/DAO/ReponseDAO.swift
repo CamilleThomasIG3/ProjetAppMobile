@@ -23,14 +23,46 @@ class ReponseDAO : ObservableObject {
         guard let url = URL(string: urlRemarques+self.idRemarque+"/answers") else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
           guard let data = data else { return }
-          let res = try! JSONDecoder().decode(Reponse.self, from: data)
+          let res = try! JSONDecoder().decode([Reponse].self, from: data)
           DispatchQueue.main.async{
             print(res)
-            self.answers = [res]
-            print(res.content)
+            self.answers = res
+           // print(res.content)
           }
         }.resume()
     }
+    
+    func addReponse(r : ReponseWithoutId) {
+        guard let url = URL(string: urlRemarques+self.idRemarque+"/answers") else { return }
+            
+            let newReponse:[String: Any] = [
+                "date" : r.date,
+                "content" : r.content,
+                "user" : r.user,
+                "categoryResponse" : r.categoryResponse,
+                "likes" : r.likes,
+                
+            ]
+            
+            let body = try! JSONSerialization.data(withJSONObject: newReponse)
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = body
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+             guard let data = data else { return }
+                
+             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+             print(resData.msg)
+            }.resume()
+        }
+    
+}
+    
     
    
 //    func getReponse(id : String) -> Reponse {}
@@ -55,4 +87,4 @@ class ReponseDAO : ObservableObject {
 //    func getReponsesByDate(date : String) -> [Reponse] {}
 //    //fonctions pour tri par rapport à la date ???
 //    func count() -> Int {}
-}
+
