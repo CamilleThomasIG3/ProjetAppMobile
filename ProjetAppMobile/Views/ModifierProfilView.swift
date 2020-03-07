@@ -12,6 +12,8 @@ struct ModifierProfilView: View {
     @Environment(\.presentationMode) var presentation
     @State private var pseudo: String="Cams"
     @State private var mdp: String=""
+    
+    var person : User
 
     var body: some View {
         VStack {
@@ -37,8 +39,8 @@ struct ModifierProfilView: View {
     }
 }
 
-struct ModifierProfilView_Previews: PreviewProvider {
-    static var previews: some View {
-        ModifierProfilView()
-    }
-}
+//struct ModifierProfilView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ModifierProfilView()
+//    }
+//}

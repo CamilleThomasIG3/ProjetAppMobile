@@ -11,25 +11,22 @@ import UIKit
 import Foundation
 
 struct RemarqueDetailView: View {
-    var cats = ["Dans la rue", "Au travail", "Dans les transports"]
+    var cats = ["Date", "Fréquence", "Catégorie"]
     @State private var selectedCat = 0
     
     var remarque : Remarque
     
     var body: some View {
         VStack {
+            //Remarque détaillée
             Text("Remarque").font(.largeTitle)
             ZStack {
                 Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
                 HStack {
                     Text(remarque.user).padding(20)
-                    
                     Spacer()
-                    
                     Text(remarque.idCategory).padding(20).foregroundColor(.green)
-                    
                     Spacer()
-                    
                     Text(self.convertDate(date : remarque.date)).padding(20)
                 }
             }
@@ -37,17 +34,20 @@ struct RemarqueDetailView: View {
             
             Divider()
             
+            //Barre Réponses
             ZStack {
                 Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
-                HStack {
-                    Text("Réponses").multilineTextAlignment(.leading)
-//                    Picker(selection: $selectedCat, label: Text("Catégorie")) {
-//                        ForEach(0 ..< cats.count){
-//                            Text(self.cats[$0])
-//                        }
-//                    }
-                }
+                Text("Réponses").multilineTextAlignment(.leading)
             }
+
+            Picker(selection: $selectedCat, label: Text("Tri")) {
+                ForEach(0 ..< cats.count){
+                    Text(self.cats[$0])
+                }
+            }.pickerStyle(SegmentedPickerStyle())
+            
+            
+            //Liste réponses
             List {
                 VStack {
                     HStack {

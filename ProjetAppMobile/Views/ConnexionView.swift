@@ -55,6 +55,7 @@ struct ConnexionView: View {
             }
             else{
                 print("user trouvé!!")
+                self.estConnecte = true
 //                let result = try! BCrypt.Hash.verify(message: self.password , matches: user[0].password )
 //                print(result)
 //                if(result){

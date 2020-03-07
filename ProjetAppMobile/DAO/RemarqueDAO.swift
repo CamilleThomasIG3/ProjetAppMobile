@@ -17,7 +17,6 @@ class RemarqueDAO : ObservableObject{
     init() {
         getAllRemaques()
     }
-
     
     func getAllRemaques(){
         guard let url = URL(string: urlRemarques) else { return }
@@ -44,18 +43,65 @@ class RemarqueDAO : ObservableObject{
         }.resume()
     }
     
-    
-    func getRemarquesOfPersonne(idPersonne : String){
-        
-    }
-    
+    func addRemarque(remarque: RemarqueWithoutId, completionHandler: @escaping (Bool) -> ()) {
+           
+           guard let url = URL(string: urlRemarques) else { return }
+           
+           let newRemarque:[String: Any] = [
+                "date" : remarque.date,
+                "content" : remarque.content,
+                "pseudo" : remarque.user,
+                "idCategory" : remarque.idCategory
+           ]
+           
+           let body = try! JSONSerialization.data(withJSONObject: newRemarque)
+           
+           var request = URLRequest(url: url)
+           request.httpMethod = "POST"
+           request.httpBody = body
+           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+           
+           URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            guard let data = data else { return }
+               
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+            if resData.res == "correct" {
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                }
+            }
+            else{
+               DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
+            
+            print(resData.msg)
+           }.resume()
+       }
+
     
     func deleteRemarque(id : String){
-       
+         guard let url = URL(string: urlRemarques+id) else { return }
+         
+         var request = URLRequest(url: url)
+         request.httpMethod = "DELETE"
+         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+         
+         URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+             guard let data = data else { return }
+             
+             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+            print(resData.msg)
+         }.resume()
     }
     
     //A FAIRE
-//    func addRemarque(r : Remarque)->Bool {}
+//    func getRemarquesOfPersonne(idPersonne : String){}
 //    func getRemarquesOfCategorie(idCategorie : String) -> [Remarque] {}
 
 }

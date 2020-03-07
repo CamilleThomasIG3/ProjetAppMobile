@@ -12,11 +12,12 @@ import Foundation
 import Combine
 
 struct AccueilView: View {
-    var cats = ["Date", "Fréquence", "Catégorie"]
+    var cats = ["Récent", "Fréquence", "Catégorie", "Les miennes"]
     @State private var selectedCat = 0
     
     //JE NE SUIS TJR PAS ARRIVER A GERER estConnecte
-    @State var estConnecte  = false
+    @State var estConnecte  = true
+    @State private var showingAlert = false
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
 
@@ -52,29 +53,36 @@ struct AccueilView: View {
                             HStack(alignment: .firstTextBaseline, spacing: 20){
                                 NavigationLink(destination: RemarqueDetailView(remarque : remarque)){
                                     Text(remarque.content)
+                                    Spacer()
+                                    Text(String(remarque.nbLikes)).padding(.trailing, 20)
                                 }
-                                Spacer()
-                                Text("3")
                             }
                         }
                     }
                     
                     HStack{
                         if(estConnecte){
-                            NavigationLink(destination: AccueilView()){
+                            NavigationLink(destination: AjoutRemarqueView()){
                                 ZStack {
-                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 200, height:30)
-                                    Text("Mes contributions").foregroundColor(Color.black).padding(3)
+                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                                    Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
                                 }
                             }
-                        }
-                        
-                        NavigationLink(destination: AjoutRemarqueView()){
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
-                                Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
+                        }else{
+                            Button(action: {
+                                self.showingAlert = true
+                            }){
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                                    Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
+                                }
+                            }.alert(isPresented: $showingAlert){
+                                Alert(title: Text("Vous n'êtes pas connecté !"),
+                                      message: Text("La connexion est obligatoire pour ajouter une remarque"),
+                                      dismissButton: .default(Text("J'ai compris")))
                             }
                         }
+                            
 
                     }
                     
@@ -89,7 +97,6 @@ struct AccueilView: View {
                                     }
                                 }
                             }else{
-                                //ATTENTION DECONNEXION MARCHE PAS !!
                                 NavigationLink(destination: AccueilView()){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 120, height:30)
