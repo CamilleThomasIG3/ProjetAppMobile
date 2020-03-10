@@ -14,7 +14,6 @@ class ReponseDAO : ObservableObject {
     @Published var answers = [Reponse]()
     let urlRemarques : String = "https://whispering-river-73122.herokuapp.com/api/remarks/"
 
-    
     func getAnswers(idRemarque : String){
         guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
@@ -23,7 +22,7 @@ class ReponseDAO : ObservableObject {
           DispatchQueue.main.async{
             print(res)
             self.answers = res
-           // print(res.content)
+            print(res.count)
           }
         }.resume()
     }

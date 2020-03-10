@@ -10,9 +10,9 @@ import SwiftUI
 
 struct AjoutReponseView: View {
     @Environment(\.presentationMode) var presentation
-    @State private var reponse: String=""
+    @State var reponse: String=""
     var cats = ["Humour", "Loi", "Citation"]
-    @State private var selectedCat = 0
+    @State var selectedCat = 0
     @ObservedObject var reponseDAO = ReponseDAO()
     var remarque : Remarque
     
@@ -32,6 +32,7 @@ struct AjoutReponseView: View {
                                     Text(self.cats[$0])
                                 }
                             }
+                            Text("catégorie sélectionnée : \(cats[selectedCat])")
                             Spacer(minLength: 20)
                             Text("Votre réponse :")
                             TextField("réponse", text: $reponse).textFieldStyle(RoundedBorderTextFieldStyle())
@@ -53,7 +54,7 @@ struct AjoutReponseView: View {
     }
     
     func addReponse(idRemarque : String){
-        let rem = ReponseWithoutId(date: Date.init().description, contenu: "test ajout réponse", idPersonne: "tesstg5f5", idCategorieReponse: "1")
+        let rem = ReponseWithoutId(date: Date.init().description, contenu: self.reponse, idPersonne: "tesstg5f5", idCategorieReponse: cats[selectedCat])
         reponseDAO.addReponse(r: rem, idRemarque: idRemarque)
     }
 }
