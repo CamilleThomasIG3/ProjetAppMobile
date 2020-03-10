@@ -13,79 +13,88 @@ import Foundation
 struct RemarqueDetailView: View {
     var cats = ["Date", "Fréquence", "Catégorie"]
     @State private var selectedCat = 0
-    
+    @ObservedObject var reponseDAO = ReponseDAO()
     var remarque : Remarque
+    
+    init(remarque: Remarque){
+        self.remarque = remarque
+        reponseDAO.getAnswers(idRemarque: remarque._id)
+    }
     
     var body: some View {
         VStack {
             //Remarque détaillée
-            Text("Remarque").font(.largeTitle)
-            ZStack {
-                Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
-                HStack {
-                    Text(remarque.user).padding(20)
-                    Spacer()
-                    Text(remarque.idCategory).padding(20).foregroundColor(.green)
-                    Spacer()
-                    Text(self.convertDate(date : remarque.date)).padding(20)
+            VStack{
+                Text("Remarque").font(.largeTitle)
+                ZStack {
+                    Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
+                    HStack {
+                        Text(remarque.user).padding(20)
+                        Spacer()
+                        Text(remarque.idCategory).padding(20).foregroundColor(.green)
+                        Spacer()
+                        Text(self.convertDate(date : remarque.date)).padding(20)
+                    }
                 }
+                Text(remarque.content)
             }
-            Text(remarque.content)
-            
             Divider()
-            
-            //Barre Réponses
-            ZStack {
-                Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
-                Text("Réponses").multilineTextAlignment(.leading)
-            }
-
-            Picker(selection: $selectedCat, label: Text("Tri")) {
-                ForEach(0 ..< cats.count){
-                    Text(self.cats[$0])
+            VStack{
+                //Barre Réponses
+                ZStack {
+                    Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
+                    Text("Réponses").multilineTextAlignment(.leading)
                 }
-            }.pickerStyle(SegmentedPickerStyle())
+
+                Picker(selection: $selectedCat, label: Text("Tri")) {
+                    ForEach(0 ..< cats.count){
+                        Text(self.cats[$0])
+                    }
+                }.pickerStyle(SegmentedPickerStyle())
+            }
             
+          //  Liste réponses
             
-            //Liste réponses
             List {
-                VStack {
-                    HStack {
-                        Text("Pseudo")
-                        Text("Date")
-                        Text("Catégorie").foregroundColor(.orange)
+                ForEach(reponseDAO.answers){ answer in
+                    VStack {
+                        HStack {
+                            Text(answer.user)
+                            Text(self.convertDate(date : answer.date))
+                            Text(answer.categoryResponse).foregroundColor(.orange)
+                        }
+                        HStack {
+                            Text(answer.content)
+                        }
                     }
-                    HStack {
-                        Text("reponse1")
-                    }
-                    HStack {
-                        Button(action: {
-                            print("ok")})
+                    VStack{
+                        HStack {
+                            Button(action: {
+                                
+                                
+                            })
                             {
                                 Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
                             }
-                        Text("5")
-                        Button(action: {
-                        print("ok")})
-                        {
-                            Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                            Text("\(answer.likes.count)")
+                            Button(action: { print("ok") }){
+                                Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                            }
                         }
-
                     }
                 }
-                
-                Text("reponse2")
-                Text("reponse3")
-                Text("reponse4")
             }
+        
             NavigationLink(destination: AjoutReponseView(remarque : remarque)){
                 Text("Ajouter une réponse")
             }.buttonStyle(PlainButtonStyle()).padding(10)
-            
-            
         }
-        
+            
     }
+        
+
+    
+   
     
     func convertDate(date : String) -> String{
         //String to date
