@@ -20,7 +20,14 @@ struct AccueilView: View {
     @State private var showingAlert = false
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
-
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
     }
@@ -103,6 +110,14 @@ struct AccueilView: View {
                                         Text("Déconnexion").foregroundColor(Color.black).padding(5)
                                     }
                                 }.simultaneousGesture(TapGesture().onEnded({
+                                    //enelever personne du core data
+                                    let person =  self.myPersonne[0]
+                                    self.managedObjectContext.delete(person)
+                                    do {
+                                        try self.managedObjectContext.save()
+                                    } catch {
+                                        fatalError()
+                                    }
                                     self.estConnecte = false
                                 }))
                             }

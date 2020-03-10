@@ -12,7 +12,6 @@ import CoreData
 
 struct InscriptionView: View {
     @Environment(\.presentationMode) var presentation
-    @Environment(\.managedObjectContext) var managedObjectContext
     
     @State private var pseudo: String=""
     @State private var email: String=""
@@ -25,7 +24,7 @@ struct InscriptionView: View {
     
     @ObservedObject var personneDAO = PersonneDAO()
     
-    
+    @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
             entity: PersonneApp.entity(),
             sortDescriptors: []
@@ -52,7 +51,7 @@ struct InscriptionView: View {
                 Section(){
                     Button(action: {
                         self.inscription()
-                        print(self.myPersonne[0].email)
+//                        print(self.myPersonne[0].email!)
                     }){
                         Text("Valider")
                     }.alert(isPresented: $showingAlert){
