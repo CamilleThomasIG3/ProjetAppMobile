@@ -12,15 +12,11 @@ class ReponseDAO : ObservableObject {
     
     @Published var currentRemarque = [Remarque]()
     @Published var answers = [Reponse]()
-    private var idRemarque : String
     let urlRemarques : String = "https://whispering-river-73122.herokuapp.com/api/remarks/"
+
     
-    init(idRemarque : String){
-        self.idRemarque = idRemarque
-    }
-    
-    func getAnswers(){
-        guard let url = URL(string: urlRemarques+self.idRemarque+"/answers") else { return }
+    func getAnswers(idRemarque : String){
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
           guard let data = data else { return }
           let res = try! JSONDecoder().decode([Reponse].self, from: data)
@@ -32,8 +28,8 @@ class ReponseDAO : ObservableObject {
         }.resume()
     }
     
-    func addReponse(r : ReponseWithoutId) {
-        guard let url = URL(string: urlRemarques+self.idRemarque+"/answers") else { return }
+    func addReponse(r : ReponseWithoutId, idRemarque : String) {
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
             
             let newReponse:[String: Any] = [
                 "date" : r.date,
@@ -57,9 +53,70 @@ class ReponseDAO : ObservableObject {
                 
              let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-             print(resData.msg)
+             print(resData.msg+" ici!!")
             }.resume()
         }
+    
+    func deleteAllReponse(idRemarque : String) {
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            guard let data = data else { return }
+            
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+           print(resData.msg)
+        }.resume()
+    }
+    
+    func deleteReponseById(idRep : String, idRemarque : String){
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers?_id=5e63b8d98422600017503179") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            guard let data = data else { return }
+            
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+           print(resData.msg)
+        }.resume()
+    }
+    
+    func getReponsesWithCategorie(categorie : String, idRemarque : String) /*-> [Reponse]*/ {
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers?categoryResponse="+categorie) else { return }
+        URLSession.shared.dataTask(with: url){(data, _, _) in
+          guard let data = data else { return }
+          let res = try! JSONDecoder().decode([Reponse].self, from: data)
+          DispatchQueue.main.async{
+            print(res)
+            self.answers = res
+           // print(res.content)
+          }
+        }.resume()
+    }
+    
+    func getReponsesWithPersonne(idPersonne :String, idRemarque : String) /*-> [Reponse]*/ {
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers?user="+idPersonne) else { return }
+        URLSession.shared.dataTask(with: url){(data, _, _) in
+          guard let data = data else { return }
+          let res = try! JSONDecoder().decode([Reponse].self, from: data)
+          DispatchQueue.main.async{
+            print(res)
+            self.answers = res
+           // print(res.content)rrr
+            
+          }
+        }.resume()
+    }
     
 }
     

@@ -39,7 +39,7 @@ struct InscriptionView: View {
                 }
                 Section(){
                     Button(action: {
-                        self.inscription()
+                        if(self.inscription())
                         self.presentation.wrappedValue.dismiss()
                     }){
                         Text("Valider")
@@ -49,13 +49,12 @@ struct InscriptionView: View {
             }.navigationBarTitle("Créer un compte")
     }
     
-  func inscription(){
+  func inscription()->Bool{
         let user = UserWithoutId(email: self.email, pseudo: self.pseudo, password: self.mdp)
     
         personneDAO.addUser(user: user, completionHandler: {
             res in
             if(res){
-                //NE MARHCE PAS VRAIMENT
                 self.estConnecte.toggle()
             }else{
                 print("oops")

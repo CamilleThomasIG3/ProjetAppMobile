@@ -78,7 +78,7 @@ struct RemarqueDetailView: View {
                 Text("reponse3")
                 Text("reponse4")
             }
-            NavigationLink(destination: AjoutReponseView()){
+            NavigationLink(destination: AjoutReponseView(remarque : remarque)){
                 Text("Ajouter une réponse")
             }.buttonStyle(PlainButtonStyle()).padding(10)
             

@@ -13,6 +13,8 @@ struct AjoutReponseView: View {
     @State private var reponse: String=""
     var cats = ["Humour", "Loi", "Citation"]
     @State private var selectedCat = 0
+    @ObservedObject var reponseDAO = ReponseDAO()
+    var remarque : Remarque
     
     var body: some View {
         NavigationView{
@@ -38,6 +40,7 @@ struct AjoutReponseView: View {
                     }
                     Section(){
                         Button(action: {
+                            self.addReponse(idRemarque: self.remarque._id)
                             self.presentation.wrappedValue.dismiss()
                         }){
                             Text("Valider")
@@ -48,11 +51,16 @@ struct AjoutReponseView: View {
             }
         }
     }
-}
-
-
-struct AjoutReponseView_Previews: PreviewProvider {
-    static var previews: some View {
-        AjoutReponseView()
+    
+    func addReponse(idRemarque : String){
+        let rem = ReponseWithoutId(date: Date.init().description, contenu: "test ajout réponse", idPersonne: "tesstg5f5", idCategorieReponse: "1")
+        reponseDAO.addReponse(r: rem, idRemarque: idRemarque)
     }
 }
+
+
+//struct AjoutReponseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AjoutReponseView()
+//    }
+//}
