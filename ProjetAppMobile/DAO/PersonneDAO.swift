@@ -83,8 +83,6 @@ class PersonneDAO: ObservableObject{
                     completionHandler(false)
                 }
             }
-            
-            print(resData.msg)
            }.resume()
        }
 
