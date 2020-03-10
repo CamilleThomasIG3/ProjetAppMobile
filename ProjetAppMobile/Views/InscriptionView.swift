@@ -8,9 +8,12 @@
 
 import SwiftUI
 import Combine
+import CoreData
 
 struct InscriptionView: View {
     @Environment(\.presentationMode) var presentation
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @State private var pseudo: String=""
     @State private var email: String=""
     @State private var confEmail: String=""
@@ -21,6 +24,14 @@ struct InscriptionView: View {
     @State private var showingAlert = false
     
     @ObservedObject var personneDAO = PersonneDAO()
+    
+    
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
     
     var body: some View {
             Form{
@@ -33,19 +44,15 @@ struct InscriptionView: View {
                         Text("Confirmation d'email")
                         TextField("Confirmation d'email",text: $confEmail).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
-                        SecureField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Confirmation du mot de passe")
-                        SecureField("Confirmez votre mot de passe",text: $confMdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        TextField("Confirmez votre mot de passe",text: $confMdp).textFieldStyle(RoundedBorderTextFieldStyle())
                     }.padding(50)
                 }
                 Section(){
                     Button(action: {
-                        if(self.inscription()){
-                           self.presentation.wrappedValue.dismiss()
-                        }
-                        else{
-                            
-                        }
+                        self.inscription()
+                        print(self.myPersonne[0].email)
                     }){
                         Text("Valider")
                     }.alert(isPresented: $showingAlert){
@@ -58,21 +65,30 @@ struct InscriptionView: View {
             }.navigationBarTitle("Créer un compte")
     }
     
-  func inscription() -> Bool{
+  func inscription(){
         let user = UserWithoutId(email: self.email, pseudo: self.pseudo, password: self.mdp)
-        var resInscription = false
     
         personneDAO.addUser(user: user, completionHandler: {
             res in
             if(res){
                 self.estConnecte.toggle()
-                resInscription = true
+                
+                //CoreData
+                let person = PersonneApp(context: self.managedObjectContext)
+                person.email = self.email
+                person.mdp = self.mdp
+                // more code here
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    fatalError()
+                }
+                
+                self.presentation.wrappedValue.dismiss()
             }else{
-                print("oops")
-                //AFFICHER MESSAGE ERREUR !
+                self.showingAlert = true
             }
         })
-        return resInscription
     }
 
 }
