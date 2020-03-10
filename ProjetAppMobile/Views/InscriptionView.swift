@@ -18,6 +18,7 @@ struct InscriptionView: View {
     @State private var confMdp: String=""
 
     @Binding var estConnecte : Bool
+    @State private var showingAlert = false
     
     @ObservedObject var personneDAO = PersonneDAO()
     
@@ -39,28 +40,39 @@ struct InscriptionView: View {
                 }
                 Section(){
                     Button(action: {
-                        if(self.inscription())
-                        self.presentation.wrappedValue.dismiss()
+                        if(self.inscription()){
+                           self.presentation.wrappedValue.dismiss()
+                        }
+                        else{
+                            
+                        }
                     }){
                         Text("Valider")
+                    }.alert(isPresented: $showingAlert){
+                        Alert(title: Text("Les données ne sont pas conformes !"),
+                              message: Text("Vérifiez vos données"),
+                              dismissButton: .default(Text("J'ai compris")))
                     }
                 }
                                      
             }.navigationBarTitle("Créer un compte")
     }
     
-  func inscription()->Bool{
+  func inscription() -> Bool{
         let user = UserWithoutId(email: self.email, pseudo: self.pseudo, password: self.mdp)
+        var resInscription = false
     
         personneDAO.addUser(user: user, completionHandler: {
             res in
             if(res){
                 self.estConnecte.toggle()
+                resInscription = true
             }else{
                 print("oops")
                 //AFFICHER MESSAGE ERREUR !
             }
         })
+        return resInscription
     }
 
 }
