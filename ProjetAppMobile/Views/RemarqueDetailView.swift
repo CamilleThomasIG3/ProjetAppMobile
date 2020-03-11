@@ -51,6 +51,7 @@ struct RemarqueDetailView: View {
                         Text(self.cats[$0])
                     }
                 }.pickerStyle(SegmentedPickerStyle())
+                //if(cats[selectedCat] == )
             }
             
           //  Liste réponses
@@ -60,14 +61,17 @@ struct RemarqueDetailView: View {
                     VStack {
                         HStack {
                             Text(answer.user)
+                            Spacer()
                             Text(self.convertDate(date : answer.date))
+                            Spacer()
                             Text(answer.categoryResponse).foregroundColor(.orange)
                         }
+                        Divider()
                         HStack {
                             Text(answer.content)
                         }
-                    }
-                    VStack{
+                    //}
+                    //VStack{
                         HStack {
                             Button(action: {
                                 

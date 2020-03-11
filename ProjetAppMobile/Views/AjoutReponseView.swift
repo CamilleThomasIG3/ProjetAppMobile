@@ -21,7 +21,7 @@ struct AjoutReponseView: View {
             VStack(alignment: .center, spacing: 40){
                 Spacer()
                 Text("Vous répondez à cette remarque : ")
-                Text("gkljgiojgeijgoeoijgerijgergjerojgeijgjggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg").padding(20)
+                Text(remarque.content).padding(20)
                 
                 Form{
                     Section{
