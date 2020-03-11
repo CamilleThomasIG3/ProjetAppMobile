@@ -11,24 +11,29 @@ import SwiftUI
 struct ProfilView: View {
     @Environment(\.presentationMode) var presentation
     
-    @State private var pseudo: String=""
-    @State private var email: String=""
-    @State private var confEmail: String=""
-    @State private var mdp: String=""
-    @State private var confMdp: String=""
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
+    var personne = UserWithoutId()
     
     @ObservedObject var personneDAO = PersonneDAO()
 
     init() {
-        personneDAO.getPersonneById(id: "5e6391078e878e00175a2cb2", completionHandler: {
-            user in
-            if(user.count == 0){
-                print("No User")
-            }
-            else{
-                print("user trouvé!!")
-            }
-        })
+//        personneDAO.getPersonneById(id: self.myPersonne[0].id!, completionHandler: {
+//            user in
+//            if(user.count == 0){
+//                print("No User")
+//            }
+//            else{
+//                print("user trouvé!!")
+//            }
+//        })
+//        
+//        personne = UserWithoutId(email: personneDAO.personnes[0].email, pseudo: personneDAO.personnes[0].pseudo, password: personneDAO.personnes[0].password)
     }
     
     var body: some View {
@@ -41,10 +46,10 @@ struct ProfilView: View {
                     Image("profile")
                     
                     Text("Pseudo").font(.headline)
-                    Text(personneDAO.personnes[0].pseudo).font(.subheadline)
+                    Text(self.personne.pseudo).font(.subheadline)
 
                     Text("Email").font(.headline)
-                    Text(personneDAO.personnes[0].email).font(.subheadline)
+                    Text(self.personne.email).font(.subheadline)
                     
                     NavigationLink(destination: ModifierProfilView(person : personneDAO.personnes[0])){
                         ZStack {
@@ -68,7 +73,6 @@ struct ProfilView: View {
     
     func deleteAccount(id : String){
         personneDAO.deletePersonne(id: id)
-        print("delete after")
     }
 }
 

@@ -14,10 +14,25 @@ struct ConnexionView: View {
     
     @State private var email: String=""
     @State private var mdp: String=""
+    @State private var showingAlert = false
     
     @Binding var estConnecte : Bool
     
     @ObservedObject var personneDAO = PersonneDAO()
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
+
+    var person = PersonneApp()
+    
+//    init() {
+//        person = PersonneApp(context: self.managedObjectContext)
+//    }
     
     var body: some View {
             Form{
@@ -38,7 +53,6 @@ struct ConnexionView: View {
                 Section(){
                     Button(action: {
                         self.login()
-                        self.presentation.wrappedValue.dismiss()
                     }){
                         Text("Valider")
                     }
@@ -48,22 +62,34 @@ struct ConnexionView: View {
     }
     
     func login(){
-        personneDAO.getPersonneById(id: "5e5e732fc3f7040ebc491de2", completionHandler : {
-            user in
-            if(user.count == 0){
-                print("No User")
+        personneDAO.authentification(email: self.email, password: self.mdp, completionHandler: {
+            res in
+            if(res){
+                self.estConnecte = true
+                
+                //CoreData
+                self.person.email = self.email
+                self.person.mdp = self.mdp
+                // more code here
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    fatalError()
+                }
+                
+                self.presentation.wrappedValue.dismiss()
             }
             else{
-                print("user trouvé!!")
-                self.estConnecte = true
-//                let result = try! BCrypt.Hash.verify(message: self.password , matches: user[0].password )
-//                print(result)
-//                if(result){
-//                  print("connecté")
-//                }
-//                else{
-//                    print("pas connecté)")
-//                }
+                self.showingAlert = true
+            }
+        })
+    }
+    
+    func getId() {
+        personneDAO.getPersonneByEmail(email: self.email, completionHandler: {
+            res in
+            if(res.count != 0){
+                self.person.id = res[0]._id
             }
         })
     }

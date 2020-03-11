@@ -16,7 +16,7 @@ struct AccueilView: View {
     @State private var selectedCat = 0
     
     //JE NE SUIS TJR PAS ARRIVER A GERER estConnecte
-    @State var estConnecte  = true
+    @State var estConnecte  = false
     @State private var showingAlert = false
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
