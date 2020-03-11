@@ -51,7 +51,7 @@ struct InscriptionView: View {
                 Section(){
                     Button(action: {
                         self.inscription()
-//                        print(self.myPersonne[0].email!)
+                        self.getId()
                     }){
                         Text("Valider")
                     }.alert(isPresented: $showingAlert){
@@ -76,7 +76,7 @@ struct InscriptionView: View {
                 let person = PersonneApp(context: self.managedObjectContext)
                 person.email = self.email
                 person.mdp = self.mdp
-                // more code here
+                
                 do {
                     try self.managedObjectContext.save()
                 } catch {
@@ -90,6 +90,21 @@ struct InscriptionView: View {
         })
     }
 
+    
+    func getId() {
+//        personneDAO.getPersonneByEmail(email: self.email, completionHandler: {
+//            res in
+//            if(res.count != 0){
+//                self.myPersonne[0].id = res[0]._id
+//                
+//                do{
+//                    try self.managedObjectContext.save()
+//                } catch {
+//                    fatalError()
+//                }
+//            }
+//        })
+    }
 }
 
 //struct InscriptionView_Previews: PreviewProvider {

@@ -27,12 +27,6 @@ struct ConnexionView: View {
     )
     var myPersonne : FetchedResults<PersonneApp>
     
-
-    var person = PersonneApp()
-    
-//    init() {
-//        person = PersonneApp(context: self.managedObjectContext)
-//    }
     
     var body: some View {
             Form{
@@ -53,8 +47,13 @@ struct ConnexionView: View {
                 Section(){
                     Button(action: {
                         self.login()
+                        self.getId()
                     }){
                         Text("Valider")
+                    }.alert(isPresented: $showingAlert){
+                        Alert(title: Text("Les données ne sont pas conformes !"),
+                              message: Text("Vérifiez vos données"),
+                              dismissButton: .default(Text("J'ai compris")))
                     }
                 }
                                    
@@ -68,9 +67,10 @@ struct ConnexionView: View {
                 self.estConnecte = true
                 
                 //CoreData
-                self.person.email = self.email
-                self.person.mdp = self.mdp
-                // more code here
+                let person = PersonneApp(context: self.managedObjectContext)
+                person.email = self.email
+                person.mdp = self.mdp
+                
                 do {
                     try self.managedObjectContext.save()
                 } catch {
@@ -89,7 +89,13 @@ struct ConnexionView: View {
         personneDAO.getPersonneByEmail(email: self.email, completionHandler: {
             res in
             if(res.count != 0){
-                self.person.id = res[0]._id
+                self.myPersonne[0].id = res[0]._id
+                
+                do{
+                    try self.managedObjectContext.save()
+                } catch {
+                    fatalError()
+                }
             }
         })
     }
