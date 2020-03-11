@@ -63,11 +63,22 @@ router.post('/', (req,res)=>{
 //@route GET api/users
 //@desc GET User by id
 //@access Public
-router.get('/:id', auth, async(req,res)=>{
-    User.findById(req.id)
+router.get('/:id', async(req,res)=>{
+    User.findById(req.params.id)
         .then(user => res.json(user))
         .catch(err => res.status(404).json({error: 'user does not exists'}))
 });
+
+//@route GET api/users
+//@desc GET User by id
+//@access Public
+router.get('/email/:email', async(req,res)=>{
+    const email = req.params.email;
+    User.findOne({email})
+        .then(user => res.json(user))
+        .catch(err => res.status(404).json({error: 'user does not exists'}))
+});
+
 
 //@route GET api/user
 //@desc GET all user
@@ -75,7 +86,7 @@ router.get('/:id', auth, async(req,res)=>{
 router.get('/', async(req,res)=>{
     User.find()
         .sort({date: 1})
-        .then(remarks => res.json(remarks))
+        .then(users => res.json(users))
 });
 
 
@@ -86,9 +97,20 @@ router.get('/', async(req,res)=>{
 //@access Public
 router.delete('/:id', async(req,res) =>{
     User.findById(req.params.id)    
-    .then(user => user.remove().then(() => res.json({success: true})))
-    .catch(err => res.status(404).json({success: false}));
+    .then(user => user.remove().then(() => res.json({res:"correct", msg:"user has been deleted"})))
+    .catch(err => res.status(404).json({res:"incorrect", msg:"user not found"}));
 } );
+
+
+//@route DELETE api/users
+//@desc DELETE users by email
+//@access Public
+// router.delete('/:email', async(req,res) =>{
+//     const email = req.params.email;
+//     User.findOne({email})
+//     .then(user => user.remove().then(() => res.json({res:"correct", msg:"user has been deleted"})))
+//     .catch(err => res.status(404).json({res:"incorrect", msg:"user not found"}));
+// } );
 
     module.exports = router;
 

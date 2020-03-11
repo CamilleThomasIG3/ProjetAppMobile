@@ -16,7 +16,7 @@ const CategoryRemark = require('../../models/CategoryRemark');
 //@access Public
 router.get('/', async(req,res)=>{
     Remark.find()
-        .sort(function(a,b){a.answers.length-b.answers.length})
+        .sort({date: -1})
         .then(remarks => res.json(remarks))
 });
 
@@ -57,10 +57,10 @@ router.get('/user/:User', async(req,res)=>{
 //@route DELETE api/remarks
 //@desc DELETE remarks by id
 //@access private
-router.delete('/:id',auth, async(req,res) =>{
+router.delete('/:id', async(req,res) =>{
     Remark.findById(req.params.id)    
-    .then(item => item.remove().then(() => res.json({success: true})))
-    .catch(err => res.status(404).json({success: false}));
+    .then(item => item.remove().then(() => res.json({res:"correct", msg:"remark has been deleted"})))
+    .catch(err => res.status(404).json({res:"incorrect", msg:"remark not found"}));
 } );
 
 //route 
@@ -68,17 +68,17 @@ router.delete('/:id',auth, async(req,res) =>{
 //@route POST api/remarks
 //@desc POST remark
 //@access Private
-router.post('/',auth, async(req,res) =>{
+router.post('/', async(req,res) =>{
     const newRemark = new Remark({
         content: req.body.content,
         idCategory: req.body.idCategory,
-        user: req.user.pseudo
+        user: req.body.pseudo
     });
-    newRemark.save().then(remark => res.json(remark));
+    newRemark.save().then(remark => res.json({res:"correct", msg:"remark posted"}));
     } ); 
 
 
-//-------------answers--------------
+//-------------remark/answers--------------
 
 
 //@route GET api/remarks
@@ -110,34 +110,34 @@ router.get('/:id/answers/category', async(req,res)=>{
 //@access Private
 router.post('/:id/answers', async(req,res) =>{
 
-    const newAnswer = new Remark({
+    const newAnswer = {
         user: req.body.pseudo,
         content: req.body.content,
-        idCategory: req.body.idCategory
+        categoryResponse: req.body.categoryResponse
 
-    });
+    };
     const remark = await Remark.findById(req.params.id);
     remark.answers.unshift(newAnswer);
 
-    remark.save().then(remark => res.json(remark));
+    remark.save().then(remark => res.json({res:"correct", msg:"answer posted"}));
     } );
 
 
 //@route DELETE api/remarks/answer
 //@desc DELETE answer by id
 //@access private
-router.delete('/:id/answers/:answerid',auth, async(req,res) =>{
+router.delete('/:id/answers/:answerid', async(req,res) =>{
     try{
     const remark = await Remark.findById(req.params.id);
 
     const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
-    if(!answer) res.status(404).json({msg: 'answer does not exit'});
+    if(!answer) res.status(404).json({res:"incorrect", msg: 'answer does not exit'});
 
     const removeIndex = remark.answers.map(answer => answer.id).indexOf(req.params.answerid);
     remark.answers.splice(removeIndex, 1);
     await remark.save();
 
-    res.json(remark.answers);}
+    res.json({res:"correct", msg:"answer deleted"});}
     catch(err){
         res.status(500).send('server error')
     }
@@ -145,41 +145,97 @@ router.delete('/:id/answers/:answerid',auth, async(req,res) =>{
 
 } );
 
-//----------likes----------
+//----------remarks/answers/like----------
+
+
+
+
+
+//@route POST api/remarks/answers/likes
+//@desc POST answers
+//@access Private
+router.post('/:id/answers/:answerid', async(req,res) =>{
+
+    const newLike = {
+        user: req.body.pseudo
+    };
+    if (!newLike.user){
+        res.json({res:"incorrect", msg: "incorrect syntax"})
+    }
+    else{
+        const remark = await Remark.findById(req.params.id);
+        const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+        const like = await answer.likes.find(like => like.user === newLike.user)
+        if(!like){
+            answer.likes.unshift(newLike);
+            remark.save().then(remark => res.json({res:"correct", msg:"answer liked"}));
+        }
+        else res.status(400).json({res:"incorrect", msg: "answer already liked"})
+    }} );
+
+
+//@route DELETE api/remarks/answer/likes
+//@desc DELETE answer by id
+//@access private
+router.delete('/:id/answers/:answerid/likes/:likeid', async(req,res) =>{
+    try{
+    const remark = await Remark.findById(req.params.id);
+    const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+    const like = await answer.likes.find(like => like.id === req.params.likeid)
+    if(!like) res.status(404).json({res:"incorrect", msg: 'like does not exit'});
+
+    const removeIndex = answer.likes.map(like => like.id).indexOf(req.params.likeid);
+    answer.likes.splice(removeIndex, 1);
+    await remark.save();
+
+    res.json({res:"correct", msg:"remark disliked"});}
+    catch(err){
+        res.status(500).send('server error')
+    }
+} );
+
+
+
+
+
+
+
+
+//----------remarks/likes----------
 
 //@route POST api/remarks
 //@desc POST like
 //@access Private
-router.post('/:id/likes',auth, async(req,res) =>{
+router.post('/:id/likes',async(req,res) =>{
 
-    const newLike = new Remark({
+    const newLike = {
         user: req.body.pseudo
 
-    });
+    };
     const remark = await Remark.findById(req.params.id);
     const like = await remark.likes.find(like => like.user === newLike.user);
     if(!like){
         remark.likes.unshift(newLike);
-        remark.save().then(remark => res.json(remark));
+        remark.save().then(remark => res.json({res:"correct", msg:"remark liked"}));
     }
-    else res.status(400).json({msg: "remarks already liked"})
+    else res.status(400).json({res:"incorrect", msg: "remark already liked"})
     } );
 
 //@route DELETE api/remarks/answer
 //@desc DELETE like by id
 //@access private
-router.delete('/:id/likes/:likeid',auth, async(req,res) =>{
+router.delete('/:id/likes/:likeid', async(req,res) =>{
     try{
     const remark = await Remark.findById(req.params.id);
 
     const like = await remark.likes.find(like => like.id === req.params.likeid);
-    if(!like) res.status(404).json({msg: 'like does not exit'});
+    if(!like) res.status(404).json({res:"incorrect", msg: 'like does not exit'});
 
     const removeIndex = remark.likes.map(like => like.id).indexOf(req.params.likeid);
     remark.likes.splice(removeIndex, 1);
     await remark.save();
 
-    res.json(remark.likes);}
+    res.json({res:"correct", msg:"remark disliked"});}
     catch(err){
         res.status(500).send('server error')
     }
