@@ -44,6 +44,8 @@
 		46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A882406BFB20040B499 /* InscriptionView.swift */; };
 		46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A8A2406C06E0040B499 /* ConnexionView.swift */; };
 		B7431FED2410016C002EAF0D /* BCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = B7431FEC2410016C002EAF0D /* BCrypt */; };
+		B786F4C624193C62003F861F /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786F4C524193C62003F861F /* Like.swift */; };
+		B786F4C824193D2C003F861F /* LikeWithoutId.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786F4C724193D2C003F861F /* LikeWithoutId.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		469D7A8E240972890046F7F5 /* RemarqueDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarqueDAO.swift; sourceTree = "<group>"; };
 		46F86A882406BFB20040B499 /* InscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InscriptionView.swift; sourceTree = "<group>"; };
 		46F86A8A2406C06E0040B499 /* ConnexionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionView.swift; sourceTree = "<group>"; };
+		B786F4C524193C62003F861F /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		B786F4C724193D2C003F861F /* LikeWithoutId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeWithoutId.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,8 @@
 				46792A1B2409C35700BD6F91 /* Frequence.swift */,
 				468D7E0D240C377100C95C25 /* Avis.swift */,
 				46176F152412CF95007616F9 /* ReponseWithoutId.swift */,
+				B786F4C524193C62003F861F /* Like.swift */,
+				B786F4C724193D2C003F861F /* LikeWithoutId.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46792A1C2409C35700BD6F91 /* Frequence.swift in Sources */,
+				B786F4C824193D2C003F861F /* LikeWithoutId.swift in Sources */,
 				461840512402EF21001A05EA /* ProjetAppMobile.xcdatamodeld in Sources */,
 				469D7A8F240972890046F7F5 /* RemarqueDAO.swift in Sources */,
 				46792A142409BC3D00BD6F91 /* Remarque.swift in Sources */,
@@ -409,6 +416,7 @@
 				46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */,
 				468D7E14240C3D6C00C95C25 /* CategorieRemarqueDAO.swift in Sources */,
 				4671F9C6240C6126002BE20A /* ProfilView.swift in Sources */,
+				B786F4C624193C62003F861F /* Like.swift in Sources */,
 				4648619E2412A85B000618D1 /* EncapsulatingView.swift in Sources */,
 				468D7E16240C3DFA00C95C25 /* FrequenceDAO.swift in Sources */,
 				468D7E10240C390E00C95C25 /* ReponseDAO.swift in Sources */,

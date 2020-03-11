@@ -26,6 +26,7 @@ struct RemarqueDetailView: View {
             //Remarque détaillée
             VStack{
                 Text("Remarque").font(.largeTitle)
+                Divider()
                 ZStack {
                     Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
                     HStack {
@@ -38,7 +39,7 @@ struct RemarqueDetailView: View {
                 }
                 Text(remarque.content)
             }
-            Divider()
+            
             VStack{
                 //Barre Réponses
                 ZStack {
@@ -90,8 +91,12 @@ struct RemarqueDetailView: View {
             }
         
             NavigationLink(destination: AjoutReponseView(remarque : remarque)){
-                Text("Ajouter une réponse")
-            }.buttonStyle(PlainButtonStyle()).padding(10)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                    Text("Ajouter une réponse").foregroundColor(Color.black).padding(5)
+                }
+            }
+
         }
             
     }

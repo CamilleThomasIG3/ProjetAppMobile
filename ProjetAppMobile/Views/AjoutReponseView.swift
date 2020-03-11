@@ -56,6 +56,7 @@ struct AjoutReponseView: View {
     func addReponse(idRemarque : String){
         let rem = ReponseWithoutId(date: Date.init().description, contenu: self.reponse, idPersonne: "tesstg5f5", idCategorieReponse: cats[selectedCat])
         reponseDAO.addReponse(r: rem, idRemarque: idRemarque)
+        
     }
 }
 
