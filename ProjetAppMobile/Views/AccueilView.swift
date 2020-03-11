@@ -65,6 +65,8 @@ struct AccueilView: View {
                                 }
                             }
                         }
+                    }.onAppear {
+                        self.remarqueDAO.getAllRemaques()
                     }
                     
                     HStack{

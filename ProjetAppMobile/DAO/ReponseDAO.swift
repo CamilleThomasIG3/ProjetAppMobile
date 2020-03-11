@@ -20,9 +20,7 @@ class ReponseDAO : ObservableObject {
           guard let data = data else { return }
           let res = try! JSONDecoder().decode([Reponse].self, from: data)
           DispatchQueue.main.async{
-            print(res)
             self.answers = res
-            print(res.count)
           }
         }.resume()
     }
@@ -52,7 +50,7 @@ class ReponseDAO : ObservableObject {
                 
              let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-             print(resData.msg+" ici!!")
+//             print(resData.msg+" ici!!")
             }.resume()
         }
     
@@ -69,7 +67,7 @@ class ReponseDAO : ObservableObject {
             
             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-           print(resData.msg)
+//           print(resData.msg)
         }.resume()
     }
     
@@ -86,7 +84,7 @@ class ReponseDAO : ObservableObject {
             
             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-           print(resData.msg)
+//           print(resData.msg)
         }.resume()
     }
     
