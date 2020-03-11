@@ -11,10 +11,22 @@ import BCrypt
 
 struct ConnexionView: View {
     @Environment(\.presentationMode) var presentation
+    
     @State private var email: String=""
     @State private var mdp: String=""
+    @State private var showingAlert = false
+    
+    @Binding var estConnecte : Bool
     
     @ObservedObject var personneDAO = PersonneDAO()
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
     
     var body: some View {
             Form{
@@ -26,7 +38,7 @@ struct ConnexionView: View {
                         Text("Mot de passe")
                         TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        NavigationLink(destination: InscriptionView()){
+                        NavigationLink(destination: InscriptionView(estConnecte: $estConnecte)){
                             Text("S'incrire").underline()
                             .foregroundColor(Color("Turquoise"))
                         }.buttonStyle(PlainButtonStyle())
@@ -35,40 +47,62 @@ struct ConnexionView: View {
                 Section(){
                     Button(action: {
                         self.login()
-                        self.presentation.wrappedValue.dismiss()
+                        self.getId()
                     }){
                         Text("Valider")
+                    }.alert(isPresented: $showingAlert){
+                        Alert(title: Text("Les données ne sont pas conformes !"),
+                              message: Text("Vérifiez vos données"),
+                              dismissButton: .default(Text("J'ai compris")))
                     }
                 }
-                
-                
-                                     
+                                   
             }.navigationBarTitle("Connexion")
     }
     
     func login(){
-        personneDAO.getPersonneById(id: "5e5e732fc3f7040ebc491de2", completionHandler : {
-            user in
-            if(user.count == 0){
-                print("No User")
+        personneDAO.authentification(email: self.email, password: self.mdp, completionHandler: {
+            res in
+            if(res){
+                self.estConnecte = true
+                
+                //CoreData
+                let person = PersonneApp(context: self.managedObjectContext)
+                person.email = self.email
+                person.mdp = self.mdp
+                
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    fatalError()
+                }
+                
+                self.presentation.wrappedValue.dismiss()
             }
             else{
-                print("user trouvé!!")
-//                let result = try! BCrypt.Hash.verify(message: self.password , matches: user[0].password )
-//                print(result)
-//                if(result){
-//                  print("connecté")
-//                }
-//                else{
-//                    print("pas connecté)")
-//                }
+                self.showingAlert = true
+            }
+        })
+    }
+    
+    func getId() {
+        personneDAO.getPersonneByEmail(email: self.email, completionHandler: {
+            res in
+            if(res.count != 0){
+                self.myPersonne[0].id = res[0]._id
+                
+                do{
+                    try self.managedObjectContext.save()
+                } catch {
+                    fatalError()
+                }
             }
         })
     }
 }
 
-struct ConnexionView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnexionView()
-    }
-}
+//struct ConnexionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ConnexionView()
+//    }
+//}

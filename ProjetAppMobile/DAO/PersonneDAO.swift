@@ -13,7 +13,7 @@ import BCrypt
 struct ServerMessage: Decodable {
     let msg : String
     let res : String
-    let token : String
+    let token : String = ""
 }
 
 class PersonneDAO: ObservableObject{
@@ -43,16 +43,60 @@ class PersonneDAO: ObservableObject{
               guard let data = data else { return }
               let res = try! JSONDecoder().decode(User.self, from: data)
               DispatchQueue.main.async{
-                print(res)
                 self.currentUser = [res]
                 completionHandler([res])
-                print(res.pseudo)
               }
             }.resume()
     }
     
+    func getPersonneByEmail(email : String, completionHandler: @escaping ([User]) -> ()) {
+        guard let url = URL(string: urlPersonnes+"email/"+email) else { return }
+            URLSession.shared.dataTask(with: url){(data, _, _) in
+              guard let data = data else { return }
+              let res = try! JSONDecoder().decode(User.self, from: data)
+              DispatchQueue.main.async{
+                self.currentUser = [res]
+                completionHandler([res])
+              }
+            }.resume()
+    }
     
-    func addUser(user: UserWithoutId) {
+    func authentification(email : String, password : String, completionHandler: @escaping (Bool) -> ()) {
+        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/auth/") else { return }
+        
+        let user:[String: Any] = [
+            "email" : email,
+            "password" : password,
+        ]
+        
+        let body = try! JSONSerialization.data(withJSONObject: user)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+         guard let data = data else { return }
+            
+         let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+         if resData.res == "correct" {
+             DispatchQueue.main.async {
+                 completionHandler(true)
+             }
+         }
+         else{
+            DispatchQueue.main.async {
+                 completionHandler(false)
+             }
+         }
+        }.resume()
+    }
+    
+    
+    func addUser(user: UserWithoutId, completionHandler: @escaping (Bool) -> ()) {
            
            guard let url = URL(string: urlPersonnes) else { return }
            
@@ -75,23 +119,25 @@ class PersonneDAO: ObservableObject{
                
             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-            print(resData.msg)
+            if resData.res == "correct" {
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                }
+            }
+            else{
+               DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
            }.resume()
        }
 
     
     func deletePersonne(id : String){
-         guard let url = URL(string: urlPersonnes) else { return }
-         
-         let personneToDelete:[String: Any] = [
-             "_id" : id
-         ]
-
-         let body = try! JSONSerialization.data(withJSONObject: personneToDelete)
+         guard let url = URL(string: urlPersonnes+id) else { return }
          
          var request = URLRequest(url: url)
          request.httpMethod = "DELETE"
-         request.httpBody = body
          request.setValue("application/json", forHTTPHeaderField: "Content-Type")
          
          URLSession.shared.dataTask(with: request) { (data, response, error) in

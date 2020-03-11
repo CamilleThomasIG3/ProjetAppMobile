@@ -12,16 +12,24 @@ import Foundation
 import Combine
 
 struct AccueilView: View {
-    var cats = ["Date", "Fréquence", "Catégorie"]
+    var cats = ["Récent", "Fréquence", "Catégorie", "Les miennes"]
     @State private var selectedCat = 0
     
-    var estConnecte : Bool
+    //JE NE SUIS TJR PAS ARRIVER A GERER estConnecte
+    @State var estConnecte  = false
+    @State private var showingAlert = false
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
-
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
-        estConnecte = (UIApplication.shared.delegate as! AppDelegate).estConnecte
     }
     
     var body: some View {
@@ -50,29 +58,38 @@ struct AccueilView: View {
                         ForEach(remarqueDAO.remarques){
                             remarque in
                             HStack(alignment: .firstTextBaseline, spacing: 20){
-                                Text(remarque.content)
-                                Spacer()
-                                Text("3")
+                                NavigationLink(destination: RemarqueDetailView(remarque : remarque)){
+                                    Text(remarque.content)
+                                    Spacer()
+                                    Text(String(remarque.nbLikes)).padding(.trailing, 20)
+                                }
                             }
                         }
                     }
                     
                     HStack{
                         if(estConnecte){
-                            NavigationLink(destination: AccueilView()){
+                            NavigationLink(destination: AjoutRemarqueView()){
                                 ZStack {
-                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 200, height:30)
-                                    Text("Mes contributions").foregroundColor(Color.black).padding(3)
+                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                                    Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
                                 }
                             }
-                        }
-                        
-                        NavigationLink(destination: AjoutRemarqueView()){
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
-                                Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
+                        }else{
+                            Button(action: {
+                                self.showingAlert = true
+                            }){
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                                    Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
+                                }
+                            }.alert(isPresented: $showingAlert){
+                                Alert(title: Text("Vous n'êtes pas connecté !"),
+                                      message: Text("La connexion est obligatoire pour ajouter une remarque"),
+                                      dismissButton: .default(Text("J'ai compris")))
                             }
                         }
+                            
 
                     }
                     
@@ -80,27 +97,34 @@ struct AccueilView: View {
                     .navigationBarItems(leading:
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: InscriptionView()){
+                                NavigationLink(destination: InscriptionView(estConnecte: $estConnecte)){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Inscription").foregroundColor(Color.black).padding(5)
                                     }
                                 }
                             }else{
-                                //ATTENTION DECONNEXION MARCHE PAS !!
                                 NavigationLink(destination: AccueilView()){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 120, height:30)
                                         Text("Déconnexion").foregroundColor(Color.black).padding(5)
                                     }
                                 }.simultaneousGesture(TapGesture().onEnded({
-                                    (UIApplication.shared.delegate as! AppDelegate).estConnecte = false
+                                    //enelever personne du core data
+                                    let person =  self.myPersonne[0]
+                                    self.managedObjectContext.delete(person)
+                                    do {
+                                        try self.managedObjectContext.save()
+                                    } catch {
+                                        fatalError()
+                                    }
+                                    self.estConnecte = false
                                 }))
                             }
                         }, trailing :
                         HStack{
                             if(!estConnecte){
-                                NavigationLink(destination: ProfilView()){
+                                NavigationLink(destination: ConnexionView(estConnecte : $estConnecte)){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Connexion").foregroundColor(Color.black).padding(5)

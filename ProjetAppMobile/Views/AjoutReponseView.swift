@@ -10,16 +10,18 @@ import SwiftUI
 
 struct AjoutReponseView: View {
     @Environment(\.presentationMode) var presentation
-    @State private var reponse: String=""
+    @State var reponse: String=""
     var cats = ["Humour", "Loi", "Citation"]
-    @State private var selectedCat = 0
+    @State var selectedCat = 0
+    @ObservedObject var reponseDAO = ReponseDAO()
+    var remarque : Remarque
     
     var body: some View {
         NavigationView{
             VStack(alignment: .center, spacing: 40){
                 Spacer()
                 Text("Vous répondez à cette remarque : ")
-                Text("gkljgiojgeijgoeoijgerijgergjerojgeijgjggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg").padding(20)
+                Text(remarque.content).padding(20)
                 
                 Form{
                     Section{
@@ -30,6 +32,7 @@ struct AjoutReponseView: View {
                                     Text(self.cats[$0])
                                 }
                             }
+                            Text("catégorie sélectionnée : \(cats[selectedCat])")
                             Spacer(minLength: 20)
                             Text("Votre réponse :")
                             TextField("réponse", text: $reponse).textFieldStyle(RoundedBorderTextFieldStyle())
@@ -38,6 +41,7 @@ struct AjoutReponseView: View {
                     }
                     Section(){
                         Button(action: {
+                            self.addReponse(idRemarque: self.remarque._id)
                             self.presentation.wrappedValue.dismiss()
                         }){
                             Text("Valider")
@@ -48,11 +52,16 @@ struct AjoutReponseView: View {
             }
         }
     }
-}
-
-
-struct AjoutReponseView_Previews: PreviewProvider {
-    static var previews: some View {
-        AjoutReponseView()
+    
+    func addReponse(idRemarque : String){
+        let rem = ReponseWithoutId(date: Date.init().description, contenu: self.reponse, idPersonne: "tesstg5f5", idCategorieReponse: cats[selectedCat])
+        reponseDAO.addReponse(r: rem, idRemarque: idRemarque)
     }
 }
+
+
+//struct AjoutReponseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AjoutReponseView()
+//    }
+//}
