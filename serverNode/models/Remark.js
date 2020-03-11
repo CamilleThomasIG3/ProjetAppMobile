@@ -9,8 +9,6 @@ const RemarkSchema = new Schema({
     user: {
         //type: Schema.Types.ObjectId,
         type: String,
-        ref:'user',
-        default: "camille"
     },
     idCategory: {
         type: String,
@@ -25,7 +23,6 @@ const RemarkSchema = new Schema({
             user: {
                 //type: Schema.Types.ObjectId,
                 type: String,
-                ref: 'user'
             }
         }
     ],
@@ -34,8 +31,7 @@ const RemarkSchema = new Schema({
             user: {
                 //type: Schema.Types.ObjectId,
                 type: String,
-                ref: 'user',
-                default: "mathis"
+                default: "camille"
             },
             content: {
                 type: String,
@@ -48,9 +44,7 @@ const RemarkSchema = new Schema({
 
             categoryResponse: {
                 //type : Schema.Types.ObjectId,
-                type: String,
-                ref: 'categoryResponse',
-                default: "drole"
+                type: String
             },
 
             likes: [
@@ -66,7 +60,6 @@ const RemarkSchema = new Schema({
         }
         
     ]
-
 });
 
 module.exports = Item = mongoose.model('remark',RemarkSchema);

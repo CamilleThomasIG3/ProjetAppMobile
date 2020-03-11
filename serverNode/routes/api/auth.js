@@ -18,18 +18,18 @@ router.post('/', (req,res)=>{
     
     //validation
     if(!email || !password){
-        return res.status(400).json({msg: "incorrect syntax"});
+        return res.status(400).json({res: "incorrect", msg: "incorrect syntax"});
     }
 
     //check existing
     User.findOne({email})
     .then(user => {
-        if(!user) return res.status(400).json({msg: "user doesn't exist"});
+        if(!user) return res.status(400).json({res: "incorrect", msg: "user doesn't exist"});
 
         //validate psw
          bcrypt.compare(password, user.password)
          .then(isMatch => {
-             if(!isMatch) return  res.status(400).json({msg: "invalid credentials"});
+             if(!isMatch) return  res.status(400).json({res: "incorrect", msg: "invalid password"});
 
              jwt.sign(
                 { id: user.id},
@@ -38,11 +38,13 @@ router.post('/', (req,res)=>{
                 (err, token) => {
                     if (err) throw err;
                     res.json({
-                        token: token,
-                        user: {
-                        id: user.id,
-                        email: user.email
-                }})
+                        res: "correct", 
+                        msg: "user connected"
+                        // token: token,
+                        // user: {
+                        // id: user.id,
+                        // email: user.email}
+                    })
                 }
             )
          })
