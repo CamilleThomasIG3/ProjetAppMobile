@@ -92,18 +92,19 @@ struct InscriptionView: View {
 
     
     func getId() {
-//        personneDAO.getPersonneByEmail(email: self.email, completionHandler: {
-//            res in
-//            if(res.count != 0){
+        personneDAO.getPersonneByEmail(email: self.email, completionHandler: {
+            res in
+            if(res.count != 0){
+                print(res[0]._id)
 //                self.myPersonne[0].id = res[0]._id
-//                
+//
 //                do{
 //                    try self.managedObjectContext.save()
 //                } catch {
 //                    fatalError()
 //                }
-//            }
-//        })
+            }
+        })
     }
 }
 
