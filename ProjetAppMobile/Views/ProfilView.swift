@@ -18,6 +18,7 @@ struct ProfilView: View {
     )
     var myPersonne : FetchedResults<PersonneApp>
     
+    @Binding var estConnecte : Bool
     @ObservedObject var personneDAO = PersonneDAO()
     
     var body: some View {
@@ -30,27 +31,32 @@ struct ProfilView: View {
                     Image("profile")
                     
                     Text("Pseudo").font(.headline)
-                    Text(self.personneDAO.personnes[0].pseudo).font(.subheadline)
+                    if(self.myPersonne.array.count != 0){
+                        Text(self.myPersonne[0].pseudo!).font(.subheadline)
+                    }
 
                     Text("Email").font(.headline)
-                    Text(self.personneDAO.personnes[0].email).font(.subheadline)
+                    if(self.myPersonne.array.count != 0){
+                        Text(self.myPersonne[0].email!).font(.subheadline)
+                    }
                     
-                    NavigationLink(destination: ModifierProfilView(person : personneDAO.personnes[0])){
+                    NavigationLink(destination: ModifierProfilView()){
                         ZStack {
                             RoundedRectangle(cornerRadius: 20).fill(Color("Turquoise")).frame(width: 200, height:40)
                             Text("Modifier le pseudo").foregroundColor(Color.black).padding(5)
                         }
                     }
                     Button(action: {
-                        self.deleteAccount(id : self.personneDAO.personnes[0]._id)
+                        self.deleteAccount(id : self.myPersonne[0].id!)
                         self.presentation.wrappedValue.dismiss()
                     }){
                         Text("Supprimer le compte").underline().foregroundColor(Color("Turquoise")).padding(.leading, 10)
                     }
 
                 }.onAppear{
-                    self.getPersonne()
+                    
                 }
+                
                 Spacer()
             }
             Spacer()
@@ -58,27 +64,25 @@ struct ProfilView: View {
     }
     
     func deleteAccount(id : String){
+        self.estConnecte = false
+        
+        self.managedObjectContext.delete(myPersonne[0])
+
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError()
+        }
+        
         personneDAO.deletePersonne(id: id)
     }
-    
-    func getPersonne(){
-        personneDAO.getPersonneById(id: "5e6a3bd31be78d0017c95eb2", completionHandler: {
-            user in
-            if(user.count == 0){
-                print("No User")
-            }
-            else{
-                print("user trouvé!!")
-            }
-        })
-    }
 }
 
 
 
 
-struct ProfilView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilView()
-    }
-}
+//struct ProfilView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfilView()
+//    }
+//}

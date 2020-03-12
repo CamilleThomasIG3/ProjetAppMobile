@@ -66,6 +66,23 @@ struct AccueilView: View {
                         }
                     }.onAppear {
                         self.remarqueDAO.getAllRemaques()
+                        
+//                        for e in self.myPersonne {
+//                            self.managedObjectContext.delete(e)
+//
+//                            do {
+//                                try self.managedObjectContext.save()
+//                            } catch {
+//                                fatalError()
+//                            }
+//                        }
+                        
+                        for e in self.myPersonne {
+                            guard let z = e.pseudo else{
+                                return
+                            }
+                            print(z)
+                        }
                     }
                     
                     HStack{
@@ -133,7 +150,7 @@ struct AccueilView: View {
                                     }
                                 }
                             }else{
-                                NavigationLink(destination: ProfilView()){
+                                NavigationLink(destination: ProfilView(estConnecte: $estConnecte)){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 100, height:30)
                                         Text("Profil").foregroundColor(Color.black).padding(5)

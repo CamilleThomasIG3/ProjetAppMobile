@@ -46,9 +46,9 @@ class ReponseDAO : ObservableObject {
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-             guard let data = data else { return }
+//             guard let data = data else { return }
                 
-             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
 //             print(resData.msg+" ici!!")
             }.resume()
@@ -63,9 +63,9 @@ class ReponseDAO : ObservableObject {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-            guard let data = data else { return }
+//            guard let data = data else { return }
             
-            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
 //           print(resData.msg)
         }.resume()
@@ -80,9 +80,9 @@ class ReponseDAO : ObservableObject {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-            guard let data = data else { return }
-            
-            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//            guard let data = data else { return }
+//            
+//            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
 //           print(resData.msg)
         }.resume()
