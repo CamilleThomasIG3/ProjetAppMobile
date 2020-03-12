@@ -90,6 +90,7 @@ struct ConnexionView: View {
             res in
             if(res.count != 0){
                 self.myPersonne[0].id = res[0]._id
+                self.myPersonne[0].pseudo = res[0].pseudo
                 
                 do{
                     try self.managedObjectContext.save()

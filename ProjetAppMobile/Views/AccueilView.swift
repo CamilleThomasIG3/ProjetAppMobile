@@ -83,11 +83,12 @@ struct AccueilView: View {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
                                     Text("Ajouter une remarque").foregroundColor(Color.black).padding(5)
-                                }
+                                }.padding(.bottom, 20)
                             }.alert(isPresented: $showingAlert){
                                 Alert(title: Text("Vous n'êtes pas connecté !"),
                                       message: Text("La connexion est obligatoire pour ajouter une remarque"),
                                       dismissButton: .default(Text("J'ai compris")))
+                                    
                             }
                         }
                             
@@ -143,6 +144,7 @@ struct AccueilView: View {
                         }
                 )
             }.background(Color("Turquoise"))
+         .navigationViewStyle(StackNavigationViewStyle()) //+ jolie en mode tablette
         }
     }
 }

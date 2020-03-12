@@ -14,7 +14,7 @@ struct AjoutRemarqueView: View {
     @Environment(\.presentationMode) var presentation
     @State private var content: String=""
     @State var textHeight: CGFloat = 80
-    var cats = ["Dans la rue", "Au travail", "Dans les transports"]
+    var cats = ["Général", "Dans la rue", "Au travail", "Dans les transports"]
     @State private var selectedCat = 0
     @ObservedObject var remarqueDAO = RemarqueDAO()
     
