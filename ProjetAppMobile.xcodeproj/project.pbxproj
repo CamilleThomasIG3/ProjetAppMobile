@@ -588,6 +588,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ProjetAppMobile/Preview Content\"";
+				DEVELOPMENT_TEAM = 37U434RRHH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ProjetAppMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -607,6 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ProjetAppMobile/Preview Content\"";
+				DEVELOPMENT_TEAM = 37U434RRHH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ProjetAppMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

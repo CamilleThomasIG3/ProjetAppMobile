@@ -47,7 +47,6 @@ struct ConnexionView: View {
                 Section(){
                     Button(action: {
                         self.login()
-                        self.getId()
                     }){
                         Text("Valider")
                     }.alert(isPresented: $showingAlert){
@@ -83,6 +82,7 @@ struct ConnexionView: View {
                 self.showingAlert = true
             }
         })
+        self.getId()
     }
     
     func getId() {

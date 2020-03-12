@@ -18,22 +18,18 @@ struct ProfilView: View {
     )
     var myPersonne : FetchedResults<PersonneApp>
     
-    var personne = UserWithoutId()
-    
     @ObservedObject var personneDAO = PersonneDAO()
 
     init() {
-//        personneDAO.getPersonneById(id: self.myPersonne[0].id!, completionHandler: {
-//            user in
-//            if(user.count == 0){
-//                print("No User")
-//            }
-//            else{
-//                print("user trouvé!!")
-//            }
-//        })
-//        
-//        personne = UserWithoutId(email: personneDAO.personnes[0].email, pseudo: personneDAO.personnes[0].pseudo, password: personneDAO.personnes[0].password)
+        personneDAO.getPersonneById(id: self.myPersonne[0].id!, completionHandler: {
+            user in
+            if(user.count == 0){
+                print("No User")
+            }
+            else{
+                print("user trouvé!!")
+            }
+        })
     }
     
     var body: some View {
@@ -46,12 +42,12 @@ struct ProfilView: View {
                     Image("profile")
                     
                     Text("Pseudo").font(.headline)
-                    Text(self.personne.pseudo).font(.subheadline)
+                    Text(self.personneDAO.currentUser[0].pseudo).font(.subheadline)
 
                     Text("Email").font(.headline)
-                    Text(self.personne.email).font(.subheadline)
+                    Text(self.personneDAO.currentUser[0].email).font(.subheadline)
                     
-                    NavigationLink(destination: ModifierProfilView(person : personneDAO.personnes[0])){
+                    NavigationLink(destination: ModifierProfilView(person : personneDAO.currentUser[0])){
                         ZStack {
                             RoundedRectangle(cornerRadius: 20).fill(Color("Turquoise")).frame(width: 200, height:40)
                             Text("Modifier le pseudo").foregroundColor(Color.black).padding(5)
