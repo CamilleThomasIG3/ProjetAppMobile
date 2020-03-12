@@ -89,8 +89,6 @@ struct InscriptionView: View {
             }
             self.getId()
         })
-    
-        
     }
 
     
