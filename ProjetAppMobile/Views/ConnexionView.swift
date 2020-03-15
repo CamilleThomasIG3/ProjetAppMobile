@@ -36,7 +36,7 @@ struct ConnexionView: View {
                         Text("Email")
                         TextField("Email",text: $email).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
-                        TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        SecureField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                         
                         NavigationLink(destination: InscriptionView(estConnecte: $estConnecte)){
                             Text("S'incrire").underline()
@@ -70,7 +70,6 @@ struct ConnexionView: View {
                 //CoreData
                 let person = PersonneApp(context: self.managedObjectContext)
                 person.email = self.email
-                person.mdp = self.mdp
                 
                 do {
                     try self.managedObjectContext.save()

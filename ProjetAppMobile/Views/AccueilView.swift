@@ -68,6 +68,19 @@ struct AccueilView: View {
                         }
                     }.onAppear {
                         self.remarqueDAO.getAllRemaques()
+                        
+                        //etre sure que core data est vide
+                        if(self.estConnecte==false){
+                            for e in self.myPersonne {
+                                self.managedObjectContext.delete(e)
+                                
+                                do {
+                                    try self.managedObjectContext.save()
+                                } catch {
+                                    fatalError()
+                                }
+                            }
+                        }
                     }
                     
                     HStack{

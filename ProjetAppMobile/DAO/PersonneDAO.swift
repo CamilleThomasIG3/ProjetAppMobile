@@ -154,7 +154,7 @@ class PersonneDAO: ObservableObject{
             
          let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
             
-        print(resData.msg)
+//        print(resData.msg)
          if resData.res == "correct" {
              DispatchQueue.main.async {
                  completionHandler(true)

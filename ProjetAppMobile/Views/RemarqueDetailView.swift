@@ -23,7 +23,7 @@ struct RemarqueDetailView: View {
     init(remarque: Remarque, estConnecte : Binding<Bool>){
         self.remarque = remarque
         self._estConnecte = estConnecte
-        reponseDAO.getAnswers(idRemarque: remarque._id)
+        //reponseDAO.getAnswers(idRemarque: remarque._id)
     }
     
     var body: some View {
@@ -76,7 +76,7 @@ struct RemarqueDetailView: View {
                         
                         VStack {
                             Text(answer.content)
-                        }.padding(.top, 20).background(Color.yellow)
+                        }.padding(.top, 20)
                         
                         HStack {
                             Button(action: { print("nok") }){

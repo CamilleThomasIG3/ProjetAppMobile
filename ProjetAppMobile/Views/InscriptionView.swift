@@ -64,6 +64,7 @@ struct InscriptionView: View {
     }
     
   func inscription(){
+    if(self.mdp==self.confMdp){
         let user = UserWithoutId(email: self.email, pseudo: self.pseudo, password: self.mdp)
     
         personneDAO.addUser(user: user, completionHandler: {
@@ -74,7 +75,6 @@ struct InscriptionView: View {
                 //CoreData
                 let person = PersonneApp(context: self.managedObjectContext)
                 person.email = self.email
-                person.mdp = self.mdp
                 person.pseudo = self.pseudo
                 
                 do {
@@ -89,6 +89,10 @@ struct InscriptionView: View {
             }
             self.getId()
         })
+    }
+    else{
+        self.showingAlert = true
+    }
     }
 
     
