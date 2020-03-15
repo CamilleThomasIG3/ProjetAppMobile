@@ -32,7 +32,7 @@ struct ModifierProfilView: View {
                         Text("Pseudo").font(.headline)
                         TextField("Pseudo", text: $pseudo).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
-                        TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        SecureField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                     }.padding(50)
                 }
                 Section(){
