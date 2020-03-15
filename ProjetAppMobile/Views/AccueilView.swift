@@ -56,33 +56,18 @@ struct AccueilView: View {
                     List{
                         ForEach(remarqueDAO.remarques){
                             remarque in
-                            HStack(alignment: .firstTextBaseline, spacing: 20){
-                                NavigationLink(destination: RemarqueDetailView(remarque : remarque)){
-                                    Text(remarque.content)
+                            HStack(alignment: .firstTextBaseline){
+                                NavigationLink(destination: RemarqueDetailView(remarque : remarque, estConnecte : self.$estConnecte)){
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .fill(self.getColorCategoryRemarque(cat: remarque.idCategory)).frame(width: 20, height:20)
+                                    Text(remarque.content).lineLimit(2).padding(10)
                                     Spacer()
-                                    Text(String(remarque.nbLikes)).padding(.trailing, 20)
+                                    Text(String(remarque.nbLikes)).padding(.trailing, 10)
                                 }
                             }
                         }
                     }.onAppear {
                         self.remarqueDAO.getAllRemaques()
-                        
-//                        for e in self.myPersonne {
-//                            self.managedObjectContext.delete(e)
-//
-//                            do {
-//                                try self.managedObjectContext.save()
-//                            } catch {
-//                                fatalError()
-//                            }
-//                        }
-                        
-                        for e in self.myPersonne {
-                            guard let z = e.pseudo else{
-                                return
-                            }
-                            print(z)
-                        }
                     }
                     
                     HStack{
@@ -163,6 +148,27 @@ struct AccueilView: View {
             }.background(Color("Turquoise"))
          .navigationViewStyle(StackNavigationViewStyle()) //+ jolie en mode tablette
         }
+    }
+    
+    func getColorCategoryRemarque(cat : String)-> Color{
+        var color : Color = Color.black
+            
+        if(cat=="Général"){
+            color = Color.green
+        }
+        if(cat=="Dans la rue"){
+            color = Color.orange
+        }
+        if(cat=="Au travail"){
+            color = Color.red
+        }
+        if(cat=="Dans les transports"){
+            color = Color.blue
+        }
+        if(cat=="En famille"){
+            color = Color.purple
+        }
+        return color
     }
 }
 

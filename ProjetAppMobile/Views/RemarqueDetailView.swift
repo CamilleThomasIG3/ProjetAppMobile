@@ -13,11 +13,16 @@ import Foundation
 struct RemarqueDetailView: View {
     var cats = ["Date", "Fréquence", "Catégorie"]
     @State private var selectedCat = 0
+    
     @ObservedObject var reponseDAO = ReponseDAO()
     var remarque : Remarque
     
-    init(remarque: Remarque){
+    @Binding var estConnecte : Bool
+    @State private var showingAlert = false
+    
+    init(remarque: Remarque, estConnecte : Binding<Bool>){
         self.remarque = remarque
+        self._estConnecte = estConnecte
         reponseDAO.getAnswers(idRemarque: remarque._id)
     }
     
@@ -32,18 +37,19 @@ struct RemarqueDetailView: View {
                     HStack {
                         Text(remarque.user).padding(20)
                         Spacer()
-                        Text(remarque.idCategory).padding(20).foregroundColor(.green)
+                        Text(remarque.idCategory).padding(20)
+                            .foregroundColor(self.getColorCategoryRemarque(cat: remarque.idCategory))
                         Spacer()
                         Text(self.convertDate(date : remarque.date)).padding(20)
                     }
                 }
-                Text(remarque.content)
+                Text(remarque.content).padding(10)
             }
             
             VStack{
                 //Barre Réponses
                 ZStack {
-                    Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
+                    Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40)
                     Text("Réponses").multilineTextAlignment(.leading)
                 }
 
@@ -52,11 +58,9 @@ struct RemarqueDetailView: View {
                         Text(self.cats[$0])
                     }
                 }.pickerStyle(SegmentedPickerStyle())
-                //if(cats[selectedCat] == )
-            }
+            }.padding(20)
             
           //  Liste réponses
-            
             List {
                 ForEach(reponseDAO.answers){ answer in
                     VStack {
@@ -65,35 +69,62 @@ struct RemarqueDetailView: View {
                             Spacer()
                             Text(self.convertDate(date : answer.date))
                             Spacer()
-                            Text(answer.categoryResponse).foregroundColor(.orange)
-                        }
-                        Divider()
-                        HStack {
+                            Text(answer.categoryResponse)
+                                .foregroundColor(self.getColorCategoryReponse(cat: answer.categoryResponse))
+                        }.padding(10).border(Color("Gris_fonce")).background(Color("Gris_clair"))
+                        
+                        
+                        VStack {
                             Text(answer.content)
-                        }
-                    //}
-                    //VStack{
+                        }.padding(.top, 20).background(Color.yellow)
+                        
                         HStack {
-                            Button(action: {
-                                
-                                
-                            })
+                            Button(action: { print("nok") }){
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                    Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                }
+                            }.padding(.leading, 10)
+                            Spacer()
+                            
+                            Text("\(answer.likes.count)").padding(.trailing, 10)
+                            
+                            Button(action: {print("ok")})
                             {
-                                Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                    Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                }
                             }
-                            Text("\(answer.likes.count)")
-                            Button(action: { print("ok") }){
-                                Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
-                            }
-                        }
+                        }.padding(10).buttonStyle(PlainButtonStyle())
+                    }.border(Color("Gris_fonce"))
+                }
+            }.onAppear{
+                //enlever separators de la liste
+                UITableView.appearance().separatorStyle = .none
+                self.reponseDAO.getAnswers(idRemarque: self.remarque._id)
+            }
+            
+            if(estConnecte){
+                NavigationLink(destination: AjoutReponseView(remarque : remarque)){
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                        Text("Ajouter une réponse").foregroundColor(Color.black).padding(5)
                     }
                 }
-            }
-        
-            NavigationLink(destination: AjoutReponseView(remarque : remarque)){
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
-                    Text("Ajouter une réponse").foregroundColor(Color.black).padding(5)
+            }else{
+                Button(action: {
+                    self.showingAlert = true
+                }){
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 180, height:30)
+                        Text("Ajouter une réponse").foregroundColor(Color.black).padding(5)
+                    }.padding(.bottom, 20)
+                }.alert(isPresented: $showingAlert){
+                    Alert(title: Text("Vous n'êtes pas connecté !"),
+                          message: Text("La connexion est obligatoire pour ajouter une réponse"),
+                          dismissButton: .default(Text("J'ai compris")))
+                        
                 }
             }
 
@@ -101,8 +132,44 @@ struct RemarqueDetailView: View {
             
     }
         
-
+    func getColorCategoryRemarque(cat : String)-> Color{
+        var color : Color = Color.black
+            
+        if(cat=="Général"){
+            color = Color.green
+        }
+        if(cat=="Dans la rue"){
+            color = Color.orange
+        }
+        if(cat=="Au travail"){
+            color = Color.red
+        }
+        if(cat=="Dans les transports"){
+            color = Color.blue
+        }
+        if(cat=="En famille"){
+            color = Color.purple
+        }
+        return color
+    }
     
+    func getColorCategoryReponse(cat : String)-> Color{
+        var color : Color = Color.black
+            
+        if(cat=="Général"){
+            color = Color.green
+        }
+        if(cat=="Humour"){
+            color = Color.orange
+        }
+        if(cat=="Loi"){
+            color = Color.red
+        }
+        if(cat=="Citation"){
+            color = Color.blue
+        }
+        return color
+    }
    
     
     func convertDate(date : String) -> String{

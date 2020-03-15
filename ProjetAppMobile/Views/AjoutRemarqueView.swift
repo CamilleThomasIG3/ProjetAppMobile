@@ -14,7 +14,7 @@ struct AjoutRemarqueView: View {
     @Environment(\.presentationMode) var presentation
     @State private var content: String=""
     @State var textHeight: CGFloat = 80
-    var cats = ["Général", "Dans la rue", "Au travail", "Dans les transports"]
+    var cats = ["Général", "Dans la rue", "Au travail", "Dans les transports", "En famille"]
     @State private var selectedCat = 0
     @ObservedObject var remarqueDAO = RemarqueDAO()
     
@@ -30,15 +30,9 @@ struct AjoutRemarqueView: View {
                         }
                         Spacer(minLength: 20)
                         Text("Remarque sexiste :")
-//                        UITextView()
-                        
-                        //TextField("Remarque", text: $content).textFieldStyle(RoundedBorderTextFieldStyle())
                         VStack {
-                        //ScrollView {
-                            TextView(placeholder: "tapez un truc un peu long pour voir", text: self.$content, minHeight: self.textHeight, calculatedHeight: self.$textHeight)
-                            .frame(minHeight: self.textHeight, maxHeight: self.textHeight)
-                            Spacer()
-                            Text(content).foregroundColor(.red)
+                            TextView(placeholder: "Votre remarque", text: self.$content, minHeight: self.textHeight, calculatedHeight: self.$textHeight)
+                                .frame(minHeight: self.textHeight, maxHeight: self.textHeight)
                         }
                     }.padding(50)
                       
