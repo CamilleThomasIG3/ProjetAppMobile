@@ -1,43 +1,36 @@
-import React, {Component} from 'react';
-import {Container, ListGroup, ListGroupItem, Button} from 'reactstrap';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import React, { Component } from 'react';
+import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import {connect} from 'react-redux';
-import { getRemarks } from '../actions/remarkActions';
+import { connect } from 'react-redux';
+import { getRemarks, deleteRemark } from '../actions/remarkActions';
 import PropTypes from 'prop-types';
 
 
 class RemarkList extends Component {
-    
-    componentDidMount(){
+
+    componentDidMount() {
         this.props.getRemarks();
     }
 
+    onDeleteClick = (id) => {
+        this.props.deleteRemark(id);
+    }
+
     render() {
-        const {remarks} = this.props.remark;
+        const { remarks } = this.props.remark;
         return (
             <Container>
-                <Button color="dark" style={{marginBottom:'2rem'}} onClick={()=> {
-                    const name = prompt('add Remark');
-                    if(name){
-                        this.setState(state => ({
-                            remarks: [...state.remarks, {id: 5, name: name}]
-                        }));
-                    }
-                }}>Add remark</Button>
                 <ListGroup>
                     <TransitionGroup className="remark-list">
-                        {remarks.map(({id, name})=> (
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {remarks.map(({_id, name}) => (
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem align="left">
-                                    <Button className="remove-btn" color="danger" size="sm" 
-                                    onClick={()=> {
-                                    this.setState(state =>({
-                                        remarks: state.remarks.filter(remark => remark.id !== id)
-                                    } ));
-                                }}
-                                >&times;</Button>
-                                    {name}
+                                    <Button className="remove-btn" color="danger" size="sm"
+                                        onClick={this.onDeleteClick.bind(this, _id)}
+                                    >&times;</Button> <div>
+                                    name : {name} <br/>
+                                    </div>
                                 </ListGroupItem>
 
                             </CSSTransition>
@@ -59,4 +52,7 @@ const mapStateToProps = (state) => ({
     remark: state.remark
 });
 
-export default connect(mapStateToProps, {getRemarks})(RemarkList);
+export default connect(
+    mapStateToProps,
+    { getRemarks, deleteRemark })
+    (RemarkList);

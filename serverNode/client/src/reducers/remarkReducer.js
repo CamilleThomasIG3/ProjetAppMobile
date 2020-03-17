@@ -1,20 +1,33 @@
-import { GET_REMARKS, ADD_REMARK, DELETE_REMARK} from '../actions/types'
+import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING} from '../actions/types'
 
 const initialState = {
-    remarks: [
-        {id: 1, name: 'z'},
-        {id: 2, name: 'a'},
-        {id: 3, name: 'b'},
-        {id: 4, name: 'c'}
-    ]
-}
+    remarks: [],
+    loading: false
+};
 
 export default function(state = initialState, action){
     switch (action.type) {
         case GET_REMARKS:
             return {
-                ...state
+                ...state,
+                remarks: action.payload,
+                loading: false
             }
+        case DELETE_REMARK:
+            return {
+                ...state,
+                remarks: state.remarks.filter(remark => remark._id !== action.payload)
+            };
+        case ADD_REMARK:
+            return {
+                ...state,
+                remarks: [action.payload, ...state.remarks]
+            }; 
+        case REMARKS_LOADING:
+            return {
+                ...state,
+                loading: true
+            }   
         default: 
             return state;
     }
