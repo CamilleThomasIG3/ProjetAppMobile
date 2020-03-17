@@ -70,6 +70,7 @@ router.delete('/:id', async(req,res) =>{
 //@access Private
 router.post('/', async(req,res) =>{
     const newRemark = new Remark({
+        title: req.body.title,
         content: req.body.content,
         idCategory: req.body.idCategory,
         user: req.body.pseudo
