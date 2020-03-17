@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://dbUser:13101998@testbase-s3lx2.mongodb.net/test?authSource=admin&replicaSet=TestBase-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true",
+    "jwtSecret" : "ms_jwt_server"
+}
