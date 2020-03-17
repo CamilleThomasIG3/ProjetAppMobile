@@ -36,9 +36,7 @@ class RemarqueDAO : ObservableObject{
           guard let data = data else { return }
           let res = try! JSONDecoder().decode(Remarque.self, from: data)
           DispatchQueue.main.async{
-            print(res)
             self.currentRemarque = [res]
-            print(res.content)
           }
         }.resume()
     }
@@ -77,8 +75,6 @@ class RemarqueDAO : ObservableObject{
                     completionHandler(false)
                 }
             }
-            
-            print(resData.msg)
            }.resume()
        }
 

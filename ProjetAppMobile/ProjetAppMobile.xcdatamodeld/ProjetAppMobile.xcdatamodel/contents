@@ -3,7 +3,7 @@
     <entity name="PersonneApp" representedClassName=".PersonneApp" syncable="YES" codeGenerationType="class">
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="mdp" optional="YES" attributeType="String"/>
+        <attribute name="pseudo" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="PersonneApp" positionX="-63" positionY="-18" width="128" height="88"/>

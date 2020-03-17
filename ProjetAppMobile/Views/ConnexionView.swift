@@ -36,7 +36,7 @@ struct ConnexionView: View {
                         Text("Email")
                         TextField("Email",text: $email).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
-                        TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        SecureField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                         
                         NavigationLink(destination: InscriptionView(estConnecte: $estConnecte)){
                             Text("S'incrire").underline()
@@ -47,7 +47,6 @@ struct ConnexionView: View {
                 Section(){
                     Button(action: {
                         self.login()
-                        self.getId()
                     }){
                         Text("Valider")
                     }.alert(isPresented: $showingAlert){
@@ -61,6 +60,8 @@ struct ConnexionView: View {
     }
     
     func login(){
+        print(self.email)
+        print(self.mdp)
         personneDAO.authentification(email: self.email, password: self.mdp, completionHandler: {
             res in
             if(res){
@@ -69,14 +70,14 @@ struct ConnexionView: View {
                 //CoreData
                 let person = PersonneApp(context: self.managedObjectContext)
                 person.email = self.email
-                person.mdp = self.mdp
                 
                 do {
                     try self.managedObjectContext.save()
                 } catch {
                     fatalError()
                 }
-                
+
+                self.getId()
                 self.presentation.wrappedValue.dismiss()
             }
             else{
@@ -90,6 +91,7 @@ struct ConnexionView: View {
             res in
             if(res.count != 0){
                 self.myPersonne[0].id = res[0]._id
+                self.myPersonne[0].pseudo = res[0].pseudo
                 
                 do{
                     try self.managedObjectContext.save()

@@ -10,10 +10,18 @@ import SwiftUI
 
 struct ModifierProfilView: View {
     @Environment(\.presentationMode) var presentation
-    @State private var pseudo: String="Cams"
-    @State private var mdp: String=""
+    @State private var pseudo: String = ""
+    @State private var mdp: String = ""
+    @State private var showingAlert = false
     
-    var person : User
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+            entity: PersonneApp.entity(),
+            sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    
+    @ObservedObject var personneDAO = PersonneDAO()
 
     var body: some View {
         VStack {
@@ -24,18 +32,36 @@ struct ModifierProfilView: View {
                         Text("Pseudo").font(.headline)
                         TextField("Pseudo", text: $pseudo).textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Mot de passe")
-                        TextField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
+                        SecureField("Mot de passe",text: $mdp).textFieldStyle(RoundedBorderTextFieldStyle())
                     }.padding(50)
                 }
                 Section(){
                     Button(action: {
-                        self.presentation.wrappedValue.dismiss()
+                        self.editPseudo()
                     }){
                         Text("Valider")
+                    }.alert(isPresented: $showingAlert){
+                        Alert(title: Text("Les données ne sont pas conformes !"),
+                              message: Text("Vérifiez vos données"),
+                              dismissButton: .default(Text("J'ai compris")))
                     }
                 }
+            }.onAppear{
+                self.pseudo = self.myPersonne[0].pseudo!
             }
         }
+    }
+    
+    func editPseudo(){
+        personneDAO.editPseudo(id: self.myPersonne[0].id!, pseudo: self.pseudo, mdp : self.mdp, completionHandler: {
+            res in
+            if(res){
+                self.myPersonne[0].pseudo = self.pseudo
+                self.presentation.wrappedValue.dismiss()
+            }else{
+                self.showingAlert = true
+            }
+        })
     }
 }
 

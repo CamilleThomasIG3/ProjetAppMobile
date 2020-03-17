@@ -20,9 +20,7 @@ class ReponseDAO : ObservableObject {
           guard let data = data else { return }
           let res = try! JSONDecoder().decode([Reponse].self, from: data)
           DispatchQueue.main.async{
-            print(res)
             self.answers = res
-            print(res.count)
           }
         }.resume()
     }
@@ -48,11 +46,11 @@ class ReponseDAO : ObservableObject {
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-             guard let data = data else { return }
+//             guard let data = data else { return }
                 
-             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-             print(resData.msg+" ici!!")
+//             print(resData.msg+" ici!!")
             }.resume()
         }
     
@@ -65,11 +63,11 @@ class ReponseDAO : ObservableObject {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-            guard let data = data else { return }
+//            guard let data = data else { return }
             
-            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-           print(resData.msg)
+//           print(resData.msg)
         }.resume()
     }
     
@@ -82,11 +80,11 @@ class ReponseDAO : ObservableObject {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-            guard let data = data else { return }
-            
-            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//            guard let data = data else { return }
+//            
+//            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
 
-           print(resData.msg)
+//           print(resData.msg)
         }.resume()
     }
     

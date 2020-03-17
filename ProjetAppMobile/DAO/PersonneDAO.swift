@@ -133,6 +133,42 @@ class PersonneDAO: ObservableObject{
        }
 
     
+    func editPseudo(id : String, pseudo : String, mdp : String, completionHandler: @escaping (Bool) -> ()) {
+        guard let url = URL(string: urlPersonnes+id) else { return }
+        
+        let newPseudo:[String: Any] = [
+            "newPseudo" : pseudo,
+            "password" : mdp
+        ]
+        
+        let body = try! JSONSerialization.data(withJSONObject: newPseudo)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+         guard let data = data else { return }
+            
+         let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+//        print(resData.msg)
+         if resData.res == "correct" {
+             DispatchQueue.main.async {
+                 completionHandler(true)
+             }
+         }
+         else{
+            DispatchQueue.main.async {
+                 completionHandler(false)
+             }
+         }
+        }.resume()
+    }
+    
+    
     func deletePersonne(id : String){
          guard let url = URL(string: urlPersonnes+id) else { return }
          
@@ -142,11 +178,10 @@ class PersonneDAO: ObservableObject{
          
          URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-             guard let data = data else { return }
+//             guard let data = data else { return }
              
-             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
-
-            print(resData.msg)
+//             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+//            print(resData)
          }.resume()
     }
 }

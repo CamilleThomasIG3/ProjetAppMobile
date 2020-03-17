@@ -11,19 +11,22 @@ import SwiftUI
 struct AjoutReponseView: View {
     @Environment(\.presentationMode) var presentation
     @State var reponse: String=""
-    var cats = ["Humour", "Loi", "Citation"]
+    var cats = ["Général","Humour", "Loi", "Citation"]
     @State var selectedCat = 0
+    
+    @State var textHeight: CGFloat = 80
     @ObservedObject var reponseDAO = ReponseDAO()
     var remarque : Remarque
     
+    
     var body: some View {
-        NavigationView{
+        KeyboardHost{
             VStack(alignment: .center, spacing: 40){
                 Spacer()
                 Text("Vous répondez à cette remarque : ")
-                Text(remarque.content).padding(20)
+                Text(remarque.content).padding(20).border(Color.gray)
                 
-                Form{
+                Form {
                     Section{
                         
                         VStack(alignment: .leading){
@@ -32,10 +35,13 @@ struct AjoutReponseView: View {
                                     Text(self.cats[$0])
                                 }
                             }
-                            Text("catégorie sélectionnée : \(cats[selectedCat])")
+                            
                             Spacer(minLength: 20)
                             Text("Votre réponse :")
-                            TextField("réponse", text: $reponse).textFieldStyle(RoundedBorderTextFieldStyle())
+                            VStack {
+                                TextView(placeholder: "Votre réponse", text: self.$reponse, minHeight: self.textHeight, calculatedHeight: self.$textHeight)
+                                    .frame(minHeight: self.textHeight, maxHeight: self.textHeight)
+                            }
                             
                         }.padding(50)
                     }
@@ -46,16 +52,17 @@ struct AjoutReponseView: View {
                         }){
                             Text("Valider")
                         }
-                    }
                         
-                }.navigationBarTitle("Ajouter une réponse")
-            }
+                    }
+            }.navigationBarTitle("Ajouter une réponse")
+        }
         }
     }
     
     func addReponse(idRemarque : String){
         let rem = ReponseWithoutId(date: Date.init().description, contenu: self.reponse, idPersonne: "tesstg5f5", idCategorieReponse: cats[selectedCat])
         reponseDAO.addReponse(r: rem, idRemarque: idRemarque)
+        
     }
 }
 
