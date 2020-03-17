@@ -24,7 +24,10 @@ struct AjoutReponseView: View {
             VStack(alignment: .center, spacing: 40){
                 Spacer()
                 Text("Vous répondez à cette remarque : ")
-                Text(remarque.content).padding(20).border(Color.gray)
+                VStack{
+                    Text(remarque.title).font(.headline)
+                    Text(remarque.content).padding(.trailing, 10).padding(.leading,10).multilineTextAlignment(.center)
+                }.border(Color.gray).padding(.trailing,20).padding(.leading,20)
                 
                 Form {
                     Section{

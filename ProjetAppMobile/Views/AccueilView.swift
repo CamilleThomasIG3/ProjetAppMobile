@@ -20,6 +20,7 @@ struct AccueilView: View {
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
     
+    //CoreData
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
             entity: PersonneApp.entity(),
@@ -27,8 +28,10 @@ struct AccueilView: View {
     )
     var myPersonne : FetchedResults<PersonneApp>
     
+    //@ State var catsCount = 4
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
+        //self.catsCount = self.cats.count
     }
     
     var body: some View {
@@ -37,13 +40,46 @@ struct AccueilView: View {
                 VStack(alignment: .center, spacing: 20){
                     VStack{
                         HStack{
+//                            if (self.estConnecte) {
+//                                Picker(selection: $selectedCat, label: Text("Catégorie")) {
+//                                    ForEach(0 ..< cats.count){
+//                                        Text(self.cats[$0])
+//                                    }
+//                                }.pickerStyle(SegmentedPickerStyle())
+//                            }
+//                            else {
+//                                Picker(selection: $selectedCat, label: Text("Catégorie")) {
+//                                    ForEach(0 ..< cats.count - 1){
+//                                        Text(self.cats[$0])
+//                                    }
+//                                }.pickerStyle(SegmentedPickerStyle())
+//                            }
                             Picker(selection: $selectedCat, label: Text("Catégorie")) {
-                                ForEach(0 ..< cats.count){
-                                    Text(self.cats[$0])
-                                }
+                                //if (self.estConnecte) {
+                                    ForEach(0 ..< cats.count){
+                                        Text(self.cats[$0])
+                                    }
+                                //}
+//                                else {
+//                                    ForEach(0 ..< cats.count - 1){
+//                                        Text(self.cats[$0])
+//                                    }
+//                                }
                             }.pickerStyle(SegmentedPickerStyle())
-                        }.padding(10)
+                            
+                                .onTapGesture {
+                                    self.tri()
+                            }
+//                                .onAppear {
+//                                    if (self.estConnecte) {
+//                                        self.catsCount = self.cats.count
+//                                    }
+//                                    else {
+//                                        self.catsCount = self.cats.count - 1
+//                                    }
+//                            }
 
+                            }.padding(10)
                         HStack(alignment: .firstTextBaseline) {
                             Text("Remarques sexistes").padding(.leading, 10)
                             
@@ -60,7 +96,10 @@ struct AccueilView: View {
                                 NavigationLink(destination: RemarqueDetailView(remarque : remarque, estConnecte : self.$estConnecte)){
                                     RoundedRectangle(cornerRadius: 30)
                                         .fill(self.getColorCategoryRemarque(cat: remarque.idCategory)).frame(width: 20, height:20)
-                                    Text(remarque.content).lineLimit(2).padding(10)
+                                    VStack{
+                                        Text(remarque.title).font(.headline).lineLimit(1)
+                                        Text(remarque.content).lineLimit(2)
+                                    }//.padding(10)
                                     Spacer()
                                     Text(String(remarque.nbLikes)).padding(.trailing, 10)
                                 }
@@ -183,6 +222,22 @@ struct AccueilView: View {
         }
         return color
     }
+    
+    func tri() {
+        if(cats[selectedCat] == "Fréquence"){
+            remarqueDAO.getRemarqueByFreq()
+        }
+        else if(cats[selectedCat] == "Les miennes"){
+            if let idPersonne = self.myPersonne[0].id {
+                remarqueDAO.getRemarqueByPersoone(idUser : idPersonne )
+            }
+            else {
+                print("pas connecté")
+            }
+        }
+    }
+    
+        
 }
 
 

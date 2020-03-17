@@ -12,13 +12,15 @@ import SwiftUI
 class RemarqueWithoutId: Decodable, Identifiable, CustomStringConvertible{
 
     var date : String
+    var title : String
     var content : String
     var user : String
     var idCategory : String
     var description: String {return " \(self.content) "}
     
     
-    init(date : String, content : String, user : String, idCategory : String){
+    init(title : String, date : String, content : String, user : String, idCategory : String){
+        self.title = title
         self.date = date
         self.content = content
         self.user = user

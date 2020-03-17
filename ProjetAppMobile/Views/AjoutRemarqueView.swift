@@ -12,10 +12,14 @@ import Combine
 
 struct AjoutRemarqueView: View {
     @Environment(\.presentationMode) var presentation
-    @State private var content: String=""
+    
     @State var textHeight: CGFloat = 80
+    
     var cats = ["Général", "Dans la rue", "Au travail", "Dans les transports", "En famille"]
     @State private var selectedCat = 0
+    
+    @State private var content: String=""
+    @State private var title: String=""
     @ObservedObject var remarqueDAO = RemarqueDAO()
     
     var body: some View {
@@ -29,6 +33,10 @@ struct AjoutRemarqueView: View {
                             }
                         }
                         Spacer(minLength: 20)
+                        
+                        Text("Titre :")
+                        TextField("Titre",text: $title).textFieldStyle(RoundedBorderTextFieldStyle())
+                        
                         Text("Remarque sexiste :")
                         VStack {
                             TextView(placeholder: "Votre remarque", text: self.$content, minHeight: self.textHeight, calculatedHeight: self.$textHeight)
@@ -51,7 +59,7 @@ struct AjoutRemarqueView: View {
     }
     
     func addRemarque() {
-        let remarque = RemarqueWithoutId(date: Date.init().description, content: content, user: "usertest", idCategory: cats[selectedCat])
+        let remarque = RemarqueWithoutId(title: title, date: Date.init().description, content: content, user: "usertest", idCategory: cats[selectedCat])
         
         remarqueDAO.addRemarque(remarque: remarque, completionHandler: {
             res in

@@ -41,11 +41,27 @@ class RemarqueDAO : ObservableObject{
         }.resume()
     }
     
+    func getRemarqueByFreq(){
+        remarques.sort{$0.nbLikes > $1.nbLikes} //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
+    }
+    
+    func getRemarqueByPersoone(idUser : String){
+        guard let url = URL(string: urlRemarques+"?user="+idUser) else { return }
+               URLSession.shared.dataTask(with: url){(data, _, _) in
+                 guard let data = data else { return }
+                 let res = try! JSONDecoder().decode(Remarque.self, from: data)
+                 DispatchQueue.main.async{
+                   self.currentRemarque = [res]
+                 }
+               }.resume()
+    }
+    
     func addRemarque(remarque: RemarqueWithoutId, completionHandler: @escaping (Bool) -> ()) {
            
            guard let url = URL(string: urlRemarques) else { return }
            
            let newRemarque:[String: Any] = [
+                "title": remarque.title,
                 "date" : remarque.date,
                 "content" : remarque.content,
                 "pseudo" : remarque.user,

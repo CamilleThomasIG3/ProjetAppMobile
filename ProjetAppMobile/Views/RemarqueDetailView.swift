@@ -30,7 +30,7 @@ struct RemarqueDetailView: View {
         VStack {
             //Remarque détaillée
             VStack{
-                Text("Remarque").font(.largeTitle)
+                Text(remarque.title).font(.largeTitle)
                 Divider()
                 ZStack {
                     Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40).padding(10)
@@ -43,7 +43,7 @@ struct RemarqueDetailView: View {
                         Text(self.convertDate(date : remarque.date)).padding(20)
                     }
                 }
-                Text(remarque.content).padding(10)
+                Text(remarque.content).multilineTextAlignment(.center).padding(10)
             }
             
             VStack{
@@ -75,8 +75,7 @@ struct RemarqueDetailView: View {
                         
                         
                         VStack {
-                            Text(answer.content)
-                        }.padding(.top, 20)
+                            Text(answer.content).multilineTextAlignment(.center)
                         
                         HStack {
                             Button(action: { print("nok") }){
@@ -89,7 +88,10 @@ struct RemarqueDetailView: View {
                             
                             Text("\(answer.likes.count)").padding(.trailing, 10)
                             
-                            Button(action: {print("ok")})
+                            Button(action: {
+                                self.like(reponse : answer)
+                                
+                            })
                             {
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
@@ -97,6 +99,7 @@ struct RemarqueDetailView: View {
                                 }
                             }
                         }.padding(10).buttonStyle(PlainButtonStyle())
+                            }.padding(.top, 20)
                     }.border(Color("Gris_fonce"))
                 }
             }.onAppear{
@@ -183,6 +186,10 @@ struct RemarqueDetailView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         return formatter.string(from: date2!)
+    }
+    
+    func like(reponse : Reponse) {
+        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id)
     }
 }
 

@@ -11,6 +11,7 @@ import SwiftUI
 
 class Remarque: Decodable, Identifiable, CustomStringConvertible{
     var _id : String
+    var title : String
     var date : String
     var content : String
     var user : String
@@ -18,11 +19,12 @@ class Remarque: Decodable, Identifiable, CustomStringConvertible{
     var likes : [[String:String]] = [[:]]
     var nbLikes : Int
     var description: String {return " \(self.content) "}
-    private enum CodingKeys: String, CodingKey { case _id, date, content, user, idCategory, likes }
+    private enum CodingKeys: String, CodingKey { case _id, title, date, content, user, idCategory, likes }
     
     
-    init(id : String, date : String, content : String, user : String, idCategory : String){
+    init(id : String, title : String, date : String, content : String, user : String, idCategory : String){
         self._id = id
+        self.title = title
         self.date = date
         self.content = content
         self.user = user
@@ -33,6 +35,7 @@ class Remarque: Decodable, Identifiable, CustomStringConvertible{
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         _id = try container.decode(String.self, forKey: ._id)
+        title = try container.decode(String.self, forKey: .title)
         date = try container.decode(String.self, forKey: .date)
         content = try container.decode(String.self, forKey: .content)
         user = try container.decode(String.self, forKey: .user)
