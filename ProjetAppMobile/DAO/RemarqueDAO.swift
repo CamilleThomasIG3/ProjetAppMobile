@@ -122,5 +122,9 @@ class RemarqueDAO : ObservableObject{
             print(resData.msg)
          }.resume()
     }
+    
+    func addFrequence() {
+        print("entendu")
+    }
 
 }

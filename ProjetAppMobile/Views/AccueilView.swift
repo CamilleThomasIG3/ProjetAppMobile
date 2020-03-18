@@ -47,8 +47,8 @@ struct AccueilView: View {
                                         Text(self.cats[$0])
                                     }
                                 }.pickerStyle(SegmentedPickerStyle())
-                                .onReceive(Just(self.selectedCat)) {
-                                       value in
+                                    .onReceive(Just(self.selectedCat)) {
+                                        value in
                                         if(value == 2){
                                             self.showingCategories=true
                                         }else{
@@ -63,7 +63,7 @@ struct AccueilView: View {
                                     }
                                 }.pickerStyle(SegmentedPickerStyle())
                                     .onReceive(Just(self.selectedCat)) {
-                                       value in
+                                        value in
                                         if(value == 2){
                                             self.showingCategories=true
                                         }else{
@@ -105,6 +105,33 @@ struct AccueilView: View {
                                     Spacer()
                                     Text(String(remarque.nbLikes)).padding(.trailing, 10)
                                 }
+                                Spacer()
+                                VStack {
+                                    Button(action: {
+                                        self.remarqueDAO.addFrequence()
+                                    }){
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 90, height:30)
+                                            Text("Entendu !").foregroundColor(Color.black).padding(5)
+                                        }.padding(.bottom, 20)
+                                    }
+//                                    IfLet(self.myPersonne[0].id) { idMyPersonne in
+//                                        if (remarque.user == idMyPersonne) {
+//                                            Spacer()
+//                                            Button(action: {
+//                                                self.remarqueDAO.deleteRemarque(id: remarque._id)
+//                                            }){
+//                                                ZStack {
+//                                                    RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+//                                                    Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing)
+//                                                }.padding(.bottom, 20)
+//                                            }
+//                                        }
+//                                    }
+                                        
+                                    
+                                }
+                                
                             }
                         }
                     }
@@ -115,7 +142,7 @@ struct AccueilView: View {
                         if(self.estConnecte==false){
                             for e in self.myPersonne {
                                 self.managedObjectContext.delete(e)
-
+                                
                                 do {
                                     try self.managedObjectContext.save()
                                 } catch {
@@ -204,7 +231,7 @@ struct AccueilView: View {
                 .navigationViewStyle(StackNavigationViewStyle()) //étendu en mode tablette
         }
     }
-
+    
     
     func tri() -> [Remarque]{
         if(cats[selectedCat] == "Fréquence"){
