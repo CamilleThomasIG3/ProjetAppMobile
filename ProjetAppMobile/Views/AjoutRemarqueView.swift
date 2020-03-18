@@ -15,12 +15,19 @@ struct AjoutRemarqueView: View {
     
     @State var textHeight: CGFloat = 80
     
-    var cats = ["Général", "Dans la rue", "Au travail", "Dans les transports", "En famille"]
+    var cats = ["Général", "Rue", "Travail", "Transports", "Famille"]
     @State private var selectedCat = 0
     
     @State private var content: String=""
     @State private var title: String=""
     @ObservedObject var remarqueDAO = RemarqueDAO()
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: PersonneApp.entity(),
+        sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
     
     var body: some View {
 
@@ -59,35 +66,17 @@ struct AjoutRemarqueView: View {
     }
     
     func addRemarque() {
-        let remarque = RemarqueWithoutId(title: title, date: Date.init().description, content: content, user: "usertest", idCategory: cats[selectedCat])
+        let remarque = RemarqueWithoutId(title: title, date: Date.init().description, content: content, user: myPersonne[0].pseudo!, idCategory: cats[selectedCat])
         
         remarqueDAO.addRemarque(remarque: remarque, completionHandler: {
             res in
-            if (res){
-                print("remarque ajoutée")
-            }
-            else {
-                print("remarque pas ajoutée")
+            if (!res){
+                print("erreur lors de ajout remarque")
             }
         })
     }
     
 }
-
-//struct MultilineTextView: UIViewRepresentable {
-//
-//    @Binding var text: String
-//    func makeUIView(context: Context) -> UITextView {
-//        let view = UITextView()
-//        view.isScrollEnabled = true
-//        view.isEditable = true
-//        view.isUserInteractionEnabled = true
-//        return view
-//    }
-//    func updateUIView(_ uiView: UITextView, context: Context){
-//        uiView.text = text
-//    }
-//}
 
 
 struct AjoutRemarqueView_Previews: PreviewProvider {

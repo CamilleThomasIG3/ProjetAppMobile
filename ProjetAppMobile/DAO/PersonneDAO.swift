@@ -154,7 +154,6 @@ class PersonneDAO: ObservableObject{
             
          let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
             
-//        print(resData.msg)
          if resData.res == "correct" {
              DispatchQueue.main.async {
                  completionHandler(true)
@@ -176,12 +175,8 @@ class PersonneDAO: ObservableObject{
          request.httpMethod = "DELETE"
          request.setValue("application/json", forHTTPHeaderField: "Content-Type")
          
-         URLSession.shared.dataTask(with: request) { (data, response, error) in
-
-//             guard let data = data else { return }
-             
-//             let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
-//            print(resData)
+         URLSession.shared.dataTask(with: request) {
+            (data, response, error) in
          }.resume()
     }
 }

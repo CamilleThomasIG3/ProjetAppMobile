@@ -19,7 +19,6 @@ class RemarqueDAO : ObservableObject{
     }
     
     func getAllRemaques(){
-        print("all")
         guard let url = URL(string: urlRemarques) else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
           guard let data = data else { return }
@@ -30,17 +29,31 @@ class RemarqueDAO : ObservableObject{
         }.resume()
     }
     
-    func getRemarqueByPersonne(idUser : String){
-        guard let url = URL(string: urlRemarques+"?user="+idUser) else { return }
-        URLSession.shared.dataTask(with: url){(data, _, _) in
-          guard let data = data else { return }
-          let res = try! JSONDecoder().decode([Remarque].self, from: data)
-          DispatchQueue.main.async{
-            print("byPersonne")
-            self.remarques = res
-          }
-        }.resume()
-    }
+    
+    //INUTILE
+//    func getRemarqueByPersonne(pseudo : String){
+//        guard let url = URL(string: urlRemarques+"user/"+pseudo) else { return }
+//        URLSession.shared.dataTask(with: url){(data, _, _) in
+//          guard let data = data else { return }
+//          let res = try! JSONDecoder().decode([Remarque].self, from: data)
+//          DispatchQueue.main.async{
+//            self.remarques = res
+//          }
+//        }.resume()
+//    }
+//
+//    func getRemarqueByCategory(category : String){
+//        guard let url = URL(string: urlRemarques+"categorie/"+category) else { return }
+//        URLSession.shared.dataTask(with: url){(data, _, _) in
+//          guard let data = data else { return }
+//          let res = try! JSONDecoder().decode([Remarque].self, from: data)
+//          DispatchQueue.main.async{
+//            print("res")
+//            print(res)
+//            self.remarques = res
+//          }
+//        }.resume()
+//    }
     
     
     func getRemarqueById(id : String){
@@ -109,9 +122,5 @@ class RemarqueDAO : ObservableObject{
             print(resData.msg)
          }.resume()
     }
-    
-    //A FAIRE
-//    func getRemarquesOfPersonne(idPersonne : String){}
-//    func getRemarquesOfCategorie(idCategorie : String) -> [Remarque] {}
 
 }

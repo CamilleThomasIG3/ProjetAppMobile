@@ -12,11 +12,14 @@ import Foundation
 import Combine
 
 struct AccueilView: View {
-    var cats = ["Récent", "Fréquence", "Catégorie", "Les miennes"]
+    var cats = ["Récent", "Fréquence", "Catégories", "Les miennes"]
     @State private var selectedCat = 0
     
     @State var estConnecte  = false
-    @State private var showingAlert = false
+    @State var showingAlert = false
+    @State var showingCategories = false
+    
+    @State var activeBoxes : [String:Bool]  = ["Général":false, "Rue":false, "Travail":false, "Transports":false, "Famille":false]
     
     @ObservedObject var remarqueDAO = RemarqueDAO()
     
@@ -27,8 +30,6 @@ struct AccueilView: View {
         sortDescriptors: []
     )
     var myPersonne : FetchedResults<PersonneApp>
-    
-//    @State var remarqueATrier = [Remarque()]
     
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
@@ -46,6 +47,14 @@ struct AccueilView: View {
                                         Text(self.cats[$0])
                                     }
                                 }.pickerStyle(SegmentedPickerStyle())
+                                .onReceive(Just(self.selectedCat)) {
+                                       value in
+                                        if(value == 2){
+                                            self.showingCategories=true
+                                        }else{
+                                            self.showingCategories=false
+                                        }
+                                }
                             }
                             else{
                                 Picker(selection: $selectedCat, label: Text("Catégorie")) {
@@ -53,8 +62,27 @@ struct AccueilView: View {
                                         Text(self.cats[$0])
                                     }
                                 }.pickerStyle(SegmentedPickerStyle())
+                                    .onReceive(Just(self.selectedCat)) {
+                                       value in
+                                        if(value == 2){
+                                            self.showingCategories=true
+                                        }else{
+                                            self.showingCategories=false
+                                        }
+                                }
                             }
                         }.padding(10)
+                        
+                        if(showingCategories){
+                            HStack{
+                                RadioButton(text: "Général", boxes : self.$activeBoxes)
+                                RadioButton(text: "Rue", boxes : self.$activeBoxes)
+                                RadioButton(text: "Travail", boxes : self.$activeBoxes)
+                                RadioButton(text: "Transports", boxes : self.$activeBoxes)
+                                RadioButton(text: "Famille", boxes : self.$activeBoxes)
+                            }
+                        }
+                        
                         HStack(alignment: .firstTextBaseline) {
                             Text("Remarques sexistes").padding(.leading, 10)
                             Spacer()
@@ -79,7 +107,10 @@ struct AccueilView: View {
                                 }
                             }
                         }
-                    }.onAppear {
+                    }
+                    .onAppear {
+                        self.remarqueDAO.getAllRemaques()
+                        
                         //etre sure que core data est reinitialisé
                         if(self.estConnecte==false){
                             for e in self.myPersonne {
@@ -180,20 +211,20 @@ struct AccueilView: View {
             //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
             return self.remarqueDAO.remarques.sorted{$0.nbLikes > $1.nbLikes}
         }
-        else if(cats[selectedCat] == "Catégorie"){
-            print("Catégorie")
-            return self.remarqueDAO.remarques
+        else if(cats[selectedCat] == "Catégories"){
+            var find = false
+            for i in self.activeBoxes.keys {
+                if(!find && self.activeBoxes[i]!){
+                    find = true
+                    return remarqueDAO.remarques.filter{$0.idCategory == i}
+                }
+            }
+            if(!find){
+                return remarqueDAO.remarques
+            }
         }
         else if(cats[selectedCat] == "Les miennes"){
-//            if let idPersonne = self.myPersonne[0].id {
-                print("les miennes")
-//            remarqueDAO.getRemarqueByPersonne(idUser : myPersonne[0].id!)
-            print(remarqueDAO.remarques)
-                return remarqueDAO.remarques
-//            }
-//            else {
-//                return {nil}
-//            }
+            return remarqueDAO.remarques.filter{$0.user == myPersonne[0].pseudo!}
         }
         else{
             return self.remarqueDAO.remarques
@@ -206,16 +237,16 @@ struct AccueilView: View {
         if(cat=="Général"){
             color = Color.green
         }
-        if(cat=="Dans la rue"){
+        if(cat=="Rue"){
             color = Color.orange
         }
-        if(cat=="Au travail"){
+        if(cat=="Travail"){
             color = Color.red
         }
-        if(cat=="Dans les transports"){
+        if(cat=="Transports"){
             color = Color.blue
         }
-        if(cat=="En famille"){
+        if(cat=="Famille"){
             color = Color.purple
         }
         return color
