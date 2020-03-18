@@ -60,8 +60,6 @@ struct ConnexionView: View {
     }
     
     func login(){
-        print(self.email)
-        print(self.mdp)
         personneDAO.authentification(email: self.email, password: self.mdp, completionHandler: {
             res in
             if(res){

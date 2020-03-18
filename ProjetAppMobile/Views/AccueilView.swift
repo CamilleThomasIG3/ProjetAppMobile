@@ -28,6 +28,7 @@ struct AccueilView: View {
     )
     var myPersonne : FetchedResults<PersonneApp>
     
+//    @State var remarqueATrier = [Remarque()]
     
     init() {
         UINavigationBar.appearance().backgroundColor = UIColor(named : "Turquoise")
@@ -39,21 +40,23 @@ struct AccueilView: View {
                 VStack(spacing: 20){
                     VStack{
                         HStack{
-                            Picker(selection: $selectedCat, label: Text("Catégorie")) {
-                                ForEach(0 ..< cats.count-1){
-                                    Text(self.cats[$0])
-                                }
-                                if(estConnecte){
-                                    Text(self.cats[cats.count-1])
-                                }
-                            }.pickerStyle(SegmentedPickerStyle())
-//                                .onReceive(self.$selectedCat) {_ in
-//                                    self.tri()
-//                                }
+                            if(estConnecte){
+                                Picker(selection: $selectedCat, label: Text("Catégorie")) {
+                                    ForEach(0 ..< cats.count){
+                                        Text(self.cats[$0])
+                                    }
+                                }.pickerStyle(SegmentedPickerStyle())
+                            }
+                            else{
+                                Picker(selection: $selectedCat, label: Text("Catégorie")) {
+                                    ForEach(0 ..< cats.count-1){
+                                        Text(self.cats[$0])
+                                    }
+                                }.pickerStyle(SegmentedPickerStyle())
+                            }
                         }.padding(10)
                         HStack(alignment: .firstTextBaseline) {
                             Text("Remarques sexistes").padding(.leading, 10)
-                            
                             Spacer()
                             Text("Fréquences").padding(.trailing, 10)
                         }.background(Color(UIColor(named: "Gris_clair")!)).padding(10)
@@ -61,7 +64,7 @@ struct AccueilView: View {
                     
                     
                     List{
-                        ForEach(remarqueDAO.remarques){
+                        ForEach(self.tri()){
                             remarque in
                             HStack(alignment: .firstTextBaseline){
                                 NavigationLink(destination: RemarqueDetailView(remarque : remarque, estConnecte : self.$estConnecte)){
@@ -77,8 +80,7 @@ struct AccueilView: View {
                             }
                         }
                     }.onAppear {
-//                       self.remarqueDAO.getAllRemaques()
-                        
+                        //etre sure que core data est reinitialisé
                         if(self.estConnecte==false){
                             for e in self.myPersonne {
                                 self.managedObjectContext.delete(e)
@@ -168,30 +170,33 @@ struct AccueilView: View {
                         }
                 )
             }.background(Color("Turquoise"))
-                .navigationViewStyle(StackNavigationViewStyle()) //+ jolie en mode tablette
+                .navigationViewStyle(StackNavigationViewStyle()) //étendu en mode tablette
         }
     }
+
     
-    
-    func tri() {
-        if(cats[selectedCat]=="Récent"){
-            print("Récent")
-        }
-        else if(cats[selectedCat] == "Fréquence"){
-            print("Frequence")
-            remarqueDAO.getRemarqueByFrequence()
+    func tri() -> [Remarque]{
+        if(cats[selectedCat] == "Fréquence"){
+            //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
+            return self.remarqueDAO.remarques.sorted{$0.nbLikes > $1.nbLikes}
         }
         else if(cats[selectedCat] == "Catégorie"){
             print("Catégorie")
+            return self.remarqueDAO.remarques
         }
         else if(cats[selectedCat] == "Les miennes"){
-            if let idPersonne = self.myPersonne[0].id {
+//            if let idPersonne = self.myPersonne[0].id {
                 print("les miennes")
-                remarqueDAO.getRemarqueByPersoone(idUser : idPersonne )
-            }
-            else {
-                print("pas connecté")
-            }
+//            remarqueDAO.getRemarqueByPersonne(idUser : myPersonne[0].id!)
+            print(remarqueDAO.remarques)
+                return remarqueDAO.remarques
+//            }
+//            else {
+//                return {nil}
+//            }
+        }
+        else{
+            return self.remarqueDAO.remarques
         }
     }
     

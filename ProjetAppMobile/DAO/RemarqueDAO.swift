@@ -29,6 +29,18 @@ class RemarqueDAO : ObservableObject{
         }.resume()
     }
     
+    func getRemarqueByPersonne(idUser : String){
+        guard let url = URL(string: urlRemarques+"?user="+idUser) else { return }
+        URLSession.shared.dataTask(with: url){(data, _, _) in
+          guard let data = data else { return }
+          let res = try! JSONDecoder().decode([Remarque].self, from: data)
+          DispatchQueue.main.async{
+            print("here")
+            self.remarques = res
+          }
+        }.resume()
+    }
+    
     
     func getRemarqueById(id : String){
         guard let url = URL(string: urlRemarques+id) else { return }
@@ -39,25 +51,6 @@ class RemarqueDAO : ObservableObject{
             self.currentRemarque = [res]
           }
         }.resume()
-    }
-    
-    func getRemarqueByFrequence(){
-        remarques.sort{$0.nbLikes > $1.nbLikes} //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
-        
-        for i in remarques{
-            print(i.title)
-        }
-    }
-    
-    func getRemarqueByPersoone(idUser : String){
-        guard let url = URL(string: urlRemarques+"?user="+idUser) else { return }
-               URLSession.shared.dataTask(with: url){(data, _, _) in
-                 guard let data = data else { return }
-                 let res = try! JSONDecoder().decode(Remarque.self, from: data)
-                 DispatchQueue.main.async{
-                   self.currentRemarque = [res]
-                 }
-               }.resume()
     }
     
     func addRemarque(remarque: RemarqueWithoutId, completionHandler: @escaping (Bool) -> ()) {

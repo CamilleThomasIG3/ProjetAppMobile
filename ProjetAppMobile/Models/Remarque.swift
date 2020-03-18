@@ -18,9 +18,18 @@ class Remarque: Decodable, Identifiable, CustomStringConvertible{
     var idCategory : String
     var likes : [[String:String]] = [[:]]
     var nbLikes : Int
-    var description: String {return " \(self.content) "}
+    var description: String {return " \(self.title) "}
     private enum CodingKeys: String, CodingKey { case _id, title, date, content, user, idCategory, likes }
     
+    init(){
+        self._id = ""
+        self.title = ""
+        self.date = ""
+        self.content = ""
+        self.user = ""
+        self.idCategory = ""
+        self.nbLikes = 0
+    }
     
     init(id : String, title : String, date : String, content : String, user : String, idCategory : String){
         self._id = id

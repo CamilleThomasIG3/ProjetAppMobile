@@ -16,7 +16,7 @@ class RemarqueWithoutId: Decodable, Identifiable, CustomStringConvertible{
     var content : String
     var user : String
     var idCategory : String
-    var description: String {return " \(self.content) "}
+    var description: String {return " \(self.title) "}
     
     
     init(title : String, date : String, content : String, user : String, idCategory : String){
