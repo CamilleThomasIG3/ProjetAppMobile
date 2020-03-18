@@ -31,7 +31,7 @@ class ReponseDAO : ObservableObject {
             let newReponse:[String: Any] = [
                 "date" : r.date,
                 "content" : r.content,
-                "user" : r.user,
+                "pseudo" : r.user,
                 "categoryResponse" : r.categoryResponse,
                 "likes" : r.likes,
                 

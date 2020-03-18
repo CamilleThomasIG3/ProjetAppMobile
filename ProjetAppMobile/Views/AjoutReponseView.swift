@@ -18,6 +18,12 @@ struct AjoutReponseView: View {
     @ObservedObject var reponseDAO = ReponseDAO()
     var remarque : Remarque
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: PersonneApp.entity(),
+        sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
     
     var body: some View {
         KeyboardHost{
@@ -63,7 +69,7 @@ struct AjoutReponseView: View {
     }
     
     func addReponse(idRemarque : String){
-        let rem = ReponseWithoutId(date: Date.init().description, contenu: self.reponse, idPersonne: "tesstg5f5", idCategorieReponse: cats[selectedCat])
+        let rem = ReponseWithoutId(date: Date.init().description, contenu: self.reponse, idPersonne: self.myPersonne[0].pseudo!, idCategorieReponse: cats[selectedCat])
         reponseDAO.addReponse(r: rem, idRemarque: idRemarque)
         
     }
