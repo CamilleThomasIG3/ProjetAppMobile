@@ -1,43 +1,32 @@
-import React, { Component } from 'react';
-import {
-    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container
-} from 'reactstrap';
+import React from 'react';
+import { Link } from 'react-router-dom';
+// import {
+//     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container
+// } from 'reactstrap';
 
-class AppNavbar extends Component {
-    state = {
-        isOpen: false
-    }
-
-    toggle = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                <Navbar color="dark" dark expand="sm" className="mb-5">
-                    <Container>
-                        <NavbarBrand href="/">App test</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle} />
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <NavLink href="">test</NavLink>
-                                    <NavLink href="./register.js">register</NavLink>
-                                </NavItem>
-                            </Nav>
-                        </Collapse>
-                    </Container>
-                </Navbar>
-            </div>
-        );
-    }
-
-
-
+const AppNavbar = () => {
+    return (
+        <nav className="navbar bg-dark">
+            <h1>
+                <Link to='/'>
+                    <i className="fas fa-code" /> DevConnector
+                </Link>
+            </h1>
+            <ul>
+                <li>
+                    <Link to='/'>Developers</Link>
+                </li>
+                <li>
+                    <Link to='/register'>Register</Link>
+                </li>
+                <li>
+                    <Link to='/login'>Login</Link>
+                </li>
+            </ul>
+        </nav >
+    )
 }
+
 
 
 

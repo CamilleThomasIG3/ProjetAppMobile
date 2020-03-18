@@ -1,6 +1,12 @@
 import  {combineReducers} from 'redux';
-import remarkReducer from './remarkReducer';
+import alert from './alert';
+import auth from './auth';
+//import remarkReducer from './remarkReducer';
 
 export default combineReducers({
-    remark: remarkReducer
+    // remark: remarkReducer
+    alert, 
+    auth
+
+
 });

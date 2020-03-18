@@ -1,20 +1,37 @@
-import React, { Fragment, Component} from 'react';
-import {Container} from 'reactstrap';
+import React, { Fragment } from 'react';
+//import {Container} from 'reactstrap';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 // //Components
-// import AppNavbar from './component/AppNavbar';
-// import RemarkList from './component/RemarkList';
+import AppNavbar from './component/layout/AppNavbar';
+import Landing from './component/layout/Landing';
+import Register from './component/auth/Register';
+import Login from './component/auth/Login';
+import Alert from './component/layout/Alert';
 // import RemarkModal from './component/remarkModal';
 
-// import {Provider} from 'react-redux';
-// import store from './store';
+//redux
+import { Provider } from 'react-redux';
+import store from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => (
-  <Fragment>
-    <h1>app</h1>
-  </Fragment>
+  <Provider store={store}>
+    <Router>
+      <Fragment>
+        <AppNavbar />
+        <Route exact path='/' component={Landing} />
+        <section className="container">
+          <Alert />
+          <Switch>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
+        </section>
+      </Fragment>
+    </Router>
+  </Provider>
 )
 export default App;
