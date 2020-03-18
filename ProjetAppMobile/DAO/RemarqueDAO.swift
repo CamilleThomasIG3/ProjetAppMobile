@@ -19,6 +19,7 @@ class RemarqueDAO : ObservableObject{
     }
     
     func getAllRemaques(){
+        print("all")
         guard let url = URL(string: urlRemarques) else { return }
         URLSession.shared.dataTask(with: url){(data, _, _) in
           guard let data = data else { return }
@@ -35,7 +36,7 @@ class RemarqueDAO : ObservableObject{
           guard let data = data else { return }
           let res = try! JSONDecoder().decode([Remarque].self, from: data)
           DispatchQueue.main.async{
-            print("here")
+            print("byPersonne")
             self.remarques = res
           }
         }.resume()
