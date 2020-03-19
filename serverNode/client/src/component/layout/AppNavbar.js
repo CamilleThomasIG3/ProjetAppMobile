@@ -43,7 +43,7 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <nav className="navbar bg-dark">
             <h1>
                 <Link to='/'>
-                    <i className="fas fa-code" /> CamiHeloMath
+                    <i className="fas fa-code" /> Against Sexism
                 </Link>
             </h1>
             

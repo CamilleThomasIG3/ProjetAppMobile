@@ -75,7 +75,7 @@ router.post('/', async(req,res) =>{
         idCategory: req.body.idCategory,
         user: req.body.pseudo
     });
-    newRemark.save().then(remark => res.json(remark));
+    newRemark.save().then(remark => res.json({res:"correct", msg:"remark posted"}));
     } ); 
 
 
