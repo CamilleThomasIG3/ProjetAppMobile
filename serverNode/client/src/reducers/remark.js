@@ -1,8 +1,9 @@
-import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING} from '../actions/types'
+import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING, REMARK_ERROR} from '../actions/types'
 
 const initialState = {
     remarks: [],
-    loading: false
+    loading: true,
+    error: {}
 };
 
 export default function(state = initialState, action){
@@ -13,6 +14,13 @@ export default function(state = initialState, action){
                 remarks: action.payload,
                 loading: false
             }
+        case REMARK_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false
+            };
+        
         case DELETE_REMARK:
             return {
                 ...state,

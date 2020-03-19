@@ -10,7 +10,8 @@ const UserSchema = new Schema({
     },
     pseudo: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,

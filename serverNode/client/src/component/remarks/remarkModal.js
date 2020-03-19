@@ -3,7 +3,7 @@ import {
     Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {addRemark} from '../actions/remarkActions';
+import {addRemark} from '../../actions/remark';
 
 class RemarkModal extends Component{
     state = {
