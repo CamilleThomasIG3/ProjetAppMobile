@@ -20,9 +20,13 @@ router.post('/', (req, res) => {
     }
 
     //check existing
+    User.findOne({ pseudo })
+        .then(user => {
+            if (user) return res.status(400).json({ res: "incorrect", msg: "pseudo already exist" });
+        });
     User.findOne({ email })
         .then(user => {
-            if (user) return res.status(400).json({ res: "incorrect", msg: "user already exist" });
+            if (user) return res.status(400).json({ res: "incorrect", msg: "email already exist" });
 
             const newUser = new User({
                 pseudo,
@@ -45,6 +49,7 @@ router.post('/', (req, res) => {
                                 (err, token) => {
                                     if (err) throw err;
                                     res.json({
+                                        user: user,
                                         token: token,
                                         res: "correct",
                                         msg: "user has been created"

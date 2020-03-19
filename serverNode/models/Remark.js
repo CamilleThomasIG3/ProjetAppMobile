@@ -11,7 +11,6 @@ const RemarkSchema = new Schema({
         required: true
     },
     user: {
-        //type: Schema.Types.ObjectId,
         type: String,
     },
     idCategory: {
@@ -35,7 +34,6 @@ const RemarkSchema = new Schema({
             user: {
                 //type: Schema.Types.ObjectId,
                 type: String,
-                default: "camille"
             },
             content: {
                 type: String,
@@ -56,7 +54,6 @@ const RemarkSchema = new Schema({
                     user: {
                         //type: Schema.Types.ObjectId,
                         type: String,
-                        ref: 'user',
                     }
                 }
             ]

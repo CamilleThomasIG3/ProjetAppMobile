@@ -10,6 +10,20 @@ const auth = require('../../middleware/auth')
 const User = require('../../models/User');
 
 
+//@route get api/auth
+//@desc 
+//@access public
+router.get('/', auth, async(req,res)=> {
+    try {
+        const user = await (await User.findById(req.user.id)).isSelected('-password');
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('server error');
+    }
+});
+
+
 //@route POST api/auth
 //@desc authenticate new user
 //@access Public
@@ -38,12 +52,11 @@ router.post('/', (req,res)=>{
                 (err, token) => {
                     if (err) throw err;
                     res.json({
+                        user,
                         res: "correct", 
-                        msg: "user connected"
-                        // token: token,
-                        // user: {
-                        // id: user.id,
-                        // email: user.email}
+                        msg: "user connected",
+                        token: token,
+                         user: user
                     })
                 }
             )

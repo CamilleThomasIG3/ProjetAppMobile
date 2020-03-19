@@ -1,16 +1,25 @@
-import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING } from '../actions/types';
+import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING, SET_ALERT, REMARK_ERROR } from './types';
+import { setAlert } from './alert';
 import axios from 'axios';
 
-export const getRemarks = () => dispatch => {
-    dispatch(setRemarksLoading());
-    axios
-        .get('/api/items')
-        .then(res =>
-            dispatch({
-                type: GET_REMARKS,
-                payload: res.data
-            })
-        )
+
+export const getRemarks = () => async dispatch => {
+    try {
+        const res = await axios
+            .get('/api/remarks');
+        dispatch({
+            type: GET_REMARKS,
+            payload: res.data
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: REMARK_ERROR,
+            payload: {msg: err.response.statusText, status: err.response.status}
+        });
+
+}
+    
 };
 
 export const deleteRemark = (id) => dispatch => {
