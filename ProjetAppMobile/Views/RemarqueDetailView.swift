@@ -9,6 +9,7 @@
 import SwiftUI
 import UIKit
 import Foundation
+import Combine
 
 struct RemarqueDetailView: View {
     var cats = ["Date", "Fréquence", "Catégorie"]
@@ -19,6 +20,16 @@ struct RemarqueDetailView: View {
     
     @Binding var estConnecte : Bool
     @State private var showingAlert = false
+    
+    //CoreData
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: PersonneApp.entity(),
+        sortDescriptors: []
+    )
+    var myPersonne : FetchedResults<PersonneApp>
+    @State var showingCategories = false
+    @State var activeBoxes : [String:Bool]  = ["Général":false, "Humour":false, "Loi":false, "Citation":false]
     
     init(remarque: Remarque, estConnecte : Binding<Bool>){
         self.remarque = remarque
@@ -53,11 +64,49 @@ struct RemarqueDetailView: View {
                     Text("Réponses").multilineTextAlignment(.leading)
                 }
 
-                Picker(selection: $selectedCat, label: Text("Tri")) {
-                    ForEach(0 ..< cats.count){
-                        Text(self.cats[$0])
+//                Picker(selection: $selectedCat, label: Text("Tri")) {
+//                    ForEach(0 ..< cats.count){
+//                        Text(self.cats[$0])
+//                    }
+//                }.pickerStyle(SegmentedPickerStyle())
+                if(estConnecte){
+                    Picker(selection: $selectedCat, label: Text("Catégorie")) {
+                        ForEach(0 ..< cats.count){
+                            Text(self.cats[$0])
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                        .onReceive(Just(self.selectedCat)) {
+                            value in
+                            if(value == 2){
+                                self.showingCategories=true
+                            }else{
+                                self.showingCategories=false
+                            }
                     }
-                }.pickerStyle(SegmentedPickerStyle())
+                }
+                else{
+                    Picker(selection: $selectedCat, label: Text("Catégorie")) {
+                        ForEach(0 ..< cats.count-1){
+                            Text(self.cats[$0])
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                        .onReceive(Just(self.selectedCat)) {
+                            value in
+                            if(value == 2){
+                                self.showingCategories=true
+                            }else{
+                                self.showingCategories=false
+                            }
+                    }
+                }
+                if(showingCategories){
+                    HStack{
+                        RadioButton(text: "Général", boxes : self.$activeBoxes)
+                        RadioButton(text: "Humour", boxes : self.$activeBoxes)
+                        RadioButton(text: "Loi", boxes : self.$activeBoxes)
+                        RadioButton(text: "Citation", boxes : self.$activeBoxes)
+                    }
+                }
             }.padding(20)
             
           //  Liste réponses
@@ -188,8 +237,46 @@ struct RemarqueDetailView: View {
         return formatter.string(from: date2!)
     }
     
+    func getPseudo() -> String {
+        guard let pseudo = myPersonne[0].pseudo else { return "erreur : pas de pseudo" }
+        return pseudo
+    }
+    
     func like(reponse : Reponse) {
-        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id)
+        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id, user : self.getPseudo(), completionHandler: {
+            res in
+            if (!res) {
+                print("erreur lors de l'ajout de like")
+            }
+            else {
+                print("ok like ajouté")
+            }
+        })
+    }
+    
+    func tri() -> [Reponse]{
+        if(cats[selectedCat] == "Fréquence"){
+            //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
+            return self.reponseDAO.answers.sorted{$0.likes.count > $1.likes.count}
+        }
+        else if(cats[selectedCat] == "Catégories"){
+            var find = false
+            for i in self.activeBoxes.keys {
+                if(!find && self.activeBoxes[i]!){
+                    find = true
+                    return reponseDAO.answers.filter{$0.categoryResponse == i}
+                }
+            }
+            if(!find){
+                return reponseDAO.answers
+            }
+        }
+        else if(cats[selectedCat] == "Les miennes"){
+            return reponseDAO.answers.filter{$0.user == myPersonne[0].pseudo!}
+        }
+        else{
+            return self.reponseDAO.answers
+        }
     }
 }
 

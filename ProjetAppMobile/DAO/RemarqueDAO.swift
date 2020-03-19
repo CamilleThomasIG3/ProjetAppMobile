@@ -123,8 +123,36 @@ class RemarqueDAO : ObservableObject{
          }.resume()
     }
     
-    func addFrequence() {
-        print("entendu")
+    func addFrequence(id : String, user : String, completionHandler: @escaping (Bool) -> ()) {
+        guard let url = URL(string : urlRemarques+id+"/likes") else { return }
+        let newLike : [String: Any] = [
+                       "pseudo": user
+                  ]
+                  
+                  let body = try! JSONSerialization.data(withJSONObject: newLike)
+                  
+                  var request = URLRequest(url: url)
+                  request.httpMethod = "POST"
+                  request.httpBody = body
+                  request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                  
+                  URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+                   guard let data = data else { return }
+                      
+                   let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+                   if resData.res == "correct" {
+                       DispatchQueue.main.async {
+                           completionHandler(true)
+                       }
+                   }
+                   else{
+                      DispatchQueue.main.async {
+                           completionHandler(false)
+                       }
+                   }
+                  }.resume()
     }
 
 }

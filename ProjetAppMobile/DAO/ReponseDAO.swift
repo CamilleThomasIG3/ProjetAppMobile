@@ -115,24 +115,36 @@ class ReponseDAO : ObservableObject {
         }.resume()
     }
     
-    func addLike(rep : Reponse, idRemarque : String) {
-        guard let url = URL(string: urlRemarques+idRemarque+"/answers/"+rep._id) else { return}
-        let userLike = "useravoir"
-        let body = try! JSONSerialization.data(withJSONObject: userLike)
-              
-              var request = URLRequest(url: url)
-              request.httpMethod = "POST"
-              request.httpBody = body
-              request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-              
-            URLSession.shared.dataTask(with: request) { (data, response, error) in
-
-               guard let data = data else { return }
+    func addLike(rep : Reponse, idRemarque : String, user : String, completionHandler: @escaping (Bool) -> ()) {
+        guard let url = URL(string : urlRemarques+idRemarque+"/answers/"+rep._id) else { return }
+        let newLike : [String: Any] = [
+                       "pseudo": user
+                  ]
                   
-               let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+                  let body = try! JSONSerialization.data(withJSONObject: newLike)
+                  
+                  var request = URLRequest(url: url)
+                  request.httpMethod = "POST"
+                  request.httpBody = body
+                  request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                  
+                  URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-               print(resData.msg+" ici!!")
-              }.resume()        
+                       guard let data = data else { return }
+                          
+                       let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+
+                       if resData.res == "correct" {
+                           DispatchQueue.main.async {
+                               completionHandler(true)
+                           }
+                       }
+                       else{
+                          DispatchQueue.main.async {
+                               completionHandler(false)
+                           }
+                       }
+                  }.resume()
     }
     
 }

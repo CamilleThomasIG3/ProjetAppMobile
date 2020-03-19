@@ -107,31 +107,31 @@ struct AccueilView: View {
                                 }
                                 Spacer()
                                 VStack {
-                                    Button(action: {
-                                        self.remarqueDAO.addFrequence()
-                                    }){
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10).fill(Color("Turquoise")).frame(width: 90, height:30)
-                                            Text("Entendu !").foregroundColor(Color.black).padding(5)
-                                        }.padding(.bottom, 20)
+                                    if (self.estConnecte) {
+                                        if (self.alreadyHeard(rem: remarque) == false) {
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10).fill(Color.blue).frame(width: 90, height:30)
+                                                Text("Entendu !").foregroundColor(Color.white).bold().padding(5).onTapGesture {
+                                                    self.remarqueDAO.addFrequence(id: remarque._id, user: self.getPseudo(), completionHandler: {
+                                                        res in
+                                                        if (!res) {
+                                                            print("erreur lors de l'ajout de fréquence")
+                                                        }
+                                                        else {
+                                                            print("ok")
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        }
+                                        if(remarque.user == self.getPseudo()){
+                                            Spacer()
+                                            Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing).onTapGesture {
+                                                self.remarqueDAO.deleteRemarque(id: remarque._id)
+                                            }
+                                        }
                                     }
-//                                    IfLet(self.myPersonne[0].id) { idMyPersonne in
-//                                        if (remarque.user == idMyPersonne) {
-//                                            Spacer()
-//                                            Button(action: {
-//                                                self.remarqueDAO.deleteRemarque(id: remarque._id)
-//                                            }){
-//                                                ZStack {
-//                                                    RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-//                                                    Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing)
-//                                                }.padding(.bottom, 20)
-//                                            }
-//                                        }
-//                                    }
-                                        
-                                    
                                 }
-                                
                             }
                         }
                     }
@@ -277,6 +277,21 @@ struct AccueilView: View {
             color = Color.purple
         }
         return color
+    }
+    
+    func getPseudo() -> String {
+        guard let pseudo = myPersonne[0].pseudo else { return "erreur : pas de pseudo" }
+        return pseudo
+    }
+    
+    func alreadyHeard(rem : Remarque) -> Bool {
+        var res = false
+        for obj in rem.likes {
+            if(obj["user"] == self.getPseudo()){
+                res = true
+            }
+        }
+        return res
     }
 }
 
