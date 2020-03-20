@@ -105,7 +105,7 @@ struct AccueilView: View {
                                     Spacer()
                                     Text(String(remarque.nbLikes)).padding(.trailing, 10)
                                 }
-                                Spacer()
+                                //Spacer()
                                 VStack {
                                     if (self.estConnecte) {
                                         if (self.alreadyHeard(rem: remarque) == false) {
@@ -125,7 +125,7 @@ struct AccueilView: View {
                                             }
                                         }
                                         if(remarque.user == self.getPseudo()){
-                                            Spacer()
+                                            //Spacer()
                                             Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing).onTapGesture {
                                                 self.remarqueDAO.deleteRemarque(id: remarque._id)
                                             }

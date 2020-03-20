@@ -111,7 +111,7 @@ struct RemarqueDetailView: View {
             
           //  Liste réponses
             List {
-                ForEach(reponseDAO.answers){ answer in
+                ForEach(self.tri()){ answer in
                     VStack {
                         HStack {
                             Text(answer.user)
