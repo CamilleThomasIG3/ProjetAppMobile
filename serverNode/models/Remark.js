@@ -29,6 +29,14 @@ const RemarkSchema = new Schema({
             }
         }
     ],
+    signals: [
+        {
+            user: {
+                //type: Schema.Types.ObjectId,
+                type: String,
+            }
+        }
+    ],
     answers: [
         {
             user: {

@@ -198,6 +198,54 @@ router.delete('/:id/answers/:answerid/likes/:likeid', async(req,res) =>{
 
 
 
+//----------remarks/answers/signal----------
+
+
+
+
+
+//@route POST api/remarks/answers/signals
+//@desc POST answers
+//@access Private
+router.post('/:id/answers/:answerid/signals', async(req,res) =>{
+
+    const newSignal = {
+        user: req.body.pseudo
+    };
+    if (!newSignal.user){
+        res.json({res:"incorrect", msg: "incorrect syntax"})
+    }
+    else{
+        const remark = await Remark.findById(req.params.id);
+        const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+        const signal = await answer.signals.find(signal => signal.user === newSignal.user)
+        if(!signal){
+            answer.signals.unshift(newSignal);
+            remark.save().then(remark => res.json({res:"correct", msg:"answer signaled"}));
+        }
+        else res.status(400).json({res:"incorrect", msg: "answer already signaled"})
+    }} );
+
+
+//@route DELETE api/remarks/answer/signals
+//@desc DELETE answer by id
+//@access private
+router.delete('/:id/answers/:answerid/signals/:signalid', async(req,res) =>{
+    try{
+    const remark = await Remark.findById(req.params.id);
+    const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+    const signal = await answer.signals.find(signal => signal.id === req.params.signalid)
+    if(!signal) res.status(404).json({res:"incorrect", msg: 'signal does not exit'});
+
+    const removeIndex = answer.signals.map(signal => signal.id).indexOf(req.params.signalid);
+    answer.signals.splice(removeIndex, 1);
+    await remark.save();
+
+    res.json({res:"correct", msg:"remark unsignaled"});}
+    catch(err){
+        res.status(500).send('server error')
+    }
+} );
 
 
 
