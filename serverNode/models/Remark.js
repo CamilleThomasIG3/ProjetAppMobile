@@ -29,14 +29,6 @@ const RemarkSchema = new Schema({
             }
         }
     ],
-    signals: [
-        {
-            user: {
-                //type: Schema.Types.ObjectId,
-                type: String,
-            }
-        }
-    ],
     answers: [
         {
             user: {
@@ -64,7 +56,15 @@ const RemarkSchema = new Schema({
                         type: String,
                     }
                 }
-            ]
+            ],
+            signals: [
+                {
+                    user: {
+                        //type: Schema.Types.ObjectId,
+                        type: String,
+                    }
+                }
+            ],
             
         }
         
