@@ -10,6 +10,7 @@ import Login from './component/auth/Login';
 import Alert from './component/layout/Alert';
 import PrivateRoute from './component/routing/PrivateRoute';
 import Remarks from './component/remarks/Remarks';
+import RemarkForm from './component/remarks/RemarkForm';
 
 //redux
 import { Provider } from 'react-redux';
@@ -20,7 +21,6 @@ import setAuthToken from './utils/setAuthToken'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import remarkModal from './component/remarks/remarkModal';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -43,6 +43,7 @@ const App = () => {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/remarks" component={Remarks}/>
+              <Route exact path="/remarkForm" component={RemarkForm}/>
             </Switch>
           </section>
         </Fragment>

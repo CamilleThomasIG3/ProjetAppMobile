@@ -13,4 +13,5 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
-export const REMARK_ERROR = 'REMARK_ERROR'
+export const REMARK_ERROR = 'REMARK_ERROR';
+export const UPDATE_LIKES = 'UPDATE-LIKES';
