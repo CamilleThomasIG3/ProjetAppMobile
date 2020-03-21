@@ -178,7 +178,6 @@ struct RemarqueDetailView: View {
                                     RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
                                     Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
                                         self.reponseDAO.deleteReponseById(idRep: answer._id, idRemarque: self.remarque._id)
-                                        self.presentation.wrappedValue.dismiss()
                                     }
                                 }
                             }
@@ -187,16 +186,30 @@ struct RemarqueDetailView: View {
                             
                             Text("\(answer.likes.count)").padding(.trailing, 10)
                             
-                            if(self.estConnecte){
+                            //pas encore liké
+                            if(self.estConnecte && !self.alreadyLiked(answer: answer)){
                                 Button(action: {
                                     self.like(reponse : answer)
                                 })
-                                {
-                                    ZStack{
-                                        RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                        Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
-                                    }
+                                {                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                            Image("coeur-black").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                    
                                 }
+                                //deja liké
+                            }else if(self.estConnecte && self.alreadyLiked(answer: answer)){
+                                Button(action: {
+                                    //self.reponseDAO.deleteLike(idRep: answer, idRemarque: remarque._id, pseudo: self.myPersonne[0].pseudo!)
+                                })
+                                {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                            Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                    
+                                }
+                                //pas connecté
                             }else{
                                 Button(action: {self.showingAlertAime=true})
                                 {
@@ -308,7 +321,7 @@ struct RemarqueDetailView: View {
             }
         })
     }
-    
+       
     func tri() -> [Reponse]{
         if(cats[selectedCat] == "J'aime"){
             //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
@@ -344,15 +357,15 @@ struct RemarqueDetailView: View {
         return res
     }
     
-//    func alreadyLiked() -> Bool {
-//        var res = false
-//        for obj in reponseDAO.ge {
-//            if(obj["user"] == self.myPersonne[0].pseudo!){
-//                res = true
-//            }
-//        }
-//        return res
-//    }
+    func alreadyLiked(answer : Reponse) -> Bool {
+        var res = false
+        for obj in answer.likes {
+            if(obj["user"] == self.myPersonne[0].pseudo!){
+                res = true
+            }
+        }
+        return res
+    }
 }
 
 //struct RemarqueDetailView_Previews: PreviewProvider {

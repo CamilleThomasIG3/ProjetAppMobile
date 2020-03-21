@@ -27,19 +27,26 @@ class ReponseDAO : ObservableObject {
     
     func addReponse(r : ReponseWithoutId, idRemarque : String) {
         guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
-            print(r)
+ 
             let newReponse:[String: Any] = [
                 "content" : r.content,
-                "user" : r.user,
+                "pseudo" : r.user,
                 "categoryResponse" : r.categoryResponse
             ]
-            
+        
             let body = try! JSONSerialization.data(withJSONObject: newReponse)
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.httpBody = body
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+        }.resume()
     }
     
     func deleteAllReponse(idRemarque : String) {
@@ -56,6 +63,13 @@ class ReponseDAO : ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+        }.resume()
     }
     
     func getReponsesWithCategorie(categorie : String, idRemarque : String) /*-> [Reponse]*/ {
@@ -115,6 +129,22 @@ class ReponseDAO : ObservableObject {
                            }
                        }
                   }.resume()
+    }
+    
+    //A VERIFIER AVEC SERVEUR !!! Récupérer par pseudo au lieu idAnswer ?? (je l'ai changé hier soir sur le serveur est ce une bonne idée ? en plus marche pas supprime premier like pas celui quon veut
+    func deleteLike(idRep : String, idRemarque : String, pseudo : String){
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers/"+idRep+"/likes/"+pseudo) else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+        }.resume()
     }
     
 }
