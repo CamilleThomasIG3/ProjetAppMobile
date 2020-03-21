@@ -195,7 +195,23 @@ router.delete('/:id/answers/:answerid/likes/:likeid', async(req,res) =>{
     }
 } );
 
+//A VERIFIER !!!! (je l'ai changé hier soir sur le serveur est ce une bonne idée ? en plus marche pas supprime premier like pas celui quon veut)
+// router.delete('/:id/answers/:answerid/likes/:user', async(req,res) =>{
+//     try{
+//     const remark = await Remark.findById(req.params.id);
+//     const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+//     const like = await answer.likes.find(like => like.user === req.params.user)
+//     if(!like) res.status(404).json({res:"incorrect", msg: 'like does not exit'});
 
+//     const removeIndex = answer.likes.map(like => like.id).indexOf(req.params.likeid);
+//     answer.likes.splice(removeIndex, 1);
+//     await remark.save();
+
+//     res.json({res:"correct", msg:"remark disliked"});}
+//     catch(err){
+//         res.status(500).send('server error')
+//     }
+// } );
 
 
 //----------remarks/answers/signal----------
