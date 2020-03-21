@@ -23,6 +23,8 @@ struct RemarqueDetailView: View {
     
     @Binding var estConnecte : Bool
     @State private var showingAlert = false
+    @State private var showingAlertAime = false
+    @State private var showingAlertSignal = false
     @State private var isHiddenEntendu = false
     
     //CoreData
@@ -72,12 +74,15 @@ struct RemarqueDetailView: View {
                                         if (!res) {
                                             print("erreur lors de l'ajout de fréquence")
                                         }
-                                        else {
-                                            print("ok")
-                                        }
                                     })
                                     self.isHiddenEntendu = true
                                 }
+                            }
+                        }
+                        else if(self.alreadyHeard() || self.isHiddenEntendu){
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).fill(Color.blue).opacity(0.5).frame(width: 130, height:30)
+                                Text("Déjà entendu").foregroundColor(Color.white).bold().padding(5)
                             }
                         }
                         if(remarque.user == self.myPersonne[0].pseudo!){
@@ -87,7 +92,7 @@ struct RemarqueDetailView: View {
                                     self.remarqueDAO.deleteRemarque(id: self.remarque._id)
                                     self.presentation.wrappedValue.dismiss()                                    
                                 }
-                            }
+                        }
 //                            Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing).onTapGesture {
 //                                self.remarqueDAO.deleteRemarque(id: remarque._id)
 //                            }
@@ -171,14 +176,27 @@ struct RemarqueDetailView: View {
                             
                             Text("\(answer.likes.count)").padding(.trailing, 10)
                             
-                            Button(action: {
-                                self.like(reponse : answer)
-                                
-                            })
-                            {
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                    Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                            if(self.estConnecte){
+                                Button(action: {
+                                    self.like(reponse : answer)
+                                })
+                                {
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                        Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                    }
+                                }
+                            }else{
+                                Button(action: {self.showingAlertAime=true})
+                                {
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                        Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                    }
+                                }.alert(isPresented: self.$showingAlertAime){
+                                    Alert(title: Text("Vous n'êtes pas connecté !"),
+                                          message: Text("La connexion est obligatoire pour aimer une réponse"),
+                                          dismissButton: .default(Text("J'ai compris")))
                                 }
                             }
                         }.padding(10).buttonStyle(PlainButtonStyle())
@@ -282,9 +300,6 @@ struct RemarqueDetailView: View {
             if (!res) {
                 print("erreur lors de l'ajout de like")
             }
-            else {
-                print("ok like ajouté")
-            }
         })
     }
     
@@ -322,6 +337,16 @@ struct RemarqueDetailView: View {
         }
         return res
     }
+    
+//    func alreadyLiked() -> Bool {
+//        var res = false
+//        for obj in reponseDAO.ge {
+//            if(obj["user"] == self.myPersonne[0].pseudo!){
+//                res = true
+//            }
+//        }
+//        return res
+//    }
 }
 
 //struct RemarqueDetailView_Previews: PreviewProvider {
