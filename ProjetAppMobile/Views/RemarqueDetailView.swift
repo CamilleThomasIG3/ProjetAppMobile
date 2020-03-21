@@ -40,7 +40,6 @@ struct RemarqueDetailView: View {
     init(remarque: Remarque, estConnecte : Binding<Bool>){
         self.remarque = remarque
         self._estConnecte = estConnecte
-        //reponseDAO.getAnswers(idRemarque: remarque._id)
     }
     
     var body: some View {
@@ -93,9 +92,7 @@ struct RemarqueDetailView: View {
                                     self.presentation.wrappedValue.dismiss()                                    
                                 }
                         }
-//                            Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing).onTapGesture {
-//                                self.remarqueDAO.deleteRemarque(id: remarque._id)
-//                            }
+                            
                         }
                     }
                 }
@@ -172,6 +169,20 @@ struct RemarqueDetailView: View {
                                     Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
                                 }
                             }.padding(.leading, 10)
+                            
+                            Spacer()
+                            
+                            //Boutton supprimer si la reponse de la personne connectée
+                            if(answer.user == self.myPersonne[0].pseudo!){
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
+                                    Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
+                                        self.reponseDAO.deleteReponseById(idRep: answer._id, idRemarque: self.remarque._id)
+                                        self.presentation.wrappedValue.dismiss()
+                                    }
+                                }
+                            }
+                                
                             Spacer()
                             
                             Text("\(answer.likes.count)").padding(.trailing, 10)
@@ -289,13 +300,8 @@ struct RemarqueDetailView: View {
         return formatter.string(from: date2!)
     }
     
-    func getPseudo() -> String {
-        guard let pseudo = myPersonne[0].pseudo else { return "erreur : pas de pseudo" }
-        return pseudo
-    }
-    
     func like(reponse : Reponse) {
-        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id, user : self.getPseudo(), completionHandler: {
+        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id, user : self.myPersonne[0].pseudo!, completionHandler: {
             res in
             if (!res) {
                 print("erreur lors de l'ajout de like")

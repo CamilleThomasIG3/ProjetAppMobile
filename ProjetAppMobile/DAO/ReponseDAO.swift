@@ -27,14 +27,11 @@ class ReponseDAO : ObservableObject {
     
     func addReponse(r : ReponseWithoutId, idRemarque : String) {
         guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
-            
+            print(r)
             let newReponse:[String: Any] = [
-                "date" : r.date,
                 "content" : r.content,
-                "pseudo" : r.user,
-                "categoryResponse" : r.categoryResponse,
-                "likes" : r.likes,
-                
+                "user" : r.user,
+                "categoryResponse" : r.categoryResponse
             ]
             
             let body = try! JSONSerialization.data(withJSONObject: newReponse)
@@ -43,7 +40,7 @@ class ReponseDAO : ObservableObject {
             request.httpMethod = "POST"
             request.httpBody = body
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        }
+    }
     
     func deleteAllReponse(idRemarque : String) {
         guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }
@@ -54,8 +51,8 @@ class ReponseDAO : ObservableObject {
     }
     
     func deleteReponseById(idRep : String, idRemarque : String){
-        guard let url = URL(string: urlRemarques+idRemarque+"/answers?_id=5e63b8d98422600017503179") else { return }
-        
+        guard let url = URL(string: urlRemarques+idRemarque+"/answers/"+idRep) else { return }
+
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
