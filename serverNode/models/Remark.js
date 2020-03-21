@@ -56,7 +56,15 @@ const RemarkSchema = new Schema({
                         type: String,
                     }
                 }
-            ]
+            ],
+            signals: [
+                {
+                    user: {
+                        //type: Schema.Types.ObjectId,
+                        type: String,
+                    }
+                }
+            ],
             
         }
         

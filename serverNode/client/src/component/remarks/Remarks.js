@@ -7,31 +7,28 @@ import { getRemarks, deleteRemark } from '../../actions/remark';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import RemarkItem from './RemarkItem';
+import RemarkForm from './RemarkForm';
 
 
-const Remarks = ({getRemarks, deleteRemark, remark: {remarks, loading}}) => {
-    useEffect(()=> {
+const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => {
+    useEffect(() => {
         getRemarks();
     }, [getRemarks]);
 
-    // componentDidMount() {
-    //     this.props.getRemarks();
-    // }
-
-    // onDeleteClick = (id) => {
-    //     this.props.deleteRemark(id);
-    // }
 
     return loading ? <Spinner /> : (
-        <Fragment>
-            <h1 className="large text-primary">Remarks</h1>
-            <p className="lead"> Welcome girls and boys</p>
-            <div className="remarks">
-                {console.log(remarks)}
-                {remarks.map(remark => (
-                <RemarkItem key={remark._id} remark={remark}/>))}
-            </div>
-        </Fragment>
+        <div>
+            <Fragment>
+                <h1 className="large text-primary">Remarks</h1>
+                <p className="lead"> Welcome girls and boys</p>
+                <RemarkForm/>
+                <div className="remarks">
+                    {console.log(remarks)}
+                    {remarks.map(remark => (
+                        <RemarkItem key={remark._id} remark={remark} />))}
+                </div>
+            </Fragment>
+        </div>
     )
 
 }

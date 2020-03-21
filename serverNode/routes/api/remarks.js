@@ -75,7 +75,7 @@ router.post('/', async(req,res) =>{
         idCategory: req.body.idCategory,
         user: req.body.pseudo
     });
-    newRemark.save().then(remark => res.json({res:"correct", msg:"remark posted"}));
+    newRemark.save().then(remark => res.json({remark: newRemark, res:"correct", msg:"remark posted"}));
     } ); 
 
 
@@ -195,9 +195,73 @@ router.delete('/:id/answers/:answerid/likes/:likeid', async(req,res) =>{
     }
 } );
 
+//A VERIFIER !!!! (je l'ai changé hier soir sur le serveur est ce une bonne idée ? en plus marche pas supprime premier like pas celui quon veut)
+// router.delete('/:id/answers/:answerid/likes/:user', async(req,res) =>{
+//     try{
+//     const remark = await Remark.findById(req.params.id);
+//     const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+//     const like = await answer.likes.find(like => like.user === req.params.user)
+//     if(!like) res.status(404).json({res:"incorrect", msg: 'like does not exit'});
+
+//     const removeIndex = answer.likes.map(like => like.id).indexOf(req.params.likeid);
+//     answer.likes.splice(removeIndex, 1);
+//     await remark.save();
+
+//     res.json({res:"correct", msg:"remark disliked"});}
+//     catch(err){
+//         res.status(500).send('server error')
+//     }
+// } );
+
+
+//----------remarks/answers/signal----------
 
 
 
+
+
+//@route POST api/remarks/answers/signals
+//@desc POST answers
+//@access Private
+router.post('/:id/answers/:answerid/signals', async(req,res) =>{
+
+    const newSignal = {
+        user: req.body.pseudo
+    };
+    if (!newSignal.user){
+        res.json({res:"incorrect", msg: "incorrect syntax"})
+    }
+    else{
+        const remark = await Remark.findById(req.params.id);
+        const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+        const signal = await answer.signals.find(signal => signal.user === newSignal.user)
+        if(!signal){
+            answer.signals.unshift(newSignal);
+            remark.save().then(remark => res.json({res:"correct", msg:"answer signaled"}));
+        }
+        else res.status(400).json({res:"incorrect", msg: "answer already signaled"})
+    }} );
+
+
+//@route DELETE api/remarks/answer/signals
+//@desc DELETE answer by id
+//@access private
+router.delete('/:id/answers/:answerid/signals/:signalid', async(req,res) =>{
+    try{
+    const remark = await Remark.findById(req.params.id);
+    const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+    const signal = await answer.signals.find(signal => signal.id === req.params.signalid)
+    if(!signal) res.status(404).json({res:"incorrect", msg: 'signal does not exit'});
+
+    const removeIndex = answer.signals.map(signal => signal.id).indexOf(req.params.signalid);
+    answer.signals.splice(removeIndex, 1);
+    await remark.save();
+
+    res.json({res:"correct", msg:"remark unsignaled"});}
+    catch(err){
+        res.status(500).send('server error')
+    }
+} );
 
 
 
