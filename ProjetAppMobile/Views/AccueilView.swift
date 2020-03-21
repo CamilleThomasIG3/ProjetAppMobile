@@ -102,35 +102,9 @@ struct AccueilView: View {
                                         Text(remarque.title).font(.headline).lineLimit(1)
                                         Text(remarque.content).lineLimit(2)
                                     }.padding(10)
+                                    
                                     Spacer()
                                     Text(String(remarque.nbLikes)).padding(.trailing, 10)
-                                }
-                                //Spacer()
-                                VStack {
-                                    if (self.estConnecte) {
-                                        if (self.alreadyHeard(rem: remarque) == false) {
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 10).fill(Color.blue).frame(width: 90, height:30)
-                                                Text("Entendu !").foregroundColor(Color.white).bold().padding(5).onTapGesture {
-                                                    self.remarqueDAO.addFrequence(id: remarque._id, user: self.getPseudo(), completionHandler: {
-                                                        res in
-                                                        if (!res) {
-                                                            print("erreur lors de l'ajout de fréquence")
-                                                        }
-                                                        else {
-                                                            print("ok")
-                                                        }
-                                                    })
-                                                }
-                                            }
-                                        }
-                                        if(remarque.user == self.getPseudo()){
-                                            //Spacer()
-                                            Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing).onTapGesture {
-                                                self.remarqueDAO.deleteRemarque(id: remarque._id)
-                                            }
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -172,7 +146,6 @@ struct AccueilView: View {
                                 Alert(title: Text("Vous n'êtes pas connecté !"),
                                       message: Text("La connexion est obligatoire pour ajouter une remarque"),
                                       dismissButton: .default(Text("J'ai compris")))
-                                
                             }
                         }
                         
@@ -196,13 +169,15 @@ struct AccueilView: View {
                                         Text("Déconnexion").foregroundColor(Color.black).padding(5)
                                     }
                                 }.simultaneousGesture(TapGesture().onEnded({
-                                    //enelever personne du core data
-                                    let person =  self.myPersonne[0]
-                                    self.managedObjectContext.delete(person)
-                                    do {
-                                        try self.managedObjectContext.save()
-                                    } catch {
-                                        fatalError()
+                                    //enelever personnes du core data
+                                    for e in self.myPersonne {
+                                        self.managedObjectContext.delete(e)
+                                        
+                                        do {
+                                            try self.managedObjectContext.save()
+                                        } catch {
+                                            fatalError()
+                                        }
                                     }
                                     self.estConnecte = false
                                 }))
@@ -277,21 +252,6 @@ struct AccueilView: View {
             color = Color.purple
         }
         return color
-    }
-    
-    func getPseudo() -> String {
-        guard let pseudo = myPersonne[0].pseudo else { return "erreur : pas de pseudo" }
-        return pseudo
-    }
-    
-    func alreadyHeard(rem : Remarque) -> Bool {
-        var res = false
-        for obj in rem.likes {
-            if(obj["user"] == self.getPseudo()){
-                res = true
-            }
-        }
-        return res
     }
 }
 

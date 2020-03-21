@@ -12,14 +12,18 @@ import Foundation
 import Combine
 
 struct RemarqueDetailView: View {
-    var cats = ["Date", "Fréquence", "Catégorie"]
+    @Environment(\.presentationMode) var presentation
+    
+    var cats = ["Récent", "J'aime", "Catégories", "Les miennes"]
     @State private var selectedCat = 0
     
     @ObservedObject var reponseDAO = ReponseDAO()
+    @ObservedObject var remarqueDAO = RemarqueDAO()
     var remarque : Remarque
     
     @Binding var estConnecte : Bool
     @State private var showingAlert = false
+    @State private var isHiddenEntendu = false
     
     //CoreData
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -55,6 +59,41 @@ struct RemarqueDetailView: View {
                     }
                 }
                 Text(remarque.content).multilineTextAlignment(.center).padding(10)
+                
+                //Button déjà entendu et supprimer remarque
+                HStack {
+                    if (self.estConnecte) {
+                        if (!self.alreadyHeard() && !self.isHiddenEntendu) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).fill(Color.blue).frame(width: 130, height:30)
+                                Text("Déjà entendu").foregroundColor(Color.white).bold().padding(5).onTapGesture {
+                                    self.remarqueDAO.addFrequence(id: self.remarque._id, user: self.myPersonne[0].pseudo!, completionHandler: {
+                                        res in
+                                        if (!res) {
+                                            print("erreur lors de l'ajout de fréquence")
+                                        }
+                                        else {
+                                            print("ok")
+                                        }
+                                    })
+                                    self.isHiddenEntendu = true
+                                }
+                            }
+                        }
+                        if(remarque.user == self.myPersonne[0].pseudo!){
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
+                                Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
+                                    self.remarqueDAO.deleteRemarque(id: self.remarque._id)
+                                    self.presentation.wrappedValue.dismiss()                                    
+                                }
+                            }
+//                            Image("delete").resizable().frame(width: 30, height: 30, alignment : .trailing).onTapGesture {
+//                                self.remarqueDAO.deleteRemarque(id: remarque._id)
+//                            }
+                        }
+                    }
+                }
             }
             
             VStack{
@@ -63,12 +102,7 @@ struct RemarqueDetailView: View {
                     Rectangle().fill(Color(UIColor(named: "Gris_clair")!)).frame(height:40)
                     Text("Réponses").multilineTextAlignment(.leading)
                 }
-
-//                Picker(selection: $selectedCat, label: Text("Tri")) {
-//                    ForEach(0 ..< cats.count){
-//                        Text(self.cats[$0])
-//                    }
-//                }.pickerStyle(SegmentedPickerStyle())
+                
                 if(estConnecte){
                     Picker(selection: $selectedCat, label: Text("Catégorie")) {
                         ForEach(0 ..< cats.count){
@@ -255,7 +289,7 @@ struct RemarqueDetailView: View {
     }
     
     func tri() -> [Reponse]{
-        if(cats[selectedCat] == "Fréquence"){
+        if(cats[selectedCat] == "J'aime"){
             //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
             return self.reponseDAO.answers.sorted{$0.likes.count > $1.likes.count}
         }
@@ -277,6 +311,16 @@ struct RemarqueDetailView: View {
         else{
             return self.reponseDAO.answers
         }
+    }
+    
+    func alreadyHeard() -> Bool {
+        var res = false
+        for obj in remarque.likes {
+            if(obj["user"] == self.myPersonne[0].pseudo!){
+                res = true
+            }
+        }
+        return res
     }
 }
 
