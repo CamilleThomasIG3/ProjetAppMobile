@@ -15,6 +15,7 @@ class Reponse: Decodable, Identifiable, CustomStringConvertible{
     var user : String
     var categoryResponse : String
     var likes : [[String:String]] = [[:]]
+    var signals : [[String:String]] = [[:]]
     var description : String {return " \(self.content) "}
     
     

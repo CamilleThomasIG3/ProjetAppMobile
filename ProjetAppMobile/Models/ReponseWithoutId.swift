@@ -13,7 +13,8 @@ class ReponseWithoutId: Decodable, Identifiable, CustomStringConvertible{
     var content : String
     var user : String
     var categoryResponse : String
-    var likes = [Like]()
+    var likes : [[String:String]] = [[:]]
+    var signals : [[String:String]] = [[:]]
     var description : String {return " \(self.content) "}
     
     

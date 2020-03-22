@@ -91,7 +91,7 @@ struct RemarqueDetailView: View {
                                     self.remarqueDAO.deleteRemarque(id: self.remarque._id)
                                     self.presentation.wrappedValue.dismiss()                                    
                                 }
-                        }
+                            }
                             
                         }
                     }
@@ -145,7 +145,7 @@ struct RemarqueDetailView: View {
                 }
             }.padding(20)
             
-          //  Liste réponses
+            //  Liste réponses
             List {
                 ForEach(self.tri()){ answer in
                     VStack {
@@ -161,70 +161,108 @@ struct RemarqueDetailView: View {
                         
                         VStack {
                             Text(answer.content).multilineTextAlignment(.center)
-                        
-                        HStack {
-                            Button(action: { print("nok") }){
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                    Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                            
+                            HStack {
+                                //BOUTON SIGNAL
+                                
+                                //pas encore signalé
+                                if(self.estConnecte && !self.alreadySignaled(answer: answer)){
+                                    Button(action: {
+                                        self.signal(reponse : answer)
+                                    })
+                                    {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                            Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                        
+                                    }.padding(.leading, 10)
+                                //deja signalé
+                                }else if(self.estConnecte && self.alreadySignaled(answer: answer)){
+                                    Button(action: {
+                                        self.reponseDAO.deleteSignal(idRep: answer._id, idRemarque: self.remarque._id, pseudo: self.myPersonne[0].pseudo!)
+                                    })
+                                    {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color.black).frame(width: 40, height:40)
+                                            Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                        
+                                    }.padding(.leading, 10)
+                                //pas connecté
+                                }else{
+                                    Button(action: {self.showingAlertSignal=true})
+                                    {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                            Image("warning-black").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                    }.alert(isPresented: self.$showingAlertSignal){
+                                        Alert(title: Text("Vous n'êtes pas connecté !"),
+                                              message: Text("La connexion est obligatoire pour signaler une réponse"),
+                                              dismissButton: .default(Text("J'ai compris")))
+                                    }.padding(.leading, 10)
                                 }
-                            }.padding(.leading, 10)
-                            
-                            Spacer()
-                            
-                            //Boutton supprimer si la reponse de la personne connectée
-                            if(answer.user == self.myPersonne[0].pseudo!){
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
-                                    Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
-                                        self.reponseDAO.deleteReponseById(idRep: answer._id, idRemarque: self.remarque._id)
+                                
+                                
+                                Spacer()
+                                
+                                //Boutton supprimer si la reponse de la personne connectée
+                                if(self.estConnecte && answer.user == self.myPersonne[0].pseudo!){
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
+                                        Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
+                                            self.reponseDAO.deleteReponseById(idRep: answer._id, idRemarque: self.remarque._id)
+                                        }
                                     }
                                 }
-                            }
                                 
-                            Spacer()
-                            
-                            Text("\(answer.likes.count)").padding(.trailing, 10)
-                            
-                            //pas encore liké
-                            if(self.estConnecte && !self.alreadyLiked(answer: answer)){
-                                Button(action: {
-                                    self.like(reponse : answer)
-                                })
-                                {                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                            Image("coeur-black").resizable().frame(width: 30, height: 30, alignment : .trailing)
-                                        }
-                                    
-                                }
-                                //deja liké
-                            }else if(self.estConnecte && self.alreadyLiked(answer: answer)){
-                                Button(action: {
-                                    //self.reponseDAO.deleteLike(idRep: answer, idRemarque: remarque._id, pseudo: self.myPersonne[0].pseudo!)
-                                })
-                                {
+                                Spacer()
+                                
+                                Text("\(answer.likes.count)").padding(.trailing, 10)
+                                
+                                //BOUTON LIKE
+                                
+                                //pas encore liké
+                                if(self.estConnecte && !self.alreadyLiked(answer: answer)){
+                                    Button(action: {
+                                        self.like(reponse : answer)
+                                    })
+                                    {
                                         ZStack{
                                             RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
                                             Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
                                         }
-                                    
-                                }
-                                //pas connecté
-                            }else{
-                                Button(action: {self.showingAlertAime=true})
-                                {
-                                    ZStack{
-                                        RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                        Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        
                                     }
-                                }.alert(isPresented: self.$showingAlertAime){
-                                    Alert(title: Text("Vous n'êtes pas connecté !"),
-                                          message: Text("La connexion est obligatoire pour aimer une réponse"),
-                                          dismissButton: .default(Text("J'ai compris")))
+                                    //deja liké
+                                }else if(self.estConnecte && self.alreadyLiked(answer: answer)){
+                                    Button(action: {
+                                        self.reponseDAO.deleteLike(idRep: answer._id, idRemarque: self.remarque._id, pseudo: self.myPersonne[0].pseudo!)
+                                    })
+                                    {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color.black).frame(width: 40, height:40)
+                                            Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                        
+                                    }
+                                    //pas connecté
+                                }else{
+                                    Button(action: {self.showingAlertAime=true})
+                                    {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
+                                            Image("coeur-black").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                        }
+                                    }.alert(isPresented: self.$showingAlertAime){
+                                        Alert(title: Text("Vous n'êtes pas connecté !"),
+                                              message: Text("La connexion est obligatoire pour aimer une réponse"),
+                                              dismissButton: .default(Text("J'ai compris")))
+                                    }
                                 }
-                            }
-                        }.padding(10).buttonStyle(PlainButtonStyle())
-                            }.padding(.top, 20)
+                            }.padding(10).buttonStyle(PlainButtonStyle())
+                        }.padding(.top, 20)
                     }.border(Color("Gris_fonce"))
                 }
             }.onAppear{
@@ -252,17 +290,17 @@ struct RemarqueDetailView: View {
                     Alert(title: Text("Vous n'êtes pas connecté !"),
                           message: Text("La connexion est obligatoire pour ajouter une réponse"),
                           dismissButton: .default(Text("J'ai compris")))
-                        
+                    
                 }
             }
-
-        }
             
-    }
+        }
         
+    }
+    
     func getColorCategoryRemarque(cat : String)-> Color{
         var color : Color = Color.black
-            
+        
         if(cat=="Général"){
             color = Color.green
         }
@@ -283,7 +321,7 @@ struct RemarqueDetailView: View {
     
     func getColorCategoryReponse(cat : String)-> Color{
         var color : Color = Color.black
-            
+        
         if(cat=="Général"){
             color = Color.green
         }
@@ -298,7 +336,7 @@ struct RemarqueDetailView: View {
         }
         return color
     }
-   
+    
     
     func convertDate(date : String) -> String{
         //String to date
@@ -321,7 +359,16 @@ struct RemarqueDetailView: View {
             }
         })
     }
-       
+    
+    func signal(reponse : Reponse) {
+        self.reponseDAO.addSignal(rep: reponse, idRemarque: remarque._id, user : self.myPersonne[0].pseudo!, completionHandler: {
+            res in
+            if (!res) {
+                print("erreur lors de l'ajout du signalement")
+            }
+        })
+    }
+    
     func tri() -> [Reponse]{
         if(cats[selectedCat] == "J'aime"){
             //tri par ordre décroissant des remarques en fonction du nombre de fois qu'elle a été entendue
@@ -360,6 +407,16 @@ struct RemarqueDetailView: View {
     func alreadyLiked(answer : Reponse) -> Bool {
         var res = false
         for obj in answer.likes {
+            if(obj["user"] == self.myPersonne[0].pseudo!){
+                res = true
+            }
+        }
+        return res
+    }
+    
+    func alreadySignaled(answer : Reponse) -> Bool {
+        var res = false
+        for obj in answer.signals {
             if(obj["user"] == self.myPersonne[0].pseudo!){
                 res = true
             }

@@ -22,7 +22,6 @@
 		461CAA96240CF1FC005A1291 /* RemarqueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */; };
 		462C4241241178E0006A624A /* UserWithoutId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462C4240241178E0006A624A /* UserWithoutId.swift */; };
 		46352BFA241025BC00EB83BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46352BF9241025BC00EB83BD /* User.swift */; };
-		46396367242259F9005CA0CF /* Avis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46396366242259F9005CA0CF /* Avis.swift */; };
 		4639636924227953005CA0CF /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4639636824227953005CA0CF /* RadioButtonView.swift */; };
 		464260C6240949DA00274276 /* AjoutRemarqueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464260C5240949DA00274276 /* AjoutRemarqueView.swift */; };
 		464260CA240954D500274276 /* AjoutReponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464260C9240954D500274276 /* AjoutReponseView.swift */; };
@@ -32,9 +31,6 @@
 		4673A3FA2413CD06008AB0A7 /* RemarqueWithoutId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4673A3F92413CD06008AB0A7 /* RemarqueWithoutId.swift */; };
 		46792A142409BC3D00BD6F91 /* Remarque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46792A132409BC3D00BD6F91 /* Remarque.swift */; };
 		46792A162409BF5F00BD6F91 /* Reponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46792A152409BF5F00BD6F91 /* Reponse.swift */; };
-		46792A182409C09D00BD6F91 /* CategorieReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46792A172409C09D00BD6F91 /* CategorieReponse.swift */; };
-		46792A1A2409C31C00BD6F91 /* CategorieRemarque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46792A192409C31C00BD6F91 /* CategorieRemarque.swift */; };
-		46792A1C2409C35700BD6F91 /* Frequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46792A1B2409C35700BD6F91 /* Frequence.swift */; };
 		468D7E10240C390E00C95C25 /* ReponseDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468D7E0F240C390E00C95C25 /* ReponseDAO.swift */; };
 		469D7A8B24096E370046F7F5 /* PersonneDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A8A24096E370046F7F5 /* PersonneDAO.swift */; };
 		469D7A8F240972890046F7F5 /* RemarqueDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D7A8E240972890046F7F5 /* RemarqueDAO.swift */; };
@@ -43,8 +39,6 @@
 		46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A882406BFB20040B499 /* InscriptionView.swift */; };
 		46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F86A8A2406C06E0040B499 /* ConnexionView.swift */; };
 		B7431FED2410016C002EAF0D /* BCrypt in Frameworks */ = {isa = PBXBuildFile; productRef = B7431FEC2410016C002EAF0D /* BCrypt */; };
-		B786F4C624193C62003F861F /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786F4C524193C62003F861F /* Like.swift */; };
-		B786F4C824193D2C003F861F /* LikeWithoutId.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786F4C724193D2C003F861F /* LikeWithoutId.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +80,6 @@
 		461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarqueDetailView.swift; sourceTree = "<group>"; };
 		462C4240241178E0006A624A /* UserWithoutId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWithoutId.swift; sourceTree = "<group>"; };
 		46352BF9241025BC00EB83BD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		46396366242259F9005CA0CF /* Avis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avis.swift; sourceTree = "<group>"; };
 		4639636824227953005CA0CF /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		464260C5240949DA00274276 /* AjoutRemarqueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutRemarqueView.swift; sourceTree = "<group>"; };
 		464260C9240954D500274276 /* AjoutReponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutReponseView.swift; sourceTree = "<group>"; };
@@ -96,17 +89,12 @@
 		4673A3F92413CD06008AB0A7 /* RemarqueWithoutId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarqueWithoutId.swift; sourceTree = "<group>"; };
 		46792A132409BC3D00BD6F91 /* Remarque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remarque.swift; sourceTree = "<group>"; };
 		46792A152409BF5F00BD6F91 /* Reponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reponse.swift; sourceTree = "<group>"; };
-		46792A172409C09D00BD6F91 /* CategorieReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorieReponse.swift; sourceTree = "<group>"; };
-		46792A192409C31C00BD6F91 /* CategorieRemarque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorieRemarque.swift; sourceTree = "<group>"; };
-		46792A1B2409C35700BD6F91 /* Frequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequence.swift; sourceTree = "<group>"; };
 		468D7E0F240C390E00C95C25 /* ReponseDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseDAO.swift; sourceTree = "<group>"; };
 		469D7A8A24096E370046F7F5 /* PersonneDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneDAO.swift; sourceTree = "<group>"; };
 		469D7A8E240972890046F7F5 /* RemarqueDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarqueDAO.swift; sourceTree = "<group>"; };
 		46A66758241E8F6500DF49C5 /* KeyboardHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHost.swift; sourceTree = "<group>"; };
 		46F86A882406BFB20040B499 /* InscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InscriptionView.swift; sourceTree = "<group>"; };
 		46F86A8A2406C06E0040B499 /* ConnexionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionView.swift; sourceTree = "<group>"; };
-		B786F4C524193C62003F861F /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
-		B786F4C724193D2C003F861F /* LikeWithoutId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeWithoutId.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,12 +197,6 @@
 				4673A3F92413CD06008AB0A7 /* RemarqueWithoutId.swift */,
 				46792A152409BF5F00BD6F91 /* Reponse.swift */,
 				46176F152412CF95007616F9 /* ReponseWithoutId.swift */,
-				46792A172409C09D00BD6F91 /* CategorieReponse.swift */,
-				46792A192409C31C00BD6F91 /* CategorieRemarque.swift */,
-				46792A1B2409C35700BD6F91 /* Frequence.swift */,
-				46396366242259F9005CA0CF /* Avis.swift */,
-				B786F4C524193C62003F861F /* Like.swift */,
-				B786F4C724193D2C003F861F /* LikeWithoutId.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -388,31 +370,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46792A1C2409C35700BD6F91 /* Frequence.swift in Sources */,
-				B786F4C824193D2C003F861F /* LikeWithoutId.swift in Sources */,
 				461840512402EF21001A05EA /* ProjetAppMobile.xcdatamodeld in Sources */,
 				469D7A8F240972890046F7F5 /* RemarqueDAO.swift in Sources */,
 				46792A142409BC3D00BD6F91 /* Remarque.swift in Sources */,
 				4618404C2402EF21001A05EA /* AppDelegate.swift in Sources */,
 				46F86A8B2406C06E0040B499 /* ConnexionView.swift in Sources */,
 				461840532402EF21001A05EA /* AccueilView.swift in Sources */,
-				46396367242259F9005CA0CF /* Avis.swift in Sources */,
 				46352BFA241025BC00EB83BD /* User.swift in Sources */,
 				4673A3FA2413CD06008AB0A7 /* RemarqueWithoutId.swift in Sources */,
 				4671F9C8240C6287002BE20A /* ModifierProfilView.swift in Sources */,
 				4639636924227953005CA0CF /* RadioButtonView.swift in Sources */,
 				462C4241241178E0006A624A /* UserWithoutId.swift in Sources */,
 				461CAA96240CF1FC005A1291 /* RemarqueDetailView.swift in Sources */,
-				46792A1A2409C31C00BD6F91 /* CategorieRemarque.swift in Sources */,
 				460F344E2422C3B400E0A64B /* IfLet.swift in Sources */,
 				464260C6240949DA00274276 /* AjoutRemarqueView.swift in Sources */,
 				46176F162412CF95007616F9 /* ReponseWithoutId.swift in Sources */,
 				46792A162409BF5F00BD6F91 /* Reponse.swift in Sources */,
-				46792A182409C09D00BD6F91 /* CategorieReponse.swift in Sources */,
 				469D7A8B24096E370046F7F5 /* PersonneDAO.swift in Sources */,
 				46F86A892406BFB20040B499 /* InscriptionView.swift in Sources */,
 				4671F9C6240C6126002BE20A /* ProfilView.swift in Sources */,
-				B786F4C624193C62003F861F /* Like.swift in Sources */,
 				4648619E2412A85B000618D1 /* EncapsulatingView.swift in Sources */,
 				46A66759241E8F6500DF49C5 /* KeyboardHost.swift in Sources */,
 				468D7E10240C390E00C95C25 /* ReponseDAO.swift in Sources */,
