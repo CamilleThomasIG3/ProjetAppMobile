@@ -120,7 +120,7 @@ router.post('/:id/answers', async(req,res) =>{
     const remark = await Remark.findById(req.params.id);
     remark.answers.unshift(newAnswer);
 
-    remark.save().then(remark => res.json({res:"correct", msg:"answer posted"}));
+    remark.save().then(remark => res.json({answers: remark.answers, res:"correct", msg:"answer posted"}));
     } );
 
 
@@ -263,12 +263,12 @@ router.post('/:id/likes',async(req,res) =>{
     const like = await remark.likes.find(like => like.user === newLike.user);
     if(!like){
         remark.likes.unshift(newLike);
-        remark.save().then(remark => res.json({res:"correct", msg:"remark liked"}));
+        remark.save().then(remark => res.json({likes : remark.likes, res:"correct", msg:"remark liked"}));
     }
     else res.status(400).json({res:"incorrect", msg: "remark already liked"})
     } );
 
-//@route DELETE api/remarks/answer
+//@route DELETE api/remarks/likes
 //@desc DELETE like by id
 //@access private
 router.delete('/:id/likes/:likeid', async(req,res) =>{
@@ -283,6 +283,26 @@ router.delete('/:id/likes/:likeid', async(req,res) =>{
     await remark.save();
 
     res.json({res:"correct", msg:"remark disliked"});}
+    catch(err){
+        res.status(500).send('server error')
+    }
+} );
+
+//@route DELETE api/remarks/likes
+//@desc DELETE like by user
+//@access private
+router.delete('/:id/userlike/:user', async(req,res) =>{
+    try{
+    const remark = await Remark.findById(req.params.id);
+
+    const like = await remark.likes.find(like => like.user === req.params.user);
+    if(!like) return res.status(404).json({res:"incorrect", msg: 'like does not exit'});
+
+    const removeIndex = remark.likes.map(like => like.id).indexOf(req.params.likeid);
+    remark.likes.splice(removeIndex, 1);
+    await remark.save();
+
+    res.json({likes: remark.likes, res:"correct", msg:"remark disliked"});}
     catch(err){
         res.status(500).send('server error')
     }

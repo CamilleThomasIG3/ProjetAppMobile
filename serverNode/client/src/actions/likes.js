@@ -1,15 +1,15 @@
-import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING, SET_ALERT, REMARK_ERROR, UPDATE_LIKES } from './types';
-import { setAlert } from './alert';
+import { REMARK_ERROR, UPDATE_LIKES } from './types';
 import axios from 'axios';
 
 
-export const addLike = (remarkId) => async dispatch => {
+export const addLike = (id, user) => async dispatch => {
     try {
+        const body = {pseudo: user}
         const res = await axios
-            .post('/api/remarks/'+{remarkId}+'/likes');
+            .post('/api/remarks/'+id+'/likes', body);
         dispatch({
             type: UPDATE_LIKES,
-            payload: {remarkId,likes: res.data}
+            payload: {id, likes: res.data.likes}
         });
         
     } catch (err) {
@@ -22,13 +22,13 @@ export const addLike = (remarkId) => async dispatch => {
     
 };
 
-export const removeLike = (remarkId) => async dispatch => {
+export const removeLike = (id, user) => async dispatch => {
     try {
         const res = await axios
-            .delete('/api/remarks/'+{remarkId}+'/likes');
+            .delete('/api/remarks/'+id+'/userlike/'+user);
         dispatch({
             type: UPDATE_LIKES,
-            payload: {remarkId,likes: res.data}
+            payload: {id, likes: res.data.likes}
         });
         
     } catch (err) {

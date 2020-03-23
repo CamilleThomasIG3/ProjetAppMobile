@@ -1,4 +1,7 @@
-import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, REMARKS_LOADING, SET_ALERT, REMARK_ERROR } from './types';
+import { GET_REMARK, GET_REMARKS,
+     ADD_REMARK, DELETE_REMARK,
+      REMARKS_LOADING, REMARK_ERROR,
+    ADD_ANSWER, REMOVE_ANSWER } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
 
@@ -33,7 +36,7 @@ export const deleteRemark = (id) => dispatch => {
                         payload: id
                     })
             )
-        dispatch(setAlert('post remove', 'success'));
+        dispatch(setAlert('remark remove', 'success'));
     } catch (err) {
         dispatch({
             type: REMARK_ERROR,
@@ -60,6 +63,62 @@ export const addRemark = (formData) => async dispatch => {
 
     }
 };
+
+export const getRemark = (id) => async dispatch => {
+    try {
+        const res = await axios
+            .get(`/api/remarks/${id}`);
+        dispatch({
+            type: GET_REMARK,
+            payload: res.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: REMARK_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+
+};
+
+//add answer
+export const addAnswer = (id, formData) => async dispatch => {
+    try {
+        const res = await axios.post('/api/remarks/'+id+'/answers', formData);
+        dispatch({
+            type: ADD_ANSWER,
+            payload:res.data.answers
+        })
+        dispatch(setAlert('answer created', 'success'));
+    } catch (err) {
+        dispatch({
+            type: REMARK_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+};
+
+//add answer
+export const deleteAnswer = (id, answerId) => async dispatch => {
+    try {
+        const res = await axios.delete('/api/remarks/'+id+'/answers/'+answerId);
+        dispatch({
+            type: REMOVE_ANSWER,
+            payload: answerId
+        })
+        dispatch(setAlert('answer removed', 'success'));
+    } catch (err) {
+        dispatch({
+            type: REMARK_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+};
+
 
 export const setRemarksLoading = () => {
     return {

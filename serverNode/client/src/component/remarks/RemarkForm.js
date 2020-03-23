@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { addRemark } from '../../actions/remark'
-import { Button } from 'reactstrap';
-import { Link} from 'react-router-dom';
+// import { Button } from 'reactstrap';
+// import { Link} from 'react-router-dom';
 
 
 

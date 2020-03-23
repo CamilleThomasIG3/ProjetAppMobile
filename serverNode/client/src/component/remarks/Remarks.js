@@ -1,7 +1,4 @@
-import React, { Fragment, Component, useEffect } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getRemarks, deleteRemark } from '../../actions/remark';
 import Spinner from '../layout/Spinner';
@@ -20,9 +17,9 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
         <div>
             <Fragment>
                 <h1 className="large text-primary">Remarks</h1>
-                <p className="lead"> Welcome girls and boys</p>
+                <p className="lead"> Welcome everyone </p>
                 <RemarkForm/>
-                <div className="remarks">
+                <div className="posts">
                     {console.log(remarks)}
                     {remarks.map(remark => (
                         <RemarkItem key={remark._id} remark={remark} />))}

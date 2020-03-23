@@ -1,4 +1,5 @@
 export const GET_REMARKS = 'GET_REMARKS';
+export const GET_REMARK = 'GET_REMARK';
 export const ADD_REMARK = 'ADD_REMARK';
 export const DELETE_REMARK = 'DELETE_REMARK';
 export const REMARKS_LOADING = 'REMARKS_LOADING';
@@ -11,7 +12,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
-export const GET_PROFILE = 'GET_PROFILE';
-export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const REMARK_ERROR = 'REMARK_ERROR';
-export const UPDATE_LIKES = 'UPDATE-LIKES';
+export const UPDATE_LIKES = 'UPDATE_LIKES';
+export const ADD_ANSWER = 'ADD_ANSWER';
+export const REMOVE_ANSWER = 'REMOVE_ANSWER'
