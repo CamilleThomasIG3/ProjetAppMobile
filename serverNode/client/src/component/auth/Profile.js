@@ -28,12 +28,9 @@ const Profile = ({isAuthenticated, editPseudo, user}) => {
             <h2>you have to login to see profile</h2>
         )
     }else{
-    
         const onChange = e => setFormData({...formdata, [e.target.name]: e.target.value});
 
         const onSubmit = async e => {
-            console.log(`id : ${user._id}, pseudo : ${newPseudo}, mdp : ${password}`);
-            
             e.preventDefault();
             editPseudo(user._id, newPseudo, password);
             //close modal

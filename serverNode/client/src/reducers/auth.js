@@ -36,8 +36,8 @@ export default function (state = initialState, action) {
         case EDIT_PSEUDO_SUCCESS:            
             return{
                 ...state,
-                loading: false,
-                user: action.payload
+                ...action.payload,
+                loading: false
             }
         case REGISTER_FAIL:
         case AUTH_ERROR:

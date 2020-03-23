@@ -94,7 +94,7 @@ export const editPseudo = (id, newPseudo, password) => async dispatch => {
     const body = { newPseudo, password };
 
     try {
-        const res = await axios.put(`api/${id}`, body);
+        const res = await axios.put(`api/users/${id}`, body);
         dispatch({
             type: EDIT_PSEUDO_SUCCESS,
             payload: res.data
