@@ -23,7 +23,6 @@ export const REMARK_ERROR = 'REMARK_ERROR';
 export const ADD_ANSWER = 'ADD_ANSWER';
 export const REMOVE_ANSWER = 'REMOVE_ANSWER'
 export const UPDATE_ANSWER_LIKES = 'UPDATE_ANSWER_LIKES';
-export const REMARK_ERROR = 'REMARK_ERROR';
 export const UPDATE_LIKES = 'UPDATE_LIKES';
 
 
