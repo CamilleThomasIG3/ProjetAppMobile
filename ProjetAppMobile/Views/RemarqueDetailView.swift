@@ -22,6 +22,7 @@ struct RemarqueDetailView: View {
     var remarque : Remarque
     
     @Binding var estConnecte : Bool
+    
     @State private var showingAlert = false
     @State private var showingAlertAime = false
     @State private var showingAlertSignal = false
@@ -34,13 +35,10 @@ struct RemarqueDetailView: View {
         sortDescriptors: []
     )
     var myPersonne : FetchedResults<PersonneApp>
+    
     @State var showingCategories = false
     @State var activeBoxes : [String:Bool]  = ["Général":false, "Humour":false, "Loi":false, "Citation":false]
     
-    init(remarque: Remarque, estConnecte : Binding<Bool>){
-        self.remarque = remarque
-        self._estConnecte = estConnecte
-    }
     
     var body: some View {
         VStack {
@@ -169,11 +167,12 @@ struct RemarqueDetailView: View {
                                 if(self.estConnecte && !self.alreadySignaled(answer: answer)){
                                     Button(action: {
                                         self.signal(reponse : answer)
+                                        self.reponseDAO.getAnswers(idRemarque: self.remarque._id)
                                     })
                                     {
                                         ZStack{
                                             RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                            Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                            Image("warning-black").resizable().frame(width: 30, height: 30, alignment : .trailing)
                                         }
                                         
                                     }.padding(.leading, 10)
@@ -184,7 +183,7 @@ struct RemarqueDetailView: View {
                                     })
                                     {
                                         ZStack{
-                                            RoundedRectangle(cornerRadius: 5).fill(Color.black).frame(width: 40, height:40)
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
                                             Image("warning").resizable().frame(width: 30, height: 30, alignment : .trailing)
                                         }
                                         
@@ -231,7 +230,7 @@ struct RemarqueDetailView: View {
                                     {
                                         ZStack{
                                             RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
-                                            Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
+                                            Image("coeur-black").resizable().frame(width: 30, height: 30, alignment : .trailing)
                                         }
                                         
                                     }
@@ -242,7 +241,7 @@ struct RemarqueDetailView: View {
                                     })
                                     {
                                         ZStack{
-                                            RoundedRectangle(cornerRadius: 5).fill(Color.black).frame(width: 40, height:40)
+                                            RoundedRectangle(cornerRadius: 5).fill(Color("Gris_fonce")).frame(width: 40, height:40)
                                             Image("coeur").resizable().frame(width: 30, height: 30, alignment : .trailing)
                                         }
                                         

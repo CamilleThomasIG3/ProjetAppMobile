@@ -101,7 +101,6 @@ export const editPseudo = (id, newPseudo, password) => async dispatch => {
         
     } catch (err) {
         const errors = err.response.data;
-        console.log(errors.msg);
         
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
