@@ -6,18 +6,17 @@ import {addAnswer, addRemark} from '../../actions/remark'
 const AnswerForm = ({remarkId, addAnswer, isAuthenticated, user}) => {
 
     const [formData, setFormData] = useState({
-        pseudo: user,
         content: '',
         CategoryResponse: ''
     });
 
-    const { pseudo, content, categoryResponse } = formData;
+    const { content, categoryResponse } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async e => {
         e.preventDefault();
-        addAnswer(remarkId, formData );
+        addAnswer(remarkId, formData, user );
     };
 
     if (!isAuthenticated) {

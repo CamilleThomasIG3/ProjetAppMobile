@@ -3,7 +3,8 @@ import {
     ADD_REMARK, DELETE_REMARK,
     UPDATE_LIKES,
     REMARKS_LOADING, REMARK_ERROR,
-    ADD_ANSWER, REMOVE_ANSWER
+    ADD_ANSWER, REMOVE_ANSWER,
+    UPDATE_ANSWER_LIKES
 } from '../actions/types'
 
 const initialState = {
@@ -59,6 +60,17 @@ export default function (state = initialState, action) {
                 loading: false
             }
 
+        case UPDATE_ANSWER_LIKES:
+            return {
+                ...state,
+                remark: {
+                    ...state.remark,
+                answers: state.remark.answers.map(answer => answer._id === action.payload.answerId ?
+                    { ...answer, likes: action.payload.likes } :
+                    answer)},
+                loading: false
+            }
+
         case ADD_ANSWER:
             return {
                 ...state,
@@ -75,7 +87,7 @@ export default function (state = initialState, action) {
                 remark: {
                     ...state.remark,
                     answers: state.remark.answers
-                    .filter(answer => answer._id !== action.payload )
+                        .filter(answer => answer._id !== action.payload)
                 },
                 loading: false
             }

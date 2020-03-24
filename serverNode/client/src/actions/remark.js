@@ -47,9 +47,15 @@ export const deleteRemark = (id) => dispatch => {
 };
 
 
-export const addRemark = (formData) => async dispatch => {
+export const addRemark = (formData, cuser) => async dispatch => {
     try {
-        const res = await axios.post('/api/remarks', formData);
+        const body = {
+            title: formData.title,
+            content: formData.content,
+            idCategory: formData.idCategory,
+            pseudo: cuser.pseudo
+        }
+        const res = await axios.post('/api/remarks', body);
         dispatch({
             type: ADD_REMARK,
             payload:res.data.remark
@@ -84,9 +90,14 @@ export const getRemark = (id) => async dispatch => {
 };
 
 //add answer
-export const addAnswer = (id, formData) => async dispatch => {
+export const addAnswer = (id, formData, cuser) => async dispatch => {
     try {
-        const res = await axios.post('/api/remarks/'+id+'/answers', formData);
+        const body = {
+            content : formData.content,
+            categoryResponse: formData.categoryResponse,
+            pseudo: cuser.pseudo
+        }
+        const res = await axios.post('/api/remarks/'+id+'/answers', body);
         dispatch({
             type: ADD_ANSWER,
             payload:res.data.answers

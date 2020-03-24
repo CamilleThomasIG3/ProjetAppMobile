@@ -169,7 +169,7 @@ router.post('/:id/answers/:answerid', async(req,res) =>{
         const like = await answer.likes.find(like => like.user === newLike.user)
         if(!like){
             answer.likes.unshift(newLike);
-            remark.save().then(remark => res.json({res:"correct", msg:"answer liked"}));
+            remark.save().then(remark => res.json({likes: answer.likes, res:"correct", msg:"answer liked"}));
         }
         else res.status(400).json({res:"incorrect", msg: "answer already liked"})
     }} );
@@ -182,18 +182,20 @@ router.delete('/:id/answers/:answerid/likes/:user', async(req,res) =>{
     try{
     const remark = await Remark.findById(req.params.id);
     const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
-    const like = await answer.likes.find(like => like.user === req.params.user)
-    if(!like) res.status(404).json({res:"incorrect", msg: 'like does not exit'});
+    const alike = await answer.likes.find(like => like.user === req.params.user)
+    if(!alike) return res.status(404).json({res:"incorrect", msg: 'like does not exit'});
 
-    const removeIndex = answer.likes.map(like => like.id).indexOf(req.params.likeid);
+    const removeIndex = answer.likes.map(like => like.id).indexOf(alike._id);
     answer.likes.splice(removeIndex, 1);
     await remark.save();
 
-    res.json({res:"correct", msg:"remark disliked"});}
+    res.json({likes: answer.likes, res:"correct", msg:"remark disliked"});}
     catch(err){
         res.status(500).send('server error')
     }
 } );
+
+
 
 
 //----------remarks/answers/signal----------
@@ -295,10 +297,9 @@ router.delete('/:id/userlike/:user', async(req,res) =>{
     try{
     const remark = await Remark.findById(req.params.id);
 
-    const like = await remark.likes.find(like => like.user === req.params.user);
-    if(!like) return res.status(404).json({res:"incorrect", msg: 'like does not exit'});
-
-    const removeIndex = remark.likes.map(like => like.id).indexOf(req.params.likeid);
+    const alike = await remark.likes.find(like => like.user === req.params.user);
+    if(!alike) return res.status(404).json({res:"incorrect", msg: 'like does not exit'});
+    const removeIndex = await remark.likes.map(like => like.id).indexOf(alike._id);
     remark.likes.splice(removeIndex, 1);
     await remark.save();
 

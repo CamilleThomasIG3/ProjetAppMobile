@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 //import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike } from '../../actions/likes'
+import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteRemark } from '../../actions/remark'
 
 const RemarkItem = ({
     deleteRemark,
-    addLike,
-    removeLike,
+    addRemarkLike,
+    removeRemarkLike,
     auth,
     showActions,
     remark: { _id, title, content, user, date, likes, answers, idCategory } }) =>
     <div className="post bg-white p-1 my-1">
         <div>
-            <a href="profile.html">
-                <h4>{title}</h4>
-            </a>
+            <h2>{title}</h2>
         </div>
         <div>
-            <button type="button" className="btn btn-light">
-                {idCategory}
-            </button>
+            <h3>Catégorie :
+                <button type="button" className="btn btn-light">
+                    {idCategory}
+                </button>
+            </h3>
             <p className="my-1">
                 {content}
             </p>
@@ -32,16 +32,6 @@ const RemarkItem = ({
 
             {showActions && <Fragment>
 
-                <button onClick={e => {if(auth.isAuthenticated) addLike(_id, auth.user.pseudo)}}
-                    type="button" className="btn btn-light">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>{likes.length} like</span>
-                </button>
-                <button onClick={e =>{if(auth.isAuthenticated)  removeLike(_id, auth.user.pseudo)}}
-                    type="button" className="btn btn-light">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>unlike</span>
-                </button>
                 <Link to={`/remarks/${_id}`} className="btn btn-primary">
                     Discussion {answers.length > 0 && (
                         <span className='comment-count'>{answers.length}</span>
@@ -57,12 +47,22 @@ const RemarkItem = ({
                     </button>
                     ))}
             </Fragment>}
+            <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
+                type="button" className="btn btn-light">
+                <i className="fas fa-thumbs-up"></i>
+                <span>{likes.length} like</span>
+            </button>
+            <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
+                type="button" className="btn btn-light">
+                <i className="fas fa-thumbs-up"></i>
+                <span>unlike</span>
+            </button>
 
         </div>
     </div>
 
 
-RemarkItem.defaultProps= {
+RemarkItem.defaultProps = {
     showActions: true
 }
 
@@ -77,4 +77,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { addLike, removeLike, deleteRemark })(RemarkItem);
+export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark })(RemarkItem);
