@@ -22,7 +22,7 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
     const onSubmit = async e => {
         e.preventDefault();
         addRemark({title, content, idCategory }, user);
-        e.clear();
+        // e.clear();
     };
 
     if (!isAuthenticated) {
