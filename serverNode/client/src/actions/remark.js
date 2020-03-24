@@ -16,6 +16,11 @@ export const getRemarks = () => async dispatch => {
         });
 
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -36,8 +41,13 @@ export const deleteRemark = (id) => dispatch => {
                         payload: id
                     })
             )
-        dispatch(setAlert('remark remove', 'success'));
+        dispatch(setAlert('remark removed', 'success'));
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -62,6 +72,11 @@ export const addRemark = (formData, cuser) => async dispatch => {
         })
         dispatch(setAlert('post created', 'success'));
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -80,6 +95,11 @@ export const getRemark = (id) => async dispatch => {
         });
 
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -104,6 +124,11 @@ export const addAnswer = (id, formData, cuser) => async dispatch => {
         })
         dispatch(setAlert('answer created', 'success'));
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -122,6 +147,11 @@ export const deleteAnswer = (id, answerId) => async dispatch => {
         })
         dispatch(setAlert('answer removed', 'success'));
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }

@@ -1,5 +1,6 @@
 import { REMARK_ERROR, UPDATE_LIKES, UPDATE_ANSWER_LIKES } from './types';
 import axios from 'axios';
+import { setAlert } from './alert';
 
 
 
@@ -16,6 +17,11 @@ export const addRemarkLike = (id, user) => async dispatch => {
         });
         
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}
@@ -35,6 +41,11 @@ export const removeRemarkLike = (id, user) => async dispatch => {
         });
         
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}
@@ -57,6 +68,11 @@ export const addAnswerLike = (remarkId, answerId, user) => async dispatch => {
         });
         
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}
@@ -76,6 +92,11 @@ export const removeAnswerLike = (remarkid, answerId, user) => async dispatch => 
         });
         
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}

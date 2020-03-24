@@ -1,5 +1,6 @@
 import { REMARK_ERROR, UPDATE_ANSWER_SIGNALS} from './types';
 import axios from 'axios';
+import { setAlert } from './alert';
 
 //------------answer---------
 
@@ -14,6 +15,11 @@ export const addAnswerSignal = (remarkId, answerId, user) => async dispatch => {
         });
         
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}
@@ -33,6 +39,11 @@ export const removeAnswerSignal = (remarkid, answerId, user) => async dispatch =
         });
         
     } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
         dispatch({
             type: REMARK_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}
