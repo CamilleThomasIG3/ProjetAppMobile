@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { addRemark } from '../../actions/remark'
-import { Button } from 'reactstrap';
-import { Link} from 'react-router-dom';
+// import { Button } from 'reactstrap';
+// import { Link} from 'react-router-dom';
 
 
 
 
 const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
     const [formData, setFormData] = useState({
-        pseudo: user,
         title: '',
         content: '',
         idCategory: ''
     });
 
-    const { pseudo, title, content, idCategory } = formData;
+    const {title, content, idCategory } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async e => {
         e.preventDefault();
-        addRemark({ pseudo, title, content, idCategory });
+        addRemark({title, content, idCategory }, user);
+        // e.clear();
     };
 
     if (!isAuthenticated) {

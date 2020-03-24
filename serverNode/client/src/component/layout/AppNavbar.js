@@ -19,7 +19,7 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                     <span className="hide-sm">logout</span></a>
             </li>
             <li>
-                <Link to='/register'>t'es déja co poto</Link>
+                <Link to='/profile'>Profile</Link>
             </li>
             
         </ul>

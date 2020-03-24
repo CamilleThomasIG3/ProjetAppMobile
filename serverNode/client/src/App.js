@@ -7,10 +7,11 @@ import AppNavbar from './component/layout/AppNavbar';
 import Landing from './component/layout/Landing';
 import Register from './component/auth/Register';
 import Login from './component/auth/Login';
+import Profile from './component/auth/Profile';
 import Alert from './component/layout/Alert';
-import PrivateRoute from './component/routing/PrivateRoute';
 import Remarks from './component/remarks/Remarks';
 import RemarkForm from './component/remarks/RemarkForm';
+import Remark from './component/remark/Remark';
 
 //redux
 import { Provider } from 'react-redux';
@@ -40,10 +41,12 @@ const App = () => {
           <section className="container">
             <Alert />
             <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/remarks" component={Remarks}/>
-              <Route exact path="/remarkForm" component={RemarkForm}/>
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/profile' component={Profile} />
+              <Route exact path='/remarks' component={Remarks}/>
+              <Route exact path='/remarkForm' component={RemarkForm}/>
+              <Route exact path='/remarks/:id' component={Remark}/>
             </Switch>
           </section>
         </Fragment>

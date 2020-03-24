@@ -1,4 +1,11 @@
-import { GET_REMARKS, ADD_REMARK, DELETE_REMARK, UPDATE_LIKES, REMARKS_LOADING, REMARK_ERROR } from '../actions/types'
+import {
+    GET_REMARK, GET_REMARKS,
+    ADD_REMARK, DELETE_REMARK,
+    UPDATE_LIKES,
+    REMARKS_LOADING, REMARK_ERROR,
+    ADD_ANSWER, REMOVE_ANSWER,
+    UPDATE_ANSWER_LIKES
+} from '../actions/types'
 
 const initialState = {
     remarks: [],
@@ -12,6 +19,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 remarks: action.payload,
+                loading: false
+            }
+        case GET_REMARK:
+            return {
+                ...state,
+                remark: action.payload,
                 loading: false
             }
         case REMARK_ERROR:
@@ -46,6 +59,39 @@ export default function (state = initialState, action) {
                     remark),
                 loading: false
             }
+
+        case UPDATE_ANSWER_LIKES:
+            return {
+                ...state,
+                remark: {
+                    ...state.remark,
+                answers: state.remark.answers.map(answer => answer._id === action.payload.answerId ?
+                    { ...answer, likes: action.payload.likes } :
+                    answer)},
+                loading: false
+            }
+
+        case ADD_ANSWER:
+            return {
+                ...state,
+                remark: {
+                    ...state.remark,
+                    answers: action.payload
+
+                },
+                loading: false
+            }
+        case REMOVE_ANSWER:
+            return {
+                ...state,
+                remark: {
+                    ...state.remark,
+                    answers: state.remark.answers
+                        .filter(answer => answer._id !== action.payload)
+                },
+                loading: false
+            }
+
         default:
             return state;
     }
