@@ -15,9 +15,10 @@ import PropTypes from 'prop-types';
 import {editPseudo} from '../../actions/auth';
 
 const Profile = ({isAuthenticated, editPseudo, user}) => {    
+    
     const [formdata, setFormData] = useState({
         modal: false,
-        newPseudo: '',
+        newPseudo: user.pseudo,
         password: ''
     });
 
@@ -33,6 +34,7 @@ const Profile = ({isAuthenticated, editPseudo, user}) => {
         const onSubmit = async e => {
             e.preventDefault();
             editPseudo(user._id, newPseudo, password);
+
             //close modal
             toggle()
         }
@@ -60,7 +62,7 @@ const Profile = ({isAuthenticated, editPseudo, user}) => {
                     <ModalBody>
                         <Form onSubmit={e => onSubmit(e)}>
                             <FormGroup>
-                                <Label for="pseudo">Pseudo</Label>
+                                <Label for="pseudo">Pseudo</Label>                                
                                 <Input type="text" name="newPseudo" id="pseudo" placeholder="new pseudo" value={newPseudo}
                                     onChange={e => onChange(e)} required/>
 

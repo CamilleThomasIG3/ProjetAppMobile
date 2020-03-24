@@ -37,12 +37,12 @@ export default function (state = initialState, action) {
             return{
                 ...state,
                 ...action.payload,
+                isAuthenticated: true,
                 loading: false
             }
         case REGISTER_FAIL:
         case AUTH_ERROR:
         case LOGIN_FAIL:
-        case EDIT_PSEUDO_ERROR:
         case LOGOUT:
             localStorage.removeItem('token');
             return {
