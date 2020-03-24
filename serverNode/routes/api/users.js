@@ -82,19 +82,18 @@ router.put('/:id', async (req, res) => {
          bcrypt.compare(password, user.password)
          .then(isMatch => {
              if(!isMatch) return  res.status(400).json({res: "incorrect", msg: "invalid password"});
+             else{
+                User.findOneAndUpdate(
+                    {_id: id},
+                    {
+                        $set:{
+                            pseudo: newPseudo
+                        }
+                    }
+                ).then(user => res.json({res: "correct", msg:"pseudo updated"}))
+                .catch(err => res.status(404).json({ res: "incorrect", msg: 'user does not exists' }))
+             }
          })
-        User.findOneAndUpdate(
-            {_id: id},
-            {
-                $set:{
-                    pseudo: newPseudo
-                }
-            }
-        ).then(user => res.json({res: "correct", msg:"pseudo updated"}))
-        .catch(err => res.status(404).json({ res: "incorrect", msg: 'user does not exists' }))
-
-    
-
 })})
 
 //@route GET api/users
