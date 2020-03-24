@@ -2,6 +2,7 @@ import {
     REGISTER_SUCCESS, REGISTER_FAIL,
     USER_LOADED, AUTH_ERROR,
     LOGIN_FAIL, LOGIN_SUCCESS,
+    EDIT_PSEUDO_SUCCESS, EDIT_PSEUDO_ERROR,
     LOGOUT,
 } from '../actions/types';
 
@@ -31,6 +32,13 @@ export default function (state = initialState, action) {
                 isAuthenticated: true,
                 loading: false,
                 user: action.payload
+            }
+        case EDIT_PSEUDO_SUCCESS:            
+            return{
+                ...state,
+                ...action.payload,
+                isAuthenticated: true,
+                loading: false
             }
         case REGISTER_FAIL:
         case AUTH_ERROR:
