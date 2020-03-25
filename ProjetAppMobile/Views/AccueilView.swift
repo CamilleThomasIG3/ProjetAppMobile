@@ -75,11 +75,11 @@ struct AccueilView: View {
                         
                         if(showingCategories){
                             HStack{
-                                RadioButton(text: "Général", boxes : self.$activeBoxes)
-                                RadioButton(text: "Rue", boxes : self.$activeBoxes)
-                                RadioButton(text: "Travail", boxes : self.$activeBoxes)
-                                RadioButton(text: "Transports", boxes : self.$activeBoxes)
-                                RadioButton(text: "Famille", boxes : self.$activeBoxes)
+                                RadioButton(text: "Général", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryRemarque(cat: "Général"))
+                                RadioButton(text: "Rue", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryRemarque(cat: "Rue"))
+                                RadioButton(text: "Travail", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryRemarque(cat: "Travail"))
+                                RadioButton(text: "Transports", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryRemarque(cat: "Transports"))
+                                RadioButton(text: "Famille", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryRemarque(cat: "Famille"))
                             }
                         }
                         
