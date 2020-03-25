@@ -20,6 +20,7 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             </li>
             <li>
                 <Link to='/profile'>Profile</Link>
+                <Link to='/remarks/myRemarks'>My remarks</Link>
             </li>
             
         </ul>
