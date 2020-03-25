@@ -12,17 +12,20 @@ class UserWithoutId : Decodable, Identifiable, CustomStringConvertible {
     var pseudo: String
     var email: String
     var password: String
+    var admin : Bool
     var description: String {return " \(self.pseudo) "}
     
     init() {
         self.pseudo = ""
         self.email = ""
         self.password = ""
+        self.admin = false
     }
     
     init(email : String, pseudo : String, password : String){
         self.email = email
         self.pseudo = pseudo
         self.password = password
+        self.admin = false
     }
 }

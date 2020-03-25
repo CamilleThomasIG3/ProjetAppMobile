@@ -396,7 +396,7 @@ struct RemarqueDetailView: View {
     func alreadyHeard() -> Bool {
         var res = false
         for obj in remarque.likes {
-            if(obj["user"] == self.myPersonne[0].pseudo!){
+            if(estConnecte && obj["user"] == self.myPersonne[0].pseudo!){
                 res = true
             }
         }
