@@ -28,7 +28,10 @@ const Login = ({login, isAuthenticated}) => {
         <Fragment>
             <div className="dark-overlay page-content">
                 <h1 className="large text-primary">Sign in</h1>
-                <p className="lead"><i className="fas fa-user"></i> Sign into Your Account</p>
+                
+                <p className="my-1">
+                    You don't have an account ? <Link to='/register'>Sign In</Link>
+                </p>
                 <form className="form" onSubmit={e => onSubmit(e)}>
                     <div className="form-group">
                         <input type="email" placeholder="Email Address" name="email" value={email} 
@@ -45,9 +48,7 @@ const Login = ({login, isAuthenticated}) => {
                             
                         />
                     </div>
-                    <p className="my-1">
-                        Don't have an account ? <Link to='/register'>Sign In</Link>
-                    </p>
+
                     <input type="submit" className="btn btn-primary" value="Login" />
                 </form>
             </div>

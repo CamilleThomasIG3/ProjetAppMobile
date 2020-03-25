@@ -2,8 +2,6 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import AGAINST from '../../images/AGAINST.png'
 
-import { FaInstagram } from 'react-icons/fa'; //icones
-
 const Landing = () => {
     return(
         <section className="landing">

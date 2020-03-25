@@ -11,18 +11,19 @@ import { FaHome } from 'react-icons/fa'; //icones
 
 const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const authLinks = (
-        <div className="nav-left">
+        <div className="nav-right">
+            <Link to='/remarks/myRemarks'>My remarks</Link>
+            <Link to='/profile'>Profile</Link>
+            
             <a onClick={logout} href='/'>
                 <span className="hide-sm">logout</span>
             </a>
             
-            <Link to='/profile'>Profile</Link>
-            <Link to='/remarks/myRemarks'>My remarks</Link>
         </div>
     );
 
     const guestLinks = (
-        <div className="nav-left">
+        <div className="nav-right">
             <Link to='/register'>Register</Link>
             <Link to='/login'>Login</Link>
         </div>
@@ -30,7 +31,7 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
     return (
         <nav className="navbar bg-dark">
-            <div className="nav-right">
+            <div className="nav-left">
                 <Link to='/'><FaHome size={30}/></Link>
                 <Link to='/remarks'>Remarks</Link>
             </div>

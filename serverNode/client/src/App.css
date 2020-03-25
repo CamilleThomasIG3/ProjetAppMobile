@@ -19,8 +19,8 @@
 body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
-  line-height: 1.6;
-  background-color: #fff;
+  line-height: 1.6;  
+  background-color: rgba(0, 0, 0, 0.7);
   color: #333;
 }
 
@@ -239,7 +239,7 @@ img {
 
 /* Overlay */
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
   position: absolute;
   margin: auto;
   top: 0;
@@ -252,6 +252,10 @@ img {
 /* Forms */
 .form .form-group {
   margin: 1.2rem 0;
+}
+
+.form{
+  padding: 2%;
 }
 
 .form .form-text {
@@ -334,7 +338,7 @@ button {
 
 .navbar a {
   color: #fff;
-  padding: 2rem;
+  padding-right: 2rem;
 }
 
 .navbar a:hover {
@@ -599,13 +603,31 @@ button {
 }
 
 /* NAVBAR */
-.nav-left a{
- padding-top: 10px;
+.nav-left{
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /* HOME */
 #logo_home{
   max-width: 40%;
+  height: auto;
+  width: auto;
+}
+
+/* PROFILE */
+.profile-data{
+  /* text-align: left; */
+  padding: 2%;
+}
+
+.profile-data h3{
+  /* text-align: left; */
+  padding-top: 1%;
+}
+
+#icon-profile{
+  max-width: 20%;
   height: auto;
   width: auto;
 }
