@@ -91,7 +91,7 @@ router.put('/:id', async (req, res) => {
                         }
                     }
                 ).then(user => res.json({res: "correct", msg:"pseudo updated"}))
-                .catch(err => res.status(404).json({ res: "incorrect", msg: 'user does not exists' }))
+                .catch(err => res.status(404).json({ res: "incorrect", msg: 'pseudo already used' }))
              }
          })
 })})

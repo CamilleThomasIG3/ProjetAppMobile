@@ -9,6 +9,7 @@ import {
 
 const initialState = {
     remarks: [],
+    remark: null,
     loading: true,
     error: {}
 };

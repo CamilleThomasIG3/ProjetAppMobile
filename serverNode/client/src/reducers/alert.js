@@ -3,8 +3,8 @@ import {SET_ALERT, REMOVE_ALERT} from '../actions/types.js';
 const initialState = [
     // {
     //     id: 1,
-    //     msg: 'please login',
-    //     alertType:'success'
+    //     msg: 'we don\'t know what\'s wrong sorry...',
+    //     alertType:'danger'
     // }
 ];
 
