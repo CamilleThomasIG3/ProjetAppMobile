@@ -8,6 +8,7 @@ const Landing = () => {
       <div className="dark-overlay">
         <div className="landing-inner">
           <img src={AGAINST} alt="logo" id="logo_home"/>
+
           <h1 className="x-large">Welcome to <i>Against Sexism</i></h1>
           <p className="lead">
             We are together to fight sexism !

@@ -14,6 +14,7 @@ class User : Decodable, Identifiable, CustomStringConvertible {
     var email: String
     var password: String
     var register_date: String
+    var admin : Bool
     var description: String {return " \(self.pseudo) "}
     
     
@@ -23,5 +24,6 @@ class User : Decodable, Identifiable, CustomStringConvertible {
         self.pseudo = pseudo
         self.password = password
         self.register_date = date
+        self.admin = false
     }
 }

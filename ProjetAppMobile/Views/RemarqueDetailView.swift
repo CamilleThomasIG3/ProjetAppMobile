@@ -51,8 +51,7 @@ struct RemarqueDetailView: View {
                     HStack {
                         Text(remarque.user).padding(20)
                         Spacer()
-                        Text(remarque.idCategory).padding(20)
-                            .foregroundColor(self.getColorCategoryRemarque(cat: remarque.idCategory))
+                        Text(remarque.idCategory).padding(20).foregroundColor(self.getColorCategoryRemarque(cat: remarque.idCategory))
                         Spacer()
                         Text(self.convertDate(date : remarque.date)).padding(20)
                     }
@@ -135,10 +134,10 @@ struct RemarqueDetailView: View {
                 }
                 if(showingCategories){
                     HStack{
-                        RadioButton(text: "Général", boxes : self.$activeBoxes)
-                        RadioButton(text: "Humour", boxes : self.$activeBoxes)
-                        RadioButton(text: "Loi", boxes : self.$activeBoxes)
-                        RadioButton(text: "Citation", boxes : self.$activeBoxes)
+                        RadioButton(text: "Général", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryReponse(cat: "Général"))
+                        RadioButton(text: "Humour", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryReponse(cat: "Humour"))
+                        RadioButton(text: "Loi", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryReponse(cat: "Loi"))
+                        RadioButton(text: "Citation", boxes : self.$activeBoxes).foregroundColor(self.getColorCategoryReponse(cat: "Citation"))
                     }
                 }
             }.padding(20)
@@ -303,16 +302,16 @@ struct RemarqueDetailView: View {
         if(cat=="Général"){
             color = Color.green
         }
-        if(cat=="Dans la rue"){
+        if(cat=="Rue"){
             color = Color.orange
         }
-        if(cat=="Au travail"){
+        if(cat=="Travail"){
             color = Color.red
         }
-        if(cat=="Dans les transports"){
+        if(cat=="Transports"){
             color = Color.blue
         }
-        if(cat=="En famille"){
+        if(cat=="Famille"){
             color = Color.purple
         }
         return color
@@ -396,7 +395,7 @@ struct RemarqueDetailView: View {
     func alreadyHeard() -> Bool {
         var res = false
         for obj in remarque.likes {
-            if(obj["user"] == self.myPersonne[0].pseudo!){
+            if(estConnecte && obj["user"] == self.myPersonne[0].pseudo!){
                 res = true
             }
         }
