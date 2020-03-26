@@ -46,6 +46,16 @@ const RemarkItem = ({
                         delete
                     </button>
                     ))}
+                {auth.isAuthenticated && auth.user.admin && (
+                        <button
+                        onClick={e => deleteRemark(_id)}
+                        type="button"
+                        className="btn btn-danger"
+                    >
+                        delete
+                    </button>
+                    
+                )}
             </Fragment>}
             <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
                 type="button" className="btn btn-light">
