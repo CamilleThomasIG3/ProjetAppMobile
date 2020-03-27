@@ -96,6 +96,35 @@ router.put('/:id', async (req, res) => {
          })
 })})
 
+//@route put api/users
+//@desc update user's pseudo
+//@access Public
+router.put('/:id', async (req, res) => {
+    const newAdmin = req.body.newAdmin;
+    const id = req.params.id
+    if (!newAdmin) return res.status(400).json({ res: "incorrect", msg: "error syntax" })
+    User.findById(id)
+    .then(user => {
+        if(!user) return res.status(400).json({res: "incorrect", msg: "user doesn't exist"});
+
+        //validate psw
+        //  bcrypt.compare(password, user.password)
+        //  .then(isMatch => {
+             if(!isMatch) return  res.status(400).json({res: "incorrect", msg: "invalid password"});
+            //  else{
+                User.findOneAndUpdate(
+                    {_id: id},
+                    {
+                        $set:{
+                            admin: newAdmin
+                        }
+                    }
+                ).then(user => res.json({res: "correct", msg:"admin updated"}))
+                .catch(err => res.status(404).json({ res: "incorrect", msg: 'impossible to change admin status' }))
+            //  }
+        //  })
+})})
+
 //@route GET api/users
 //@desc GET User by id
 //@access Public
