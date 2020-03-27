@@ -252,7 +252,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  padding-top: 10%;
+  padding-top: 8%;
 }
 
 /* Forms */
@@ -274,7 +274,6 @@ img {
 .form input[type='email'],
 .form input[type='password'],
 .form input[type='date'],
-
 .form textarea {
   display: block;
   width: 40%;
@@ -283,6 +282,16 @@ img {
   border: 1px solid #ccc;
   margin: auto;
   border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  .form input[type='text'],
+  .form input[type='email'],
+  .form input[type='password'],
+  .form input[type='date'],
+  .form textarea {
+    width: 100%;
+  }
 }
 
 .form input[type='submit'],
@@ -608,15 +617,42 @@ button {
   color: var(--light-color);
 }
 
+@media screen and (max-width: 700px) {
+  .page-content{
+    padding-top: 40%;
+  }
+}
+
 /* NAVBAR */
 .nav-left{
-  padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.nav-burger{
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .nav-long{
+    display: none;
+  }
+
+  .nav-burger{
+    display: inline-flex;
+  }
+
+  .is-expanded{
+    display: none !important;
+  }
+
+  .nav-items{
+    padding-left: 70%;
+  }
 }
 
 /* HOME */
 #logo_home{
-  max-width: 40%;
+  max-width: 30%;
   height: auto;
   width: auto;
 }
