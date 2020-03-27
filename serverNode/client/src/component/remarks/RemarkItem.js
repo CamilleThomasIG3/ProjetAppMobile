@@ -5,14 +5,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteRemark } from '../../actions/remark'
+import { addRemarkSignal } from '../../actions/signal'
 
 const RemarkItem = ({
     deleteRemark,
     addRemarkLike,
     removeRemarkLike,
+    addRemarkSignal,
     auth,
     showActions,
-    remark: { _id, title, content, user, date, likes, answers, idCategory } }) =>
+    remark: { _id, title, content, user, date, likes, answers, idCategory, signals } }) =>
     <div className="post bg-white p-1 my-1">
         <div>
             <h2>{title}</h2>
@@ -47,14 +49,14 @@ const RemarkItem = ({
                     </button>
                     ))}
                 {auth.isAuthenticated && auth.user.admin && (
-                        <button
+                    <button
                         onClick={e => deleteRemark(_id)}
                         type="button"
                         className="btn btn-danger"
                     >
                         delete
                     </button>
-                    
+
                 )}
             </Fragment>}
             <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
@@ -66,6 +68,13 @@ const RemarkItem = ({
                 type="button" className="btn btn-light">
                 <i className="fas fa-thumbs-up"></i>
                 <span>unlike</span>
+            </button>
+            <button
+                onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
+                type="button"
+                className="btn btn-signal">
+                <span>{signals.length} signal</span>
+
             </button>
 
         </div>
@@ -87,4 +96,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark })(RemarkItem);
+export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark, addRemarkSignal })(RemarkItem);
