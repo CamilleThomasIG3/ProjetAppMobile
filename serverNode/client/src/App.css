@@ -651,6 +651,10 @@ button {
   width: auto;
 }
 
+.is-authenticated{
+  display: none;
+}
+
 /* PROFILE */
 .profile-data{
   /* text-align: left; */
