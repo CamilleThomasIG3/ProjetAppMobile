@@ -15,13 +15,13 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
         idCategory: ''
     });
 
-    const {title, content, idCategory } = formData;
+    const { title, content, idCategory } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async e => {
         e.preventDefault();
-        addRemark({title, content, idCategory }, user);
+        addRemark({ title, content, idCategory }, user);
         // e.clear();
     };
 
@@ -39,8 +39,10 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
                     <input type="text" placeholder="Title" name="title" value={title} onChange={e => onChange(e)} />
                 </div>
                 <div className="form-group">
-                    <input type="text" className="textarea" placeholder="Write your remark" name="content" value={content}
-                        onChange={e => onChange(e)} />
+                    <label>
+                        <textarea className="textarea" placeholder="Write your remark" name="content" value={content}
+                            onChange={e => onChange(e)}></textarea>
+                    </label>
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Category" name="idCategory" value={idCategory} onChange={e => onChange(e)} />
