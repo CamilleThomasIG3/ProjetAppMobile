@@ -32,7 +32,7 @@ const Login = ({login, isAuthenticated}) => {
                 <p className="my-1">
                     You don't have an account ? <Link to='/register'>Sign In</Link>
                 </p>
-                <form className="form" onSubmit={e => onSubmit(e)}>
+                <form className="form form-centered" onSubmit={e => onSubmit(e)}>
                     <div className="form-group">
                         <input type="email" placeholder="Email Address" name="email" value={email} 
                             onChange={e => onChange(e) } required />

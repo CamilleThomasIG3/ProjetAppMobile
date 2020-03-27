@@ -42,7 +42,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                     You already have an account? <Link to='/login'>Sign In</Link>
                 </p>
 
-                <form className="form" onSubmit={e => onSubmit(e)}>
+                <form className="form form-centered" onSubmit={e => onSubmit(e)}>
                     <div className="form-group">
                         <input type="text" placeholder="Pseudo" name="pseudo" value={pseudo} onChange={e => onChange(e)}  />
                     </div>
