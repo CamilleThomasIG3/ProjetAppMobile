@@ -8,6 +8,8 @@
   --light-color: #f4f4f4;
   --danger-color: #dd4031;
   --success-color: #28a745;
+  --signal-color: #FD9935;
+
 }
 
 * {
@@ -207,6 +209,10 @@ img {
 .alert-success {
   background: var(--success-color);
   color: #fff;
+}
+
+.btn-signal{
+  background-color: var(--signal-color);
 }
 
 .btn-white,

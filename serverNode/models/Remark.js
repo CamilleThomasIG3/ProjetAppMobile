@@ -68,7 +68,14 @@ const RemarkSchema = new Schema({
             
         }
         
-    ]
+    ],
+    signals: [
+        {
+            user: {
+                type: String,
+            }
+        }
+    ],
 });
 
 module.exports = Item = mongoose.model('remark',RemarkSchema);
