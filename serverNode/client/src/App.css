@@ -644,10 +644,6 @@ button {
   .is-expanded{
     display: none !important;
   }
-
-  .nav-items{
-    padding-left: 70%;
-  }
 }
 
 /* HOME */
