@@ -25,9 +25,3 @@ struct IfLet<T, Out: View>: View {
     }
   }
 }
-
-//struct IfLet_Previews: PreviewProvider {
-//    static var previews: some View {
-//        IfLet()
-//    }
-//}

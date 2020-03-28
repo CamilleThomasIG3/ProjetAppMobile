@@ -111,9 +111,3 @@ struct InscriptionView: View {
         })
     }
 }
-
-//struct InscriptionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        InscriptionView(estConnecte: $estConnecte)
-//    }
-//}

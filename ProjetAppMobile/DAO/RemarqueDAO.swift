@@ -27,34 +27,7 @@ class RemarqueDAO : ObservableObject{
             self.remarques = res
           }
         }.resume()
-    }
-    
-    
-    //INUTILE
-//    func getRemarqueByPersonne(pseudo : String){
-//        guard let url = URL(string: urlRemarques+"user/"+pseudo) else { return }
-//        URLSession.shared.dataTask(with: url){(data, _, _) in
-//          guard let data = data else { return }
-//          let res = try! JSONDecoder().decode([Remarque].self, from: data)
-//          DispatchQueue.main.async{
-//            self.remarques = res
-//          }
-//        }.resume()
-//    }
-//
-//    func getRemarqueByCategory(category : String){
-//        guard let url = URL(string: urlRemarques+"categorie/"+category) else { return }
-//        URLSession.shared.dataTask(with: url){(data, _, _) in
-//          guard let data = data else { return }
-//          let res = try! JSONDecoder().decode([Remarque].self, from: data)
-//          DispatchQueue.main.async{
-//            print("res")
-//            print(res)
-//            self.remarques = res
-//          }
-//        }.resume()
-//    }
-    
+    }    
     
     func getRemarqueById(id : String){
         guard let url = URL(string: urlRemarques+id) else { return }
