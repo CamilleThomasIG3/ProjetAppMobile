@@ -77,11 +77,4 @@ struct AjoutRemarqueView: View {
     }
     
 }
-
-
-struct AjoutRemarqueView_Previews: PreviewProvider {
-    static var previews: some View {
-        AjoutRemarqueView()
-    }
-}
   

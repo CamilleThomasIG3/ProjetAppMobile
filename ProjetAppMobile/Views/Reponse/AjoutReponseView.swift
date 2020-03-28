@@ -33,7 +33,7 @@ struct AjoutReponseView: View {
                 VStack{
                     Text(remarque.title).font(.headline)
                     Text(remarque.content).padding(.trailing, 10).padding(.leading,10).multilineTextAlignment(.center)
-                }.border(Color.gray).padding(.trailing,20).padding(.leading,20)
+                }.padding(.trailing,20).padding(.leading,20)
                 
                 Form {
                     Section{
@@ -75,10 +75,3 @@ struct AjoutReponseView: View {
         
     }
 }
-
-
-//struct AjoutReponseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AjoutReponseView()
-//    }
-//}

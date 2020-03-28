@@ -64,9 +64,3 @@ struct ModifierProfilView: View {
         })
     }
 }
-
-//struct ModifierProfilView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ModifierProfilView()
-//    }
-//}

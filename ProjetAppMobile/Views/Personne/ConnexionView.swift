@@ -100,9 +100,3 @@ struct ConnexionView: View {
         })
     }
 }
-
-//struct ConnexionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConnexionView()
-//    }
-//}

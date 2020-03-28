@@ -77,12 +77,3 @@ struct ProfilView: View {
         personneDAO.deletePersonne(id: id)
     }
 }
-
-
-
-
-//struct ProfilView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfilView()
-//    }
-//}
