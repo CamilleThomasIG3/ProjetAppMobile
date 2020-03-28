@@ -1,61 +1,72 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth'
+
+import { FaHome, FaBars } from 'react-icons/fa'; //icones
 // import {
 //     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container
 // } from 'reactstrap';
 
 const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+    const [formdata, setFormData] = useState({
+        isExpanded: true
+    });
+
+    const {isExpanded} = formdata;    
+
+    const logOut = () => {
+        logout()
+        handleToggle()
+    }
+
+    const handleToggle = () => {
+        setFormData({isExpanded: !isExpanded})
+    }
+
     const authLinks = (
-        <ul>
-            <li>
-                <Link to='/remarks'>Remarks</Link>
-            </li>
-            <li>
-                <a onClick={logout} href='#!'>
-                    <i className="fas fa-sign-out-alt"></i>{' '}
-                    <span className="hide-sm">logout</span></a>
-            </li>
-            <li>
-                <Link to='/profile'>Profile</Link>
-                <Link to='/remarks/myRemarks'>My remarks</Link>
-            </li>
+        <div className="nav-right">
+            <Link onClick={handleToggle} to='/remarks/myRemarks'>My remarks</Link>
+            <Link onClick={handleToggle} to='/profile'>Profile</Link>
             
-        </ul>
+            <Link onClick={logOut} to='/'>Logout</Link>
+            
+        </div>
     );
 
     const guestLinks = (
-        <ul>
-            <li>
-                <Link to='/remarks'>Remarks</Link>
-            </li>
-            <li>
-                <Link to='/register'>Register</Link>
-            </li>
-            <li>
-                <Link to='/login'>Login</Link>
-            </li>
-        </ul>
+        <div className="nav-right">
+            <Link onClick={handleToggle} to='/register'>Register</Link>
+            <Link onClick={handleToggle} to='/login'>Login</Link>
+        </div>
     );
 
     return (
-        <nav className="navbar bg-dark">
-            <h1>
-                <Link to='/'>
-                    <i className="fas fa-code" /> Against Sexism
-                </Link>
-            </h1>
+        <div>
+            <nav className="navbar bg-dark nav-long">
+                <div className="nav-left">
+                    <Link to='/'><FaHome size={30}/></Link>
+                    <Link to='/remarks'>Remarks</Link>
+                </div>
+                
+                { !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>) }
+            </nav>
             
-            {
-                !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}
+            <nav className="navbar bg-dark nav-burger">
+                <div className="nav-left">
+                    <Link to='/'><FaHome size={30}/></Link>
+                </div>
+                    
+                <Link onClick={handleToggle} to='/remarks'>Remarks</Link>
 
-                </Fragment>)
-            }
+                <i onClick={handleToggle}> <FaBars size={30}/></i>
 
-
-        </nav >
+                <ul className={`nav-items ${isExpanded ? "is-expanded" : ""}`}>
+                    { !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>) }
+                </ul>
+            </nav>
+        </div>
     )
 }
 

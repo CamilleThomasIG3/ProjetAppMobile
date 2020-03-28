@@ -1,13 +1,15 @@
 /* Global Styles */
 :root {
-  /* --primary-color: #C4C4C4; */
+  --gray-color: #C4C4C4;
   --primary-color: #17a2b8;
-  /* --dark-color: #4DD1AA; */
+  --turquoise-color: #4DD1AA;
   --dark-color: #343a40;
-  /* --light-color: #ECECEC; */
+  --gray-light-color: #ECECEC;
   --light-color: #f4f4f4;
-  --danger-color: #dc3545;
+  --danger-color: #dd4031;
   --success-color: #28a745;
+  --signal-color: #FD9935;
+
 }
 
 * {
@@ -19,14 +21,19 @@
 body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
-  line-height: 1.6;
-  background-color: #fff;
+  line-height: 1.6;  
+  background-color: rgba(0, 0, 0, 0.7);
   color: #333;
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--turquoise-color);
   text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 ul {
@@ -43,7 +50,7 @@ img {
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  margin-top: 6rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 
@@ -70,7 +77,7 @@ img {
 }
 
 .text-primary {
-  color: var(--primary-color);
+  color: var(--turquoise-color) !important;
 }
 
 .text-dark {
@@ -120,7 +127,7 @@ img {
   margin: 0.5rem 0;
 }
 .my-1 {
-  margin: 1rem 0;
+  margin: 5rem 0;
 }
 .my-2 {
   margin: 2rem 0;
@@ -163,8 +170,18 @@ img {
 .bg-primary,
 .badge-primary,
 .alert-primary {
-  background: var(--primary-color);
+  background: var(--turquoise-color);
   color: #fff;
+}
+
+.btn-primary:hover{
+  background: var(--gray-color);
+  color: black;
+}
+
+
+.btn-primary:focus{
+  background: var(--turquoise-color);
 }
 
 .btn-light,
@@ -199,6 +216,10 @@ img {
   color: #fff;
 }
 
+.btn-signal{
+  background-color: var(--signal-color);
+}
+
 .btn-white,
 .bg-white,
 .badge-white,
@@ -229,17 +250,23 @@ img {
 
 /* Overlay */
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
   position: absolute;
+  margin: auto;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding-top: 8%;
 }
 
 /* Forms */
 .form .form-group {
   margin: 1.2rem 0;
+}
+
+.form{
+  padding: 2%;
 }
 
 .form .form-text {
@@ -252,13 +279,36 @@ img {
 .form input[type='email'],
 .form input[type='password'],
 .form input[type='date'],
-.form select,
 .form textarea {
   display: block;
-  width: 100%;
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.textarea{
+  margin-top: 2rem;
+  height: 70%;
+}
+
+.form-centered input[type='text'],
+.form-centered input[type='email'],
+.form-centered input[type='password'],
+.form-centered input[type='date'],
+.form-centered textarea {
+  margin: auto;
+  width: 40%; 
+}
+
+@media (max-width: 700px) {
+  .form input[type='text'],
+  .form input[type='email'],
+  .form input[type='password'],
+  .form input[type='date'],
+  .form textarea {
+    width: 100%;
+  }
 }
 
 .form input[type='submit'],
@@ -306,12 +356,11 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 2rem;
-  position: fixed;
+  padding: 1rem 2rem;
   z-index: 1;
   width: 100%;
   top: 0;
-  border-bottom: solid 1px var(--primary-color);
+  border-bottom: solid 2px var(--turquoise-color);
   opacity: 0.9;
 }
 
@@ -321,12 +370,11 @@ button {
 
 .navbar a {
   color: #fff;
-  padding: 0.45rem;
-  margin: 0 0.25rem;
+  padding-right: 2rem;
 }
 
 .navbar a:hover {
-  color: var(--primary-color);
+  color: var(--turquoise-color);
 }
 
 .navbar .welcome span {
@@ -341,9 +389,7 @@ button {
 
 .landing-inner {
   color: #fff;
-  height: 100%;
-  width: 80%;
-  margin: auto;
+  height: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -580,7 +626,84 @@ button {
 
 
 
+/* MY PAGES */
+.page-content{
+  padding-top: 12%;
+  text-align: center;
+  color: var(--light-color);
+}
+
+@media screen and (max-width: 700px) {
+  .page-content{
+    padding-top: 40%;
+  }
+}
+
+/* NAVBAR */
+.nav-left{
+  padding-bottom: 5px;
+}
+
+.nav-burger{
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .nav-long{
+    display: none;
+  }
+
+  .nav-burger{
+    display: inline-flex;
+  }
+
+  .is-expanded{
+    display: none !important;
+  }
+}
+
 /* HOME */
 #logo_home{
-  width: 50%;
+  max-width: 30%;
+  height: auto;
+  width: auto;
+}
+
+.is-authenticated{
+  display: none;
+}
+
+/* PROFILE */
+.profile-data{
+  padding: 2%;
+}
+
+.profile-data h3{
+  padding-top: 1%;
+}
+
+#icon-profile{
+  max-width: 20%;
+  height: auto;
+  width: auto;
+}
+
+/* REMARKS */
+.page-infos{
+  color: var(--light-color);
+}
+
+.sort-buttons{
+  padding: 2%;
+  padding-left: 20%;
+}
+
+.post{
+  margin-bottom: 10px;
+}
+
+.post-content{
+  background-color: var(--light-color);
+  color: black;
+  margin-top: 10px;
 }

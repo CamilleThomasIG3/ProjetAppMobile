@@ -16,19 +16,23 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
 
 
     return loading ? <Spinner /> : (
-        <div>
+        <div className="page-remarks">
                 <h1 className="large text-primary">Remarks</h1>
-                <p className="lead"> Welcome everyone </p>
+
                 <RemarkForm/>
-                <button value={'recent'} onClick={e=>handleChangeFilter(e.target.value)}>
-                    by date
-                </button>
-                <button value={'likes'} onClick={e=>handleChangeFilter(e.target.value)} >
-                    by likes
-                </button>
-                <button value={'answers'} onClick={e=>handleChangeFilter(e.target.value)}>
-                    by comments
-                </button>
+
+                <div className="sort-buttons">
+                    <button className="btn" value={'recent'} onClick={e=>handleChangeFilter(e.target.value)}>
+                        Sort by date
+                    </button>
+                    <button className="btn" value={'likes'} onClick={e=>handleChangeFilter(e.target.value)} >
+                        Sort by number of likes
+                    </button>
+                    <button className="btn" value={'answers'} onClick={e=>handleChangeFilter(e.target.value)}>
+                    Sort by number of answers
+                    </button>
+                </div>
+
                 {filter === 'recent' && 
                 <Fragment>
                 <div className="posts">

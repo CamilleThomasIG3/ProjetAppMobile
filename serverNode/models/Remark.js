@@ -67,7 +67,13 @@ const RemarkSchema = new Schema({
             ],
             
         }
-        
+    ],
+    signals: [
+        {
+            user: {
+                type: String,
+            }
+        }
     ]
 });
 

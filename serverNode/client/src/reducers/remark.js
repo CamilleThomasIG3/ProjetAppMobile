@@ -1,17 +1,17 @@
 import {
     GET_REMARK, GET_REMARKS,
     ADD_REMARK, DELETE_REMARK,
-    UPDATE_LIKES,
+    UPDATE_LIKES, UPDATE_SIGNALS,
     REMARKS_LOADING, REMARK_ERROR,
     ADD_ANSWER, REMOVE_ANSWER,
-    UPDATE_ANSWER_LIKES
+    UPDATE_ANSWER_LIKES, UPDATE_ANSWER_SIGNALS
 } from '../actions/types'
 
 const initialState = {
     remarks: [],
     remark: null,
     loading: true,
-    error: {}
+    error: {},
 };
 
 export default function (state = initialState, action) {
@@ -60,15 +60,34 @@ export default function (state = initialState, action) {
                     remark),
                 loading: false
             }
-
+        case UPDATE_SIGNALS:
+            return {
+                ...state,
+                remarks: state.remarks.map(remark => remark._id === action.payload.id ?
+                    { ...remark, signals: action.payload.signals } :
+                    remark),
+                loading: false
+            }
         case UPDATE_ANSWER_LIKES:
             return {
                 ...state,
                 remark: {
                     ...state.remark,
-                answers: state.remark.answers.map(answer => answer._id === action.payload.answerId ?
-                    { ...answer, likes: action.payload.likes } :
-                    answer)},
+                    answers: state.remark.answers.map(answer => answer._id === action.payload.answerId ?
+                        { ...answer, likes: action.payload.likes } :
+                        answer)
+                },
+                loading: false
+            }
+        case UPDATE_ANSWER_SIGNALS:
+            return {
+                ...state,
+                remark: {
+                    ...state.remark,
+                    answers: state.remark.answers.map(answer => answer._id === action.payload.answerId ?
+                        { ...answer, signals: action.payload.signals } :
+                        answer)
+                },
                 loading: false
             }
 
