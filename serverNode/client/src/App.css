@@ -208,6 +208,12 @@ img {
   color: #fff;
 }
 
+.selectGroup{
+  width:50%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .btn-success,
 .bg-success,
 .badge-success,
