@@ -205,19 +205,51 @@
 			isa = PBXGroup;
 			children = (
 				461840522402EF21001A05EA /* AccueilView.swift */,
-				4671F9C5240C6126002BE20A /* ProfilView.swift */,
-				4671F9C7240C6287002BE20A /* ModifierProfilView.swift */,
+				46366BBE242F89C800F2BFF7 /* Personne */,
+				46366BBD242F89B400F2BFF7 /* Remarque */,
+				46366BBF242F89EB00F2BFF7 /* Reponse */,
+				46366BC0242F8A0600F2BFF7 /* Modules */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		46366BBD242F89B400F2BFF7 /* Remarque */ = {
+			isa = PBXGroup;
+			children = (
+				461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */,
+				464260C5240949DA00274276 /* AjoutRemarqueView.swift */,
+			);
+			path = Remarque;
+			sourceTree = "<group>";
+		};
+		46366BBE242F89C800F2BFF7 /* Personne */ = {
+			isa = PBXGroup;
+			children = (
 				46F86A882406BFB20040B499 /* InscriptionView.swift */,
 				46F86A8A2406C06E0040B499 /* ConnexionView.swift */,
-				464260C5240949DA00274276 /* AjoutRemarqueView.swift */,
+				4671F9C5240C6126002BE20A /* ProfilView.swift */,
+				4671F9C7240C6287002BE20A /* ModifierProfilView.swift */,
+			);
+			path = Personne;
+			sourceTree = "<group>";
+		};
+		46366BBF242F89EB00F2BFF7 /* Reponse */ = {
+			isa = PBXGroup;
+			children = (
 				464260C9240954D500274276 /* AjoutReponseView.swift */,
-				461CAA95240CF1FC005A1291 /* RemarqueDetailView.swift */,
+			);
+			path = Reponse;
+			sourceTree = "<group>";
+		};
+		46366BC0242F8A0600F2BFF7 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
 				4648619D2412A85B000618D1 /* EncapsulatingView.swift */,
 				46A66758241E8F6500DF49C5 /* KeyboardHost.swift */,
 				4639636824227953005CA0CF /* RadioButtonView.swift */,
 				460F344D2422C3B400E0A64B /* IfLet.swift */,
 			);
-			path = Views;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		469D7A8924096DDB0046F7F5 /* DAO */ = {

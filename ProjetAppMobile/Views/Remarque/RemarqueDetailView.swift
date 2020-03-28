@@ -26,7 +26,11 @@ struct RemarqueDetailView: View {
     @State private var showingAlert = false
     @State private var showingAlertAime = false
     @State private var showingAlertSignal = false
+    
     @State private var isHiddenEntendu = false
+    @State private var isHiddenAimeRps = false
+    @State private var isHiddenSignalementRmq = false
+    @State private var isHiddenSignalementRps = false
     
     //CoreData
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -36,9 +40,10 @@ struct RemarqueDetailView: View {
     )
     var myPersonne : FetchedResults<PersonneApp>
     
+    @State var pseudo : String = ""
+    
     @State var showingCategories = false
     @State var activeBoxes : [String:Bool]  = ["Général":false, "Humour":false, "Loi":false, "Citation":false]
-    
     
     var body: some View {
         VStack {
@@ -58,30 +63,39 @@ struct RemarqueDetailView: View {
                 }
                 Text(remarque.content).multilineTextAlignment(.center).padding(10)
                 
-                //Button déjà entendu et supprimer remarque
+                //Button déjà entendu, supprimer remarque et signalement
                 HStack {
                     if (self.estConnecte) {
                         if (!self.alreadyHeard() && !self.isHiddenEntendu) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(Color.blue).frame(width: 130, height:30)
-                                Text("Déjà entendu").foregroundColor(Color.white).bold().padding(5).onTapGesture {
-                                    self.remarqueDAO.addFrequence(id: self.remarque._id, user: self.myPersonne[0].pseudo!, completionHandler: {
-                                        res in
-                                        if (!res) {
-                                            print("erreur lors de l'ajout de fréquence")
-                                        }
-                                    })
-                                    self.isHiddenEntendu = true
+                            Button(action: {
+                                self.remarqueDAO.addFrequence(id: self.remarque._id, user: self.pseudo, completionHandler: {
+                                    res in
+                                    if (!res) {
+                                        print("erreur lors de l'ajout de fréquence")
+                                    }
+                                })
+                                self.isHiddenEntendu = true
+                            })
+                            {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).fill(Color.blue).frame(width: 130, height:30)
+                                    Text("Déjà entendu").foregroundColor(Color.white).bold().padding(5)
                                 }
                             }
                         }
                         else if(self.alreadyHeard() || self.isHiddenEntendu){
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(Color.blue).opacity(0.5).frame(width: 130, height:30)
-                                Text("Déjà entendu").foregroundColor(Color.white).bold().padding(5)
+                             Button(action: {
+                                self.remarqueDAO.deleteFrequence(idRemarque: self.remarque._id, pseudo: self.pseudo)
+                                self.isHiddenEntendu = false
+                            })
+                            {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).fill(Color.blue).opacity(0.5).frame(width: 130, height:30).opacity(0.5)
+                                    Text("Déjà entendu").foregroundColor(Color.white).bold().padding(5)
+                                }
                             }
                         }
-                        if(remarque.user == self.myPersonne[0].pseudo!){
+                        if(remarque.user == self.pseudo){
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
                                 Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
@@ -89,9 +103,43 @@ struct RemarqueDetailView: View {
                                     self.presentation.wrappedValue.dismiss()                                    
                                 }
                             }
-                            
+                        }else{
+                            //pas encore signalé
+                            if(!self.alreadySignaledRemarque() && !self.isHiddenSignalementRmq){
+                                Button(action: {
+                                    self.remarqueDAO.addSignal(remarque: self.remarque, pseudoUser: self.pseudo, completionHandler: {
+                                        res in
+                                        if (!res) {
+                                            print("erreur lors de l'ajout du signalement")
+                                        }
+                                    })
+                                    self.isHiddenSignalementRmq = true
+                                })
+                                {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10).fill(Color.orange).frame(width: 130, height:30)
+                                        Text("Signaler").foregroundColor(Color.white).bold().padding(5)
+                                    }
+                                }
+                                //deja signalé
+                            }else if(self.alreadySignaledRemarque() || self.isHiddenSignalementRmq){
+                                Button(action: {
+                                    self.remarqueDAO.deleteSignal(idRemarque: self.remarque._id, pseudo: self.pseudo)
+                                    self.isHiddenSignalementRmq = false
+                                })
+                                {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10).fill(Color.orange).frame(width: 130, height:30).opacity(0.5)
+                                        Text("Signaler").foregroundColor(Color.white).bold().padding(5)
+                                    }
+                                }
+                            }
                         }
                     }
+                }
+            }.onAppear{
+                if(self.estConnecte){
+                    self.pseudo = self.myPersonne[0].pseudo!
                 }
             }
             
@@ -166,7 +214,6 @@ struct RemarqueDetailView: View {
                                 if(self.estConnecte && !self.alreadySignaled(answer: answer)){
                                     Button(action: {
                                         self.signal(reponse : answer)
-                                        self.reponseDAO.getAnswers(idRemarque: self.remarque._id)
                                     })
                                     {
                                         ZStack{
@@ -178,7 +225,7 @@ struct RemarqueDetailView: View {
                                 //deja signalé
                                 }else if(self.estConnecte && self.alreadySignaled(answer: answer)){
                                     Button(action: {
-                                        self.reponseDAO.deleteSignal(idRep: answer._id, idRemarque: self.remarque._id, pseudo: self.myPersonne[0].pseudo!)
+                                        self.reponseDAO.deleteSignal(idRep: answer._id, idRemarque: self.remarque._id, pseudo: self.pseudo)
                                     })
                                     {
                                         ZStack{
@@ -206,7 +253,7 @@ struct RemarqueDetailView: View {
                                 Spacer()
                                 
                                 //Boutton supprimer si la reponse de la personne connectée
-                                if(self.estConnecte && answer.user == self.myPersonne[0].pseudo!){
+                                if(self.estConnecte && answer.user == self.pseudo){
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color.red).frame(width: 130, height:30)
                                         Text("Supprimer").foregroundColor(Color.white).bold().padding(5).onTapGesture {
@@ -236,7 +283,7 @@ struct RemarqueDetailView: View {
                                     //deja liké
                                 }else if(self.estConnecte && self.alreadyLiked(answer: answer)){
                                     Button(action: {
-                                        self.reponseDAO.deleteLike(idRep: answer._id, idRemarque: self.remarque._id, pseudo: self.myPersonne[0].pseudo!)
+                                        self.reponseDAO.deleteLike(idRep: answer._id, idRemarque: self.remarque._id, pseudo: self.pseudo)
                                     })
                                     {
                                         ZStack{
@@ -350,7 +397,7 @@ struct RemarqueDetailView: View {
     }
     
     func like(reponse : Reponse) {
-        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id, user : self.myPersonne[0].pseudo!, completionHandler: {
+        self.reponseDAO.addLike(rep: reponse, idRemarque: remarque._id, user : self.pseudo, completionHandler: {
             res in
             if (!res) {
                 print("erreur lors de l'ajout de like")
@@ -359,7 +406,7 @@ struct RemarqueDetailView: View {
     }
     
     func signal(reponse : Reponse) {
-        self.reponseDAO.addSignal(rep: reponse, idRemarque: remarque._id, user : self.myPersonne[0].pseudo!, completionHandler: {
+        self.reponseDAO.addSignal(rep: reponse, idRemarque: remarque._id, user : self.pseudo, completionHandler: {
             res in
             if (!res) {
                 print("erreur lors de l'ajout du signalement")
@@ -385,7 +432,7 @@ struct RemarqueDetailView: View {
             }
         }
         else if(cats[selectedCat] == "Les miennes"){
-            return reponseDAO.answers.filter{$0.user == myPersonne[0].pseudo!}
+            return reponseDAO.answers.filter{$0.user == pseudo}
         }
         else{
             return self.reponseDAO.answers
@@ -395,7 +442,7 @@ struct RemarqueDetailView: View {
     func alreadyHeard() -> Bool {
         var res = false
         for obj in remarque.likes {
-            if(estConnecte && obj["user"] == self.myPersonne[0].pseudo!){
+            if(estConnecte && obj["user"] == self.pseudo){
                 res = true
             }
         }
@@ -405,7 +452,7 @@ struct RemarqueDetailView: View {
     func alreadyLiked(answer : Reponse) -> Bool {
         var res = false
         for obj in answer.likes {
-            if(obj["user"] == self.myPersonne[0].pseudo!){
+            if(obj["user"] == self.pseudo){
                 res = true
             }
         }
@@ -415,12 +462,23 @@ struct RemarqueDetailView: View {
     func alreadySignaled(answer : Reponse) -> Bool {
         var res = false
         for obj in answer.signals {
-            if(obj["user"] == self.myPersonne[0].pseudo!){
+            if(obj["user"] == self.pseudo){
                 res = true
             }
         }
         return res
     }
+        
+    func alreadySignaledRemarque() -> Bool {
+        var res = false
+        for obj in remarque.signals {
+            if(obj["user"] == self.pseudo){
+                res = true
+            }
+        }
+        return res
+    }
+
 }
 
 //struct RemarqueDetailView_Previews: PreviewProvider {
