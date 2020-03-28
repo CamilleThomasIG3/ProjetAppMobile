@@ -67,7 +67,7 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
                                 <option value='Général'>Général</option>
                                 <option value='Rue' >Rue</option>
                                 <option value='Travail'>Travail</option>
-                                <option value='Transports'>Transport</option>
+                                <option value='Transports'>Transports</option>
                                 <option value='Famille'>Famille</option>
                             </Input>
                             <Input type="textarea" className="textarea" rows="5" placeholder="Write your sexist remark" name="content" value={content}

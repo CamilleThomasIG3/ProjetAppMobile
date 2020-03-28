@@ -9,7 +9,7 @@ import { addRemarkSignal } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
 
 import Moment from 'moment'
-import { FaRegComment } from 'react-icons/fa'; //icones
+import { FaRegComment, FaTrashAlt, FaThumbsUp, FaThumbsDown, FaExclamationTriangle } from 'react-icons/fa'; //icones
 
 const RemarkItem = ({
     deleteRemark,
@@ -30,7 +30,8 @@ const RemarkItem = ({
                     <p>{content}</p>
                 </Card.Text>
 
-                <div className="post-buttons">
+                {/* Full screen*/}
+                <div className="hide-mobile post-buttons">
                     {showActions && <Fragment>
 
                     <Link to={`/remarks/${_id}`} className="btn btn-dark">
@@ -73,6 +74,54 @@ const RemarkItem = ({
                     type="button"
                     className="btn btn-signal">
                     <span>{signals.length} signal</span>
+
+                </button>
+            </div> 
+
+            {/* Responsive screen*/}
+            <div className="visible-mobile post-buttons">
+                    {showActions && <Fragment>
+
+                    <Link to={`/remarks/${_id}`} className="btn btn-dark">
+                        <FaRegComment/>{answers.length > 0 && (
+                            <span className='comment-count'>{answers.length}</span>
+                        )}
+                    </Link>
+                    {auth.isAuthenticated && (
+                        !auth.loading && user === auth.user.pseudo && (<button
+                            onClick={e => deleteRemark(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                        <FaTrashAlt/>
+                        </button>
+                        ))}
+                    {auth.isAuthenticated && auth.user.admin && (
+                        <button
+                            onClick={e => deleteRemark(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                        <FaTrashAlt/>
+                        </button>
+
+                    )}
+                </Fragment>}
+                <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
+                    type="button" className="btn btn-primary">
+                    <i className="fas fa-thumbs-up"></i>
+                    <span>{likes.length}<FaThumbsUp/></span>
+                </button>
+                <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
+                    type="button" className="btn btn-light">
+                    <i className="fas fa-thumbs-up"></i>
+                    <span><FaThumbsDown/></span>
+                </button>
+                <button
+                    onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
+                    type="button"
+                    className="btn btn-signal">
+                    <span>{signals.length} <FaExclamationTriangle/></span>
 
                 </button>
             </div> 

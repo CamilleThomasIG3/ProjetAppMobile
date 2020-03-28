@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
         res.json(remark)
     }
     catch (err) {
-        console.log('ta mere')
+        console.log('get remark by id doesnt work')
     }
 }
 )

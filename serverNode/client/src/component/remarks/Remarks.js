@@ -21,9 +21,13 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
         <div className="page-remarks">
             <h1 className="large text-primary">Remarks</h1>
 
-            <RemarkForm />
+            {/* responsive screen */}
+            <div  className="visible-mobile">
+                <RemarkForm/>
+            </div>
 
-            <div className="sort-buttons">
+            {/* full screen */}
+            <div className="hide-mobile sort-buttons">
                 <button className="btn" value={'recent'} onClick={e => handleChangeFilter(e.target.value)}>
                     Sort by date
                     </button>
@@ -34,15 +38,32 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
                     Sort by number of answers
                     </button>
             </div>
+
+            {/* responsive screen */}
+            <div className="display-mobile sort-buttons">
+                <button className="btn" value={'recent'} onClick={e => handleChangeFilter(e.target.value)}>
+                    Date</button>
+                <button className="btn" value={'likes'} onClick={e => handleChangeFilter(e.target.value)} >
+                    Likes</button>
+                <button className="btn" value={'answers'} onClick={e => handleChangeFilter(e.target.value)}>
+                    Answers</button>
+            </div>
+
             <div className="selectGroup">
+                <p>Filter by category : </p>
                 <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
-                    <option value='all'>all</option>
+                    <option value='all'>All</option>
                     <option value='Rue' >Rue</option>
                     <option value='Travail'>Travail</option>
                     <option value='Transports'>Transport</option>
                     <option value='Famille'>Famille</option>
                     <option value='Général'>Général</option>
                 </Input>
+                
+                {/* full screen */}
+                <div  className="hide-mobile">
+                    <RemarkForm/>
+                </div>  
             </div>
 
             {filter === 'recent' &&

@@ -209,9 +209,31 @@ img {
 }
 
 .selectGroup{
-  width:50%;
+  width:100%;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  display: -webkit-inline-box;
+  color: var(--gray-light-color)
+}
+
+.selectGroup p{
+  padding-top: 5px;
+  padding-right: 15px;
+}
+
+.selectGroup select{
+  width: 15%;
+}
+
+.selectGroup button{
+  position: relative;
+  left: 300%;
+}
+
+@media (max-width: 700px) {
+  .selectGroup select{
+    width: 40%;
+  }
 }
 
 .btn-success,
@@ -545,7 +567,7 @@ button {
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
-    margin-top: 8rem;
+    margin-top: 3rem;
   }
 
   .hide-sm {
@@ -645,6 +667,20 @@ button {
   }
 }
 
+.visible-mobile{
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .hide-mobile{
+    display: none;
+  }
+
+  .visible-mobile{
+    display: initial;
+  }
+}
+
 /* NAVBAR */
 .nav-left{
   padding-bottom: 5px;
@@ -704,6 +740,14 @@ button {
   padding-left: 20%;
 }
 
+@media screen and (max-width: 700px) {
+  .sort-buttons{
+    padding: 5%;
+    padding-left: 8%;
+    padding-top: 8%;
+  }
+}
+
 .post{
   margin-bottom: 10px;
 }
@@ -712,4 +756,15 @@ button {
   background-color: var(--light-color);
   color: black;
   margin-top: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .post-buttons a, .post-buttons button{
+    padding: 0.2rem 0.7rem;
+  }
+
+  .post-buttons svg{
+    margin-left: 3px;
+    margin-right: 3px;
+  }
 }
