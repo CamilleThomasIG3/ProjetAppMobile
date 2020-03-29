@@ -38,7 +38,7 @@ const AnswerForm = ({ remarkId, addAnswer, isAuthenticated, user }) => {
 
     if (!isAuthenticated) {
         return (
-            <h4 className="page-infos">- you have to login to post / like / signal comments -</h4>
+            <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
         )
     }
 

@@ -45,7 +45,7 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
 
     if (!isAuthenticated) {
         return (
-            <h4 className="page-infos">- you have to login to post / like / signal remarks -</h4>
+            <h4 className="page-infos">- you have to login to post / like / report remarks -</h4>
         )
     }
 

@@ -192,6 +192,20 @@ img {
   color: #333;
 }
 
+.btn-light{
+  border: 1px solid var(--dark-color);
+}
+
+.like:hover{
+  background-color: var(--turquoise-color);
+  border: 1px solid var(--gray-color);
+}
+
+.signal:hover{
+  background-color: var(--signal-color);
+  border: 1px solid var(--gray-color);
+}
+
 .btn-dark,
 .bg-dark,
 .badge-dark,
@@ -230,8 +244,12 @@ img {
   left: 300%;
 }
 
+.filter-answers{
+  margin-left: 15%;
+}
+
 .add-comment button{
-  left: 450%;
+  left: 110%;
 }
 
 .add-comment select{
@@ -264,6 +282,15 @@ img {
 
   .add-comment h4{
     left: 0;
+  }
+
+  .add-comment select{
+    display: inline-block;
+    margin-left: 8%;
+  }
+
+  .filter-answers{
+    display: none;
   }
 }
 
