@@ -230,9 +230,40 @@ img {
   left: 300%;
 }
 
+.add-comment button{
+  left: 450%;
+}
+
+.add-comment select{
+  width: 20%;
+}
+
+.add-comment h4{
+  position: relative;
+  left: 10%;
+}
+
 @media (max-width: 700px) {
   .selectGroup select{
     width: 40%;
+  }
+
+  .selectGroup button{
+    margin-top: 1rem;
+    left: 0;
+  }
+
+  .add-comment button{
+    left: 55%;
+    margin-top: 1rem;
+  }
+
+  .add-comment{
+    display: inline-block;
+  }
+
+  .add-comment h4{
+    left: 0;
   }
 }
 
@@ -740,11 +771,23 @@ button {
   padding-left: 20%;
 }
 
+@media screen and (min-width: 700px) {
+  .page-infos{
+    position: absolute;
+    margin-left: 13%;
+  }
+}
+
+
 @media screen and (max-width: 700px) {
   .sort-buttons{
     padding: 5%;
     padding-left: 8%;
     padding-top: 8%;
+  }
+
+  .add-remark{
+    margin-bottom: 10px;
   }
 }
 

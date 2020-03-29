@@ -25,13 +25,19 @@ const Remark = ({ getRemark, remark: { remark, loading }, match }) => {
                 <Link to="/remarks" className="btn"><FaArrowLeft /></Link>
 
                 <RemarkItem remark={remark} showActions={false} />
-                <AnswerForm remarkId={remark._id} />
-                <div className="selectGroup">
+
+               
+                
+                <div className="add-comment selectGroup">
                     <Input type="select" value={selectCat} onChange={e => handleChangeFilter(e.target.value)}>
-                        <option value='recent'>recent</option>
-                        <option value='likes' >likes</option>
+                        <option value='recent'>Sort by date</option>
+                        <option value='likes' >Sort by number of likes</option>
                     </Input>
+
+                    <AnswerForm remarkId={remark._id} />
                 </div>
+
+
                 {filter === 'recent' &&
                     <div className="posts">
                         {remark.answers.map(answer => (

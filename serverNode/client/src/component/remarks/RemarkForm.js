@@ -45,13 +45,13 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
 
     if (!isAuthenticated) {
         return (
-            <h4 className="page-infos">- you have to login to post remarks -</h4>
+            <h4 className="page-infos">- you have to login to post / like / signal remarks -</h4>
         )
     }
 
     return (
         <div>
-            <Button color="primary" onClick={toggle}>Add sexist remark</Button>
+            <Button className="add-remark" color="primary" onClick={toggle}>Add sexist remark</Button>
 
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Add a sexist remark</ModalHeader>

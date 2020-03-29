@@ -29,63 +29,50 @@ const AnswerItem = ({
                     <p>{content}</p>
                 </Card.Text>
 
-                <button onClick={e => { if (auth.isAuthenticated) addAnswerLike(remarkId, _id, auth.user.pseudo) }}
+                {auth.isAuthenticated && (
+                    <button onClick={e => { if (auth.isAuthenticated) addAnswerLike(remarkId, _id, auth.user.pseudo) }}
                         type="button" className="btn btn-primary">
                         <i className="fas fa-thumbs-up"></i>
                         <span>{likes.length} like</span>
                     </button>
+                )}
+                {auth.isAuthenticated && (
                     <button onClick={e => { if (auth.isAuthenticated) removeAnswerLike(remarkId, _id, auth.user.pseudo) }}
                         type="button" className="btn btn-light">
                         <i className="fas fa-thumbs-up"></i>
                         <span>unlike</span>
                     </button>
-                    {auth.isAuthenticated &&(
-                        <button
-                            onClick={e => addAnswerSignal(remarkId, _id, auth.user.pseudo)}
-                            type="button"
-                            className="btn btn-signal"
-                        >
-                            <span>{signals.length} signal</span>
+                )}
+                {auth.isAuthenticated &&(
+                    <button
+                        onClick={e => addAnswerSignal(remarkId, _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-signal"
+                    >
+                        <span>{signals.length} signal</span>
 
-                        </button>
-                    )}
-                    {auth.isAuthenticated && (
-                        !auth.loading && user === auth.user.pseudo && (<button
-                            onClick={e => deleteAnswer(remarkId, _id)}
-                            type="button"
-                            className="btn btn-danger"
-                        >
-                            delete
-                        </button>
-                        ))}
-                    {auth.isAuthenticated && auth.user.admin && (
-                        <button
-                            onClick={e => deleteAnswer(remarkId, _id)}
-                            type="button"
-                            className="btn btn-danger"
-                        >
-                            delete
-                        </button>
-                    )}
+                    </button>
+                )}
+                {auth.isAuthenticated && (
+                    !auth.loading && user === auth.user.pseudo && (<button
+                        onClick={e => deleteAnswer(remarkId, _id)}
+                        type="button"
+                        className="btn btn-danger"
+                    >
+                        delete
+                    </button>
+                    ))}
+                {auth.isAuthenticated && auth.user.admin && (
+                    <button
+                        onClick={e => deleteAnswer(remarkId, _id)}
+                        type="button"
+                        className="btn btn-danger"
+                    >
+                        delete
+                    </button>
+                )}
             </Card.Body>
         </Card>
-
-
-
-        // <div class="post bg-white p-1 my-1">
-        //     <div>
-        //         <h4>Catégorie :
-        //   <button type="button" className="btn btn-light">
-        //                 {categoryResponse}
-        //             </button></h4>
-        //         <p class="my-1">
-        //             {content} </p>
-        //         <p class="post-date">
-        //             Posted on {date} by {user}
-        //         </p>
-               
-        //     </div>
-        // </div>
     )
 
 

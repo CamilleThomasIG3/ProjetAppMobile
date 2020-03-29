@@ -40,7 +40,7 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
             </div>
 
             {/* responsive screen */}
-            <div className="display-mobile sort-buttons">
+            <div className="visible-mobile sort-buttons">
                 <button className="btn" value={'recent'} onClick={e => handleChangeFilter(e.target.value)}>
                     Date</button>
                 <button className="btn" value={'likes'} onClick={e => handleChangeFilter(e.target.value)} >

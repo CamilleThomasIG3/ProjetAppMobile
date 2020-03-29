@@ -59,23 +59,28 @@ const RemarkItem = ({
 
                     )}
                 </Fragment>}
-                <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
-                    type="button" className="btn btn-primary">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>{likes.length} like</span>
-                </button>
-                <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
-                    type="button" className="btn btn-light">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>unlike</span>
-                </button>
-                <button
-                    onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
-                    type="button"
-                    className="btn btn-signal">
-                    <span>{signals.length} signal</span>
-
-                </button>
+                {auth.isAuthenticated && (
+                    <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-primary">
+                        <i className="fas fa-thumbs-up"></i>
+                        <span>{likes.length} like</span>
+                    </button>
+                )}
+                {auth.isAuthenticated && (
+                    <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-light">
+                        <i className="fas fa-thumbs-up"></i>
+                        <span>unlike</span>
+                    </button>
+                )}
+                {auth.isAuthenticated && (
+                    <button
+                        onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-signal">
+                        <span>{signals.length} signal</span>
+                    </button>
+                )}
             </div> 
 
             {/* Responsive screen*/}
@@ -107,23 +112,29 @@ const RemarkItem = ({
 
                     )}
                 </Fragment>}
-                <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
-                    type="button" className="btn btn-primary">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>{likes.length}<FaThumbsUp/></span>
-                </button>
-                <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
-                    type="button" className="btn btn-light">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span><FaThumbsDown/></span>
-                </button>
-                <button
-                    onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
-                    type="button"
-                    className="btn btn-signal">
-                    <span>{signals.length} <FaExclamationTriangle/></span>
+                {auth.isAuthenticated && (
+                    <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-primary">
+                        <i className="fas fa-thumbs-up"></i>
+                        <span>{likes.length}<FaThumbsUp/></span>
+                    </button>
+                )}
+                {auth.isAuthenticated && (
+                    <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-light">
+                        <i className="fas fa-thumbs-up"></i>
+                        <span><FaThumbsDown/></span>
+                    </button>
+                )}
+                {auth.isAuthenticated && (
+                    <button
+                        onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-signal">
+                        <span>{signals.length} <FaExclamationTriangle/></span>
 
-                </button>
+                    </button>
+                )}
             </div> 
 
             </Card.Body>
