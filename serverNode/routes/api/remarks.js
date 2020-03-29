@@ -52,6 +52,7 @@ router.get('/categorie/:idCategory', async (req, res) => {
 //@desc GET remark by user
 //@access Public
 router.get('/user/:User', async (req, res) => {
+    console.log("user: "+req.params.User)
     var query = req.params.User;
     Remark.find({ "user": query })
         .then(remark => res.json(remark))

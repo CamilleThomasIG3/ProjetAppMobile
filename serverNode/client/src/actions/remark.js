@@ -44,6 +44,30 @@ export const getRemarks = (cat) => async dispatch => {
 
 };
 
+export const getMyRemarks = (user) => async dispatch => {
+    try {
+        const res = await axios
+            .get('/api/remarks/user/'+user);
+        dispatch({
+            type: GET_REMARKS,
+            payload: res.data
+        });
+
+    } catch (err) {
+        const errors = err.response.data;
+
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
+        dispatch({
+            type: REMARK_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+
+};
+
 export const deleteRemark = (id) => dispatch => {
     try {
 
@@ -151,7 +175,7 @@ export const addAnswer = (id, formData, cuser) => async dispatch => {
     }
 };
 
-//add answer
+//delete answer
 export const deleteAnswer = (id, answerId) => async dispatch => {
     try {
         const res = await axios.delete('/api/remarks/' + id + '/answers/' + answerId);

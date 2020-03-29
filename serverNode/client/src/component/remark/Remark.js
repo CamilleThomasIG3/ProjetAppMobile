@@ -40,7 +40,6 @@ const Remark = ({ getRemark, remark: { remark, loading }, match }) => {
                         <option value='Loi' >Loi</option>
                         <option value='Citation'>Citation</option>
                     </Input>
-
                     <AnswerForm remarkId={remark._id} />
                 </div>
 
