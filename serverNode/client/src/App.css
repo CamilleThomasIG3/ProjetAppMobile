@@ -192,6 +192,20 @@ img {
   color: #333;
 }
 
+.btn-light{
+  border: 1px solid var(--dark-color);
+}
+
+.like:hover{
+  background-color: var(--turquoise-color);
+  border: 1px solid var(--gray-color);
+}
+
+.signal:hover{
+  background-color: var(--signal-color);
+  border: 1px solid var(--gray-color);
+}
+
 .btn-dark,
 .bg-dark,
 .badge-dark,
