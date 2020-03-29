@@ -26,27 +26,49 @@ const Remark = ({ getRemark, remark: { remark, loading }, match }) => {
 
                 <RemarkItem remark={remark} showActions={false} />
 
-               
-                
+
+
                 <div className="add-comment selectGroup">
-                    <Input type="select" value={selectCat} onChange={e => handleChangeFilter(e.target.value)}>
+                    <Input type="select" value={filter} onChange={e => handleChangeFilter(e.target.value)}>
                         <option value='recent'>Sort by date</option>
                         <option value='likes' >Sort by number of likes</option>
+                    </Input>
+                    <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
+                        <option value='all'>All</option>
+                        <option value='Général'>Général</option>
+                        <option value='Humour' >Humour</option>
+                        <option value='Loi' >Loi</option>
+                        <option value='Citation'>Citation</option>
                     </Input>
 
                     <AnswerForm remarkId={remark._id} />
                 </div>
 
-
-                {filter === 'recent' &&
-                    <div className="posts">
-                        {remark.answers.map(answer => (
-                            <AnswerItem key={answer._id} answer={answer} remarkId={remark._id} />))}
-                    </div>}
-                {filter === 'likes' &&
+                {filter === 'recent' && selectCat !== 'all' &&
                     <div className="comments">
-                        {remark.answers.sort((a, b) => a.likes.length > b.likes.length ? -1 : 1).map(answer => (
-                            <AnswerItem key={answer._id} answer={answer} remarkId={remark._id} /> ))}
+                        {remark.answers
+                            .filter(answer => (answer.categoryResponse === selectCat))
+                            .map(answer => (
+                                <AnswerItem key={answer._id} answer={answer} remarkId={remark._id} />))}
+                    </div>}
+                {filter === 'likes' && selectCat !== 'all' &&
+                    <div className="comments">
+                        {remark.answers.sort((a, b) => a.likes.length > b.likes.length ? -1 : 1)
+                            .filter(answer => (answer.categoryResponse === selectCat))
+                            .map(answer => (
+                                <AnswerItem key={answer._id} answer={answer} remarkId={remark._id} />))}
+                    </div>}
+                {filter === 'recent' && selectCat === 'all' &&
+                    <div className="comments">
+                        {remark.answers
+                            .map(answer => (
+                                <AnswerItem key={answer._id} answer={answer} remarkId={remark._id} />))}
+                    </div>}
+                {filter === 'likes' && selectCat === 'all' &&
+                    <div className="comments">
+                        {remark.answers.sort((a, b) => a.likes.length > b.likes.length ? -1 : 1)
+                            .map(answer => (
+                                <AnswerItem key={answer._id} answer={answer} remarkId={remark._id} />))}
                     </div>}
             </Fragment>
         )
