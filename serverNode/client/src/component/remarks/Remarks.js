@@ -22,7 +22,7 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
             <h1 className="large text-primary">Remarks</h1>
 
             {/* responsive screen */}
-            <div  className="visible-mobile">
+            <div  className="add-remark visible-mobile">
                 <RemarkForm/>
             </div>
 

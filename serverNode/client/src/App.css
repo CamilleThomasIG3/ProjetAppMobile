@@ -244,8 +244,12 @@ img {
   left: 300%;
 }
 
+.filter-answers{
+  margin-left: 15%;
+}
+
 .add-comment button{
-  left: 450%;
+  left: 110%;
 }
 
 .add-comment select{
@@ -278,6 +282,15 @@ img {
 
   .add-comment h4{
     left: 0;
+  }
+
+  .add-comment select{
+    display: inline-block;
+    margin-left: 8%;
+  }
+
+  .filter-answers{
+    display: none;
   }
 }
 

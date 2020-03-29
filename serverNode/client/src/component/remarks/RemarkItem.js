@@ -12,8 +12,6 @@ import Moment from 'moment'
 import { FaRegComment, FaTrashAlt, FaThumbsUp, FaThumbsDown, FaExclamationTriangle } from 'react-icons/fa'; //icones
 
 const isAlreadyByUser = (pseudo, tab) => {
-    console.log(pseudo);
-    
     var res = false
     tab.forEach(function(element) {
         if(element.user==pseudo){
@@ -104,7 +102,7 @@ const RemarkItem = ({
                         onClick={e => removeRemarkSignal( _id, auth.user.pseudo)}
                         type="button"
                         className="btn btn-signal">
-                        <span>{signals.length} signals</span>
+                        <span>{signals.length} reports</span>
                     </button>
                 )}
             </div> 

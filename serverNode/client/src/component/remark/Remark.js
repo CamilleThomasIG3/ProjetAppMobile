@@ -10,7 +10,7 @@ import AnswerItem from './AnswerItem';
 import { Input } from 'reactstrap'
 import { FaArrowLeft } from 'react-icons/fa'; //icones
 
-const Remark = ({ getRemark, remark: { remark, loading }, match }) => {
+const Remark = ({ isAuthentificated, getRemark, remark: { remark, loading }, match }) => {
 
     const [selectCat, handleChangeSelectCat] = useState('all')
     const [filter, handleChangeFilter] = useState('recent');
@@ -22,17 +22,24 @@ const Remark = ({ getRemark, remark: { remark, loading }, match }) => {
     return loading || remark === null ?
         (<Spinner />) : (
             <Fragment>
+                {/* responsive screen */}
+                {!isAuthentificated && (
+                    <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
+                )}
+
                 <Link to="/remarks" className="btn"><FaArrowLeft /></Link>
 
                 <RemarkItem remark={remark} showActions={false} />
 
-
+                
 
                 <div className="add-comment selectGroup">
                     <Input type="select" value={filter} onChange={e => handleChangeFilter(e.target.value)}>
                         <option value='recent'>Sort by date</option>
                         <option value='likes' >Sort by number of likes</option>
                     </Input>
+                    
+                    <p className="filter-answers">Filter by category : </p>
                     <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
                         <option value='all'>All</option>
                         <option value='Général'>Général</option>
@@ -41,7 +48,10 @@ const Remark = ({ getRemark, remark: { remark, loading }, match }) => {
                         <option value='Citation'>Citation</option>
                     </Input>
 
-                    <AnswerForm remarkId={remark._id} />
+                    {/* full screen */}
+                    {isAuthentificated && (
+                        <AnswerForm remarkId={remark._id} />
+                    )}
                 </div>
 
                 {filter === 'recent' && selectCat !== 'all' &&
@@ -80,7 +90,8 @@ Remark.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    remark: state.remark
+    remark: state.remark,
+    isAuthentificated: state.isAuthentificated
 })
 
 export default connect(mapStateToProps, { getRemark })(Remark)
