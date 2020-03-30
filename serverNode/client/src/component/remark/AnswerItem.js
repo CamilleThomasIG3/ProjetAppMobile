@@ -75,7 +75,7 @@ const AnswerItem = ({
                 )}
 
                 {/* DELETE */}
-                {auth.isAuthenticated && (
+                {auth.isAuthenticated && !auth.user.admin && (
                     !auth.loading && user === auth.user.pseudo && (<button
                         onClick={e => deleteAnswer(remarkId, _id)}
                         type="button"

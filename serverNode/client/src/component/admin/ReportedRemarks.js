@@ -33,16 +33,16 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
             {/* full screen */}
             <div>
                 <button className="btn" value={'remarks'} onClick={e => handleChangeChoice(e.target.value)}>
-                    Remarks
+                    Remarks ▼
                     </button>
                 <button className="btn" value={'answers'} onClick={e => handleChangeChoice(e.target.value)}>
-                    Answers
+                    Answers ▼
                     </button>
             </div>
             {choice === 'remarks' &&
                 <Fragment>
                     <div>
-                        <h2>Reported Remarks</h2>
+                        <h2 className="reports text-primary">Reported remarks</h2>
                     </div>
                     <div className="hide-mobile sort-buttons">
                         <button className="btn" value={'recent'} onClick={e => handleChangeFilter(e.target.value)}>
@@ -106,7 +106,7 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
             {choice === 'answers' &&
                 <Fragment>
                     <div>
-                        <h2>Reported Answers</h2>
+                        <h2 className="reports text-primary">Reported answers</h2>
                     </div>
                     <div className="comments">
                         {remarks.map(r => 
