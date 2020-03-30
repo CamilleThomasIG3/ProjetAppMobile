@@ -6,9 +6,7 @@ import axios from 'axios';
 
 
 export const getUsers = () => async dispatch => {
-    console.log("test users ----");
    try {
-    console.log("test users");
        const res = await axios
            .get('/api/users/');
        dispatch({

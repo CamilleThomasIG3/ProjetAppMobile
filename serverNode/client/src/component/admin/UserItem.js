@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteUser, removeAdmin } from '../../actions/user'
+import Moment from 'moment'
+import { Card } from 'react-bootstrap'
 
 const UserItem = ({
     deleteUser,
@@ -9,43 +11,44 @@ const UserItem = ({
     auth,
     showActions,
     user: { _id, email, pseudo, password, register_date, admin } }) =>
-    <div className="post bg-white p-1 my-1">
-        <div>
-            <h2>{pseudo}</h2>
-        </div>
-        <div>
-            <h3>Email :
-                    <p>{email}</p>
-            </h3>
-            <h3>Register date :
-                <p className="my-1">
-                    {register_date}
-                </p>
-            </h3>
-            {showActions && <Fragment>
-                {admin && (
-                    <div>
-                        <p>Is admin</p>
-                        <button onClick={e => removeAdmin(_id, false)}
-                                type="button"
-                                className="btn btn-danger"
-                        >
-                            Delete Admin
-                        </button>  
-                    </div>                 
-                )}
+
+    <Card className="post-content">
+        <Card.Header>Registered on <i>{Moment(register_date).format('MM-DD-YYYY')}</i> </Card.Header>
+        <Card.Body>
+            <Card.Title>{pseudo}</Card.Title>
+            {admin && (
+                <Card.Subtitle className="mb-2 text-muted">Admin</Card.Subtitle>
+            )}
+            <Card.Text>
+                <p>{email}</p>
+            </Card.Text>
+    
+            <div className="delete-button-user">   
                 {auth.isAuthenticated && (
-                  <button
-                        onClick={e => deleteUser(_id)}
-                        type="button"
-                        className="btn btn-danger"
-                    >
-                        delete
-                    </button>
+                    <button
+                            onClick={e => deleteUser(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                            Delete user
+                        </button>
+                        )}
+                {showActions && <Fragment>
+                    {admin && (
+                        <div>
+                            <button onClick={e => removeAdmin(_id, false)}
+                                    type="button"
+                                    className="btn btn-danger"
+                            >
+                                Revoke Admin
+                            </button>  
+                        </div>                 
                     )}
-            </Fragment>}
-        </div>
-    </div>
+                </Fragment>}
+            </div>
+
+        </Card.Body>
+    </Card>
 
 
 UserItem.defaultProps = {

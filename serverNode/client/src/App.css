@@ -798,6 +798,10 @@ button {
   padding-left: 20%;
 }
 
+.sort-buttons-users{
+  padding-left: 35%;
+}
+
 @media screen and (min-width: 700px) {
   .page-infos{
     /* position: absolute; */
@@ -837,4 +841,13 @@ button {
     margin-left: 3px;
     margin-right: 3px;
   }
+}
+
+
+/* ADMIN */
+
+/* USERS */
+
+.delete-button-user{
+  display: flex;
 }

@@ -16,15 +16,18 @@ const Users = ({ getUsers, deleteUser, user: { users, loading } }) => {
 
 
     return loading ? <Spinner /> : (
-        <div>
-                <h1>Users</h1>
-                <br/>
-                <button className="btn" value={'recent'} onClick={e=>handleChangeFilter(e.target.value)}>
-                    by register date
-                </button>
-                <button className="btn" value={'admin'} onClick={e=>handleChangeFilter(e.target.value)} >
-                    admins
-                </button>
+        <div >
+                <h1 className="large text-primary">Users</h1>
+                
+                <div className="sort-buttons sort-buttons-users">
+                    <button className="btn" value={'recent'} onClick={e=>handleChangeFilter(e.target.value)}>
+                        All users
+                    </button>
+                    <button className="btn" value={'admin'} onClick={e=>handleChangeFilter(e.target.value)} >
+                        Only admins
+                    </button>
+                </div>
+
                 {filter === 'recent' && 
                 <Fragment>
                 <div className="posts">
@@ -32,7 +35,7 @@ const Users = ({ getUsers, deleteUser, user: { users, loading } }) => {
                         <UserItem key={user._id} user={user} />))}
                 </div>
                 </Fragment>}
-
+               
                 {filter === 'admin' && 
                 <Fragment>
                 <div className="posts">
