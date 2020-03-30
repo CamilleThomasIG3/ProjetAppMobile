@@ -1,7 +1,6 @@
 import {GET_USERS,
     DELETE_USER,
-    USERS_LOADING, USER_ERROR,
-   REMOVE_ADMIN_SUCCESS, REMOVE_ADMIN_ERROR } from '../actions/types'
+    USERS_LOADING, USER_ERROR, UPDATE_ADMIN} from '../actions/types'
 
 const initialState = {
     users: [],
