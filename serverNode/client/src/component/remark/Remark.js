@@ -22,7 +22,7 @@ const Remark = ({ isAuthentificated, getRemark, remark: { remark, loading }, mat
     return loading || remark === null ?
         (<Spinner />) : (
             <Fragment>
-                {/* responsive screen */}
+                
                 {!isAuthentificated && (
                     <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
                 )}
@@ -47,15 +47,10 @@ const Remark = ({ isAuthentificated, getRemark, remark: { remark, loading }, mat
                         <option value='Loi' >Loi</option>
                         <option value='Citation'>Citation</option>
                     </Input>
-<<<<<<< HEAD
-                    <AnswerForm remarkId={remark._id} />
-=======
 
-                    {/* full screen */}
                     {isAuthentificated && (
                         <AnswerForm remarkId={remark._id} />
                     )}
->>>>>>> 7c1faa8c7dc43b2f14c7f0b05728b9c578225590
                 </div>
 
                 {filter === 'recent' && selectCat !== 'all' &&
