@@ -9,12 +9,12 @@ import { addRemarkSignal, removeRemarkSignal } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
 
 import Moment from 'moment'
-import { FaRegComment, FaTrashAlt, FaThumbsUp, FaThumbsDown, FaExclamationTriangle } from 'react-icons/fa'; //icones
+import { FaRegComment, FaTrashAlt, FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa'; //icones
 
 const isAlreadyByUser = (pseudo, tab) => {
     var res = false
     tab.forEach(function(element) {
-        if(element.user==pseudo){
+        if(element.user===pseudo){
             res = true
         }
     })

@@ -1,9 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-//import Moment from 'react-moment';
 import { connect } from 'react-redux';
-//import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteAnswer } from '../../actions/remark'
 import { addAnswerLike, removeAnswerLike } from '../../actions/likes'
 import { addAnswerSignal, removeAnswerSignal} from '../../actions/signal'
@@ -15,7 +12,7 @@ import { FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa';
 const isAlreadyByUser = (pseudo, tab) => {    
     var res = false
     tab.forEach(function(element) {
-        if(element.user==pseudo){
+        if(element.user===pseudo){
             res = true
         }
     })

@@ -15,7 +15,7 @@ const Landing = ({isAuthenticated}) => {
           <p className="lead">
             We are together to fight sexism !
           </p>
-          <div className="buttons" className={`${isAuthenticated ? "is-authenticated" : ""}`}>
+          <div className={`buttons ${isAuthenticated ? "is-authenticated" : ""}`}>
             <Link to='/register' className="btn btn-primary">Sign Up</Link>
             <Link to='/login' className="btn btn-light">Login</Link>
           </div>

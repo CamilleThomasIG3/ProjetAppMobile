@@ -11,7 +11,7 @@ import {
     Label,
     Input
 } from 'reactstrap'
-import { addAnswer, addRemark } from '../../actions/remark'
+import { addAnswer } from '../../actions/remark'
 
 const AnswerForm = ({ remarkId, addAnswer, isAuthenticated, user }) => {
 

@@ -10,8 +10,8 @@ import AnswerItem from './AnswerItem';
 import { Input } from 'reactstrap'
 import { FaArrowLeft } from 'react-icons/fa'; //icones
 
-const Remark = ({ isAuthentificated, getRemark, remark: { remark, loading }, match }) => {
-
+const Remark = ({ isAuthenticated, getRemark, remark: { remark, loading }, match }) => {
+    
     const [selectCat, handleChangeSelectCat] = useState('all')
     const [filter, handleChangeFilter] = useState('recent');
 
@@ -23,7 +23,7 @@ const Remark = ({ isAuthentificated, getRemark, remark: { remark, loading }, mat
         (<Spinner />) : (
             <Fragment>
                 
-                {!isAuthentificated && (
+                {!isAuthenticated && (
                     <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
                 )}
 
@@ -48,7 +48,7 @@ const Remark = ({ isAuthentificated, getRemark, remark: { remark, loading }, mat
                         <option value='Citation'>Citation</option>
                     </Input>
 
-                    {isAuthentificated && (
+                    {isAuthenticated && (
                         <AnswerForm remarkId={remark._id} />
                     )}
                 </div>
@@ -90,7 +90,7 @@ Remark.propTypes = {
 
 const mapStateToProps = state => ({
     remark: state.remark,
-    isAuthentificated: state.isAuthentificated
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps, { getRemark })(Remark)

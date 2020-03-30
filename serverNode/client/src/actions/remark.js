@@ -10,9 +10,9 @@ import axios from 'axios';
 
 export const getRemarks = (cat) => async dispatch => {
     try {
-        const res = null
+        var res = null
         if (cat === 'all') {
-            const res = await axios
+            res = await axios
                 .get('/api/remarks');
             dispatch({
                 type: GET_REMARKS,
@@ -20,7 +20,7 @@ export const getRemarks = (cat) => async dispatch => {
             });
         }
         else {
-            const res = await axios
+            res = await axios
                 .get('/api/remarks/categorie/' + cat);
             dispatch({
                 type: GET_REMARKS,
@@ -178,7 +178,7 @@ export const addAnswer = (id, formData, cuser) => async dispatch => {
 //delete answer
 export const deleteAnswer = (id, answerId) => async dispatch => {
     try {
-        const res = await axios.delete('/api/remarks/' + id + '/answers/' + answerId);
+        await axios.delete('/api/remarks/' + id + '/answers/' + answerId);
         dispatch({
             type: REMOVE_ANSWER,
             payload: answerId

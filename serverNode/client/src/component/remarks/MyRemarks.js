@@ -4,7 +4,6 @@ import { getRemarks, deleteRemark } from '../../actions/remark';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import RemarkItem from './RemarkItem';
-import RemarkForm from './RemarkForm';
 import {Input} from 'reactstrap'
 
 
