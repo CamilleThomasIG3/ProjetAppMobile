@@ -10,7 +10,7 @@ import {
     Form,
     FormGroup,
     Label,
-    Input
+    Input,
 } from 'reactstrap'
 // import { Button } from 'reactstrap';
 // import { Link} from 'react-router-dom';
@@ -22,11 +22,12 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
     const [formData, setFormData] = useState({
         modal: false,
         title: '',
-        content: '',
-        idCategory: ''
+        content: ''
     });
+    const [idCategory, handleChangeIdCategory] = useState('')
 
-    const { modal, title, content, idCategory } = formData;
+
+    const { modal, title, content } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -38,19 +39,12 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
     };
 
     const toggle = () => {
-        setFormData({modal: !modal})
-    }
-
-
-    if (!isAuthenticated) {
-        return (
-            <h4 className="page-infos">- you have to login to post remarks -</h4>
-        )
+        setFormData({ modal: !modal })
     }
 
     return (
         <div>
-            <Button color="primary" onClick={toggle}>Add sexist remark</Button>
+            <Button className="add-remark" color="primary" onClick={toggle}>Add sexist remark</Button>
 
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Add a sexist remark</ModalHeader>
@@ -58,16 +52,21 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
                 <ModalBody>
                     <Form onSubmit={e => onSubmit(e)}>
                         <FormGroup>
-                            <Label for="title">Title</Label>                                
-                            <Input type="text" placeholder="Title" name="title" value={title} onChange={e => onChange(e)} required/>
+                            <Label for="title">Title</Label>
+                            <Input type="text" placeholder="Title" name="title" value={title} onChange={e => onChange(e)} required />
 
                             <Label for="idCategory">Category</Label>
-                            <Input type="text" placeholder="Category" name="idCategory" value={idCategory} onChange={e => onChange(e)} required/>
-
+                            <Input type="select" value={idCategory} onChange={e => handleChangeIdCategory(e.target.value)}>
+                                <option value='Général'>Général</option>
+                                <option value='Rue' >Rue</option>
+                                <option value='Travail'>Travail</option>
+                                <option value='Transports'>Transports</option>
+                                <option value='Famille'>Famille</option>
+                            </Input>
                             <Input type="textarea" className="textarea" rows="5" placeholder="Write your sexist remark" name="content" value={content}
                                 onChange={e => onChange(e)}></Input>
 
-                            <Button style={{marginTop:'2rem'}} color="dark">Add remark</Button>
+                            <Button style={{ marginTop: '2rem' }} color="dark">Add remark</Button>
                         </FormGroup>
                     </Form>
                 </ModalBody>

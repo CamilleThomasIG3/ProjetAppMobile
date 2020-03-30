@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
         res.json(remark)
     }
     catch (err) {
-        console.log('ta mere')
+        console.log('get remark by id doesnt work')
     }
 }
 )
@@ -52,6 +52,7 @@ router.get('/categorie/:idCategory', async (req, res) => {
 //@desc GET remark by user
 //@access Public
 router.get('/user/:User', async (req, res) => {
+    console.log("user: "+req.params.User)
     var query = req.params.User;
     Remark.find({ "user": query })
         .then(remark => res.json(remark))
@@ -236,26 +237,6 @@ router.post('/:id/answers/:answerid/signals', async (req, res) => {
 });
 
 
-//@route DELETE api/remarks/answer/signals
-//@desc DELETE answer by id
-//@access private
-router.delete('/:id/answers/:answerid/signals/:signalid', async (req, res) => {
-    try {
-        const remark = await Remark.findById(req.params.id);
-        const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
-        const signal = await answer.signals.find(signal => signal.id === req.params.signalid)
-        if (!signal) res.status(404).json({ res: "incorrect", msg: 'signal does not exit' });
-
-        const removeIndex = answer.signals.map(signal => signal.id).indexOf(req.params.signalid);
-        answer.signals.splice(removeIndex, 1);
-        await remark.save();
-
-        res.json({signals: answer.signals,  res: "correct", msg: "remark unsignaled" });
-    }
-    catch (err) {
-        res.status(500).send('server error')
-    }
-});
 //----------remarks/answers/signal----------
 
 
@@ -306,6 +287,27 @@ router.delete('/:id/answers/:answerid/signals/:signalid', async (req, res) => {
         res.status(500).send('server error')
     }
 });
+
+//@route DELETE api/remarks/answer/signals
+//@desc DELETE answer by id
+//@access private
+router.delete('/:id/answers/:answerid/usersignal/:user', async (req, res) => {
+    try {
+        const remark = await Remark.findById(req.params.id);
+        const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+        const usignal = await answer.signals.find(signal => signal.user === req.params.user);
+        if (!usignal) return res.status(404).json({ res: "incorrect", msg: 'signal does not exit' });
+
+        const removeIndex = answer.signals.map(signal => signal.id).indexOf(req.params.signalid);
+        answer.signals.splice(removeIndex, 1);
+        await remark.save();
+
+        res.json({signals: answer.signals,  res: "correct", msg: "answer unsignaled" });
+    }
+    catch (err) {
+        res.status(500).send('server error')
+    }
+})
 //----------remarks/answers/signal----------
 
 

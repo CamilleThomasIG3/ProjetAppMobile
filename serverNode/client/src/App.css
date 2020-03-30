@@ -192,6 +192,20 @@ img {
   color: #333;
 }
 
+.btn-light{
+  border: 1px solid var(--dark-color);
+}
+
+.like:hover{
+  background-color: var(--turquoise-color);
+  border: 1px solid var(--gray-color);
+}
+
+.signal:hover{
+  background-color: var(--signal-color);
+  border: 1px solid var(--gray-color);
+}
+
 .btn-dark,
 .bg-dark,
 .badge-dark,
@@ -206,6 +220,78 @@ img {
 .alert-danger {
   background: var(--danger-color);
   color: #fff;
+}
+
+.selectGroup{
+  width:100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: -webkit-inline-box;
+  color: var(--gray-light-color)
+}
+
+.selectGroup p{
+  padding-top: 5px;
+  padding-right: 15px;
+}
+
+.selectGroup select{
+  width: 30%;
+}
+
+.selectGroup button{
+  position: relative;
+  left: 200%;
+}
+
+.filter-answers{
+  margin-left: 15%;
+}
+
+.add-comment button{
+  left: 110%;
+}
+
+.add-comment select{
+  width: 20%;
+}
+
+.add-comment h4{
+  position: relative;
+  left: 10%;
+}
+
+@media (max-width: 700px) {
+  .selectGroup select{
+    width: 40%;
+  }
+
+  .selectGroup button{
+    margin-top: 1rem;
+    left: 0;
+  }
+
+  .add-comment button{
+    left: 55%;
+    margin-top: 1rem;
+  }
+
+  .add-comment{
+    display: inline-block;
+  }
+
+  .add-comment h4{
+    left: 0;
+  }
+
+  .add-comment select{
+    display: inline-block;
+    margin-left: 8%;
+  }
+
+  .filter-answers{
+    display: none;
+  }
 }
 
 .btn-success,
@@ -539,7 +625,7 @@ button {
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
-    margin-top: 8rem;
+    margin-top: 3rem;
   }
 
   .hide-sm {
@@ -639,6 +725,20 @@ button {
   }
 }
 
+.visible-mobile{
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .hide-mobile{
+    display: none;
+  }
+
+  .visible-mobile{
+    display: initial;
+  }
+}
+
 /* NAVBAR */
 .nav-left{
   padding-bottom: 5px;
@@ -698,6 +798,30 @@ button {
   padding-left: 20%;
 }
 
+.sort-buttons-users{
+  padding-left: 35%;
+}
+
+@media screen and (min-width: 700px) {
+  .page-infos{
+    /* position: absolute; */
+    margin-left: 13%;
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .sort-buttons{
+    padding: 5%;
+    padding-left: 8%;
+    padding-top: 8%;
+  }
+
+  .add-remark{
+    margin-bottom: 10px;
+  }
+}
+
 .post{
   margin-bottom: 10px;
 }
@@ -706,4 +830,24 @@ button {
   background-color: var(--light-color);
   color: black;
   margin-top: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .post-buttons a, .post-buttons button{
+    padding: 0.2rem 0.7rem;
+  }
+
+  .post-buttons svg{
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+}
+
+
+/* ADMIN */
+
+/* USERS */
+
+.delete-button-user{
+  display: flex;
 }

@@ -84,7 +84,7 @@ export const addAnswerSignal = (remarkId, answerId, user) => async dispatch => {
 export const removeAnswerSignal = (remarkid, answerId, user) => async dispatch => {
     try {
         const res = await axios
-            .delete('/api/remarks/'+remarkid+'/answers/'+answerId+'/signals/'+user);
+            .delete('/api/remarks/'+remarkid+'/answers/'+answerId+'/usersignal/'+user);
         dispatch({
             type: UPDATE_ANSWER_SIGNALS,
             payload: {answerId, signals: res.data.signals}

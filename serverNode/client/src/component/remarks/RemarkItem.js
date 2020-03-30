@@ -5,17 +5,28 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteRemark } from '../../actions/remark'
-import { addRemarkSignal } from '../../actions/signal'
+import { addRemarkSignal, removeRemarkSignal } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
 
 import Moment from 'moment'
-import { FaRegComment } from 'react-icons/fa'; //icones
+import { FaRegComment, FaTrashAlt, FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa'; //icones
+
+const isAlreadyByUser = (pseudo, tab) => {
+    var res = false
+    tab.forEach(function(element) {
+        if(element.user===pseudo){
+            res = true
+        }
+    })
+    return res
+}
 
 const RemarkItem = ({
     deleteRemark,
     addRemarkLike,
     removeRemarkLike,
     addRemarkSignal,
+    removeRemarkSignal,
     auth,
     showActions,
     remark: { _id, title, content, user, date, likes, answers, idCategory, signals } }) =>
@@ -27,18 +38,22 @@ const RemarkItem = ({
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{idCategory}</Card.Subtitle>
                 <Card.Text>
-                    <p>{content}</p>
+                    {content}
                 </Card.Text>
 
-                <div className="post-buttons">
+                {/* Full screen*/}
+                <div className="hide-mobile post-buttons">
                     {showActions && <Fragment>
 
+                    {/* DISCUSSION */}
                     <Link to={`/remarks/${_id}`} className="btn btn-dark">
                         <FaRegComment/> Discussion {answers.length > 0 && (
                             <span className='comment-count'>{answers.length}</span>
                         )}
                     </Link>
-                    {auth.isAuthenticated && (
+
+                    {/* DELETE */}
+                    {auth.isAuthenticated && !auth.user.admin && (
                         !auth.loading && user === auth.user.pseudo && (<button
                             onClick={e => deleteRemark(_id)}
                             type="button"
@@ -58,23 +73,98 @@ const RemarkItem = ({
 
                     )}
                 </Fragment>}
-                <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
-                    type="button" className="btn btn-primary">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>{likes.length} like</span>
-                </button>
-                <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
-                    type="button" className="btn btn-light">
-                    <i className="fas fa-thumbs-up"></i>
-                    <span>unlike</span>
-                </button>
-                <button
-                    onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
-                    type="button"
-                    className="btn btn-signal">
-                    <span>{signals.length} signal</span>
 
-                </button>
+                {/* LIKE */}
+                {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, likes) && (
+                    <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-primary">
+                        <span>{likes.length} likes</span>
+                    </button>
+                )}
+                {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, likes) && (
+                    <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-light like">
+                        <span>{likes.length} <FaThumbsUp/></span>
+                    </button>
+                )}
+
+                {/* SIGNAL */}
+                {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, signals) && (
+                    <button
+                        onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-light signal">
+                        <span>{signals.length} <FaExclamationTriangle/></span>
+                    </button>
+                )}
+                {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, signals) && (
+                    <button
+                        onClick={e => removeRemarkSignal( _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-signal">
+                        <span>{signals.length} reports</span>
+                    </button>
+                )}
+            </div> 
+
+            {/* Responsive screen*/}
+            <div className="visible-mobile post-buttons">
+                    {showActions && <Fragment>
+
+                    <Link to={`/remarks/${_id}`} className="btn btn-dark">
+                        <FaRegComment/>{answers.length > 0 && (
+                            <span className='comment-count'>{answers.length}</span>
+                        )}
+                    </Link>
+                    {auth.isAuthenticated && (
+                        !auth.loading && user === auth.user.pseudo && (<button
+                            onClick={e => deleteRemark(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                        <FaTrashAlt/>
+                        </button>
+                        ))}
+                    {auth.isAuthenticated && auth.user.admin && (
+                        <button
+                            onClick={e => deleteRemark(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                        <FaTrashAlt/>
+                        </button>
+
+                    )}
+                </Fragment>}
+
+                {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, likes) && (
+                    <button onClick={e => { if (auth.isAuthenticated) removeRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-primary">
+                        <span>{likes.length}<FaThumbsUp/></span>
+                    </button>
+                )}
+                {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, likes) && (
+                    <button onClick={e => { if (auth.isAuthenticated) addRemarkLike(_id, auth.user.pseudo) }}
+                        type="button" className="btn btn-light like">
+                        <span>{likes.length}<FaThumbsUp/></span>
+                    </button>
+                )}
+                {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, signals) && (
+                    <button
+                        onClick={e => addRemarkSignal( _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-light signal">
+                        <span>{signals.length} <FaExclamationTriangle/></span>
+                    </button>
+                )}
+                {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, signals) && (
+                    <button
+                        onClick={e => removeRemarkSignal( _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-signal">
+                        <span>{signals.length} <FaExclamationTriangle/></span>
+                    </button>
+                )}
             </div> 
 
             </Card.Body>
@@ -97,4 +187,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark, addRemarkSignal })(RemarkItem);
+export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark, addRemarkSignal, removeRemarkSignal })(RemarkItem);

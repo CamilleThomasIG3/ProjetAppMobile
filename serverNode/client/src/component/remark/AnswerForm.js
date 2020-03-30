@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import {
     Button,
     Modal,
@@ -11,34 +11,29 @@ import {
     Label,
     Input
 } from 'reactstrap'
-import {addAnswer, addRemark} from '../../actions/remark'
+import { addAnswer } from '../../actions/remark'
 
-const AnswerForm = ({remarkId, addAnswer, isAuthenticated, user}) => {
+const AnswerForm = ({ remarkId, addAnswer, isAuthenticated, user }) => {
 
     const [formData, setFormData] = useState({
         modal: false,
-        content: '',
-        CategoryResponse: ''
+        content: ''
     });
 
-    const { modal, content, categoryResponse } = formData;
+    const [categoryResponse, handleChangeCategoryResponse] = useState('Général')
+    const { modal, content }= formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+
     const onSubmit = async e => {
         e.preventDefault();
-        addAnswer(remarkId, formData, user );
+        addAnswer(remarkId, {content, categoryResponse}, user);
         toggle()
     }
-    
-    const toggle = () => {
-        setFormData({modal: !modal})
-    }
 
-    if (!isAuthenticated) {
-        return (
-            <h4 className="page-infos">- you have to login to post answers -</h4>
-        )
+    const toggle = () => {
+        setFormData({ modal: !modal })
     }
 
     return (
@@ -51,13 +46,17 @@ const AnswerForm = ({remarkId, addAnswer, isAuthenticated, user}) => {
                 <ModalBody>
                     <Form onSubmit={e => onSubmit(e)}>
                         <FormGroup>
-                            <Label for="categoryResponse">Category</Label> 
-                            <Input type="text" placeholder="Category" name="categoryResponse" value={categoryResponse} onChange={e => onChange(e)} required/>  
-
+                            <Label for="categoryResponse">Category</Label>
+                            <Input type="select" value={categoryResponse} onChange={e => handleChangeCategoryResponse(e.target.value)}>
+                                <option value='Général'>général</option>
+                                <option value='Humour' >humour</option>
+                                <option value='Loi' >loi</option>
+                                <option value='Citation' >citation</option>
+                            </Input>
                             <Input type="textarea" className="textarea" rows="5" placeholder="Write your answer" name="content" value={content}
                                 onChange={e => onChange(e)}></Input>
 
-                            <Button style={{marginTop:'2rem'}} color="dark">Add comment</Button>
+                            <Button style={{ marginTop: '2rem' }} color="dark">Add comment</Button>
                         </FormGroup>
                     </Form>
                 </ModalBody>
@@ -78,4 +77,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {addAnswer})(AnswerForm)
+export default connect(mapStateToProps, { addAnswer })(AnswerForm)

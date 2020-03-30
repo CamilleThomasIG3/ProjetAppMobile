@@ -11,7 +11,7 @@ const initialState = {
     remarks: [],
     remark: null,
     loading: true,
-    error: {},
+    error: {}
 };
 
 export default function (state = initialState, action) {

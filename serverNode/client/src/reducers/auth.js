@@ -2,14 +2,14 @@ import {
     REGISTER_SUCCESS, REGISTER_FAIL,
     USER_LOADED, AUTH_ERROR,
     LOGIN_FAIL, LOGIN_SUCCESS,
-    EDIT_PSEUDO_SUCCESS, EDIT_PSEUDO_ERROR,
+    EDIT_PSEUDO_SUCCESS,
     LOGOUT,
 } from '../actions/types';
 
 
 const initialState = {
     token: localStorage.getItem('token'),
-    isAuthenticated: null,
+    isAuthenticated: false,
     loading: true,
     user: null
 }

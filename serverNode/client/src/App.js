@@ -12,6 +12,9 @@ import Alert from './component/layout/Alert';
 import Remarks from './component/remarks/Remarks';
 import RemarkForm from './component/remarks/RemarkForm';
 import Remark from './component/remark/Remark';
+import Users from './component/admin/Users';
+import MyRemarks from './component/remarks/MyRemarks';
+import ReportedRemarks from './component/admin/ReportedRemarks';
 
 //redux
 import { Provider } from 'react-redux';
@@ -23,13 +26,13 @@ import setAuthToken from './utils/setAuthToken'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      store.dispatch(loadUser());
+    }
   }, []);
 
   return (
@@ -44,9 +47,15 @@ const App = () => {
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/profile' component={Profile} />
+              <Route exact path='/users' component={Users} />
               <Route exact path='/remarks' component={Remarks}/>
               <Route exact path='/remarkForm' component={RemarkForm}/>
               <Route exact path='/remarks/:id' component={Remark}/>
+              <Route exact path='/remarks' component={Remarks} />
+              <Route exact path='/remarkForm' component={RemarkForm} />
+              <Route exact path='/remarks/:id' component={Remark} />
+              <Route exact path='/my-remarks' component={MyRemarks} />
+              <Route exact path='/reported-remarks' component={ReportedRemarks} />
             </Switch>
           </section>
         </Fragment>

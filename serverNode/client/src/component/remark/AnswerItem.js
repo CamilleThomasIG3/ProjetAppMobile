@@ -1,15 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-//import Moment from 'react-moment';
 import { connect } from 'react-redux';
-//import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteAnswer } from '../../actions/remark'
 import { addAnswerLike, removeAnswerLike } from '../../actions/likes'
-import { addAnswerSignal} from '../../actions/signal'
+import { addAnswerSignal, removeAnswerSignal } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
 
 import Moment from 'moment'
+import { FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa';
+
+const isAlreadyByUser = (pseudo, tab) => {
+    var res = false
+    tab.forEach(function (element) {
+        if (element.user === pseudo) {
+            res = true
+        }
+    })
+    return res
+}
 
 const AnswerItem = ({
     remarkId,
@@ -19,73 +27,74 @@ const AnswerItem = ({
     deleteAnswer,
     addAnswerLike,
     removeAnswerLike,
-    addAnswerSignal
+    addAnswerSignal,
+    removeAnswerSignal
 }) => (
         <Card className="post-content">
             <Card.Header>Posted by <i>{user}</i> on <i>{Moment(date).format('MM-DD-YYYY')}</i> </Card.Header>
             <Card.Body>
                 <Card.Subtitle className="mb-2 text-muted">{categoryResponse}</Card.Subtitle>
                 <Card.Text>
-                    <p>{content}</p>
+                    {content}
                 </Card.Text>
 
-                <button onClick={e => { if (auth.isAuthenticated) addAnswerLike(remarkId, _id, auth.user.pseudo) }}
-                        type="button" className="btn btn-primary">
-                        <i className="fas fa-thumbs-up"></i>
-                        <span>{likes.length} like</span>
+                {/* LIKE */}
+                {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, likes) && (
+                    <button onClick={e => { if (auth.isAuthenticated) addAnswerLike(remarkId, _id, auth.user.pseudo) }}
+                        type="button" className="btn btn-light like">
+                        <span>{likes.length} <FaThumbsUp /></span>
                     </button>
+                )}
+                {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, likes) && (
                     <button onClick={e => { if (auth.isAuthenticated) removeAnswerLike(remarkId, _id, auth.user.pseudo) }}
-                        type="button" className="btn btn-light">
-                        <i className="fas fa-thumbs-up"></i>
-                        <span>unlike</span>
+                        type="button" className="btn btn-primary">
+                        <span>{likes.length} likes</span>
                     </button>
-                    {auth.isAuthenticated &&(
-                        <button
-                            onClick={e => addAnswerSignal(remarkId, _id, auth.user.pseudo)}
-                            type="button"
-                            className="btn btn-signal"
-                        >
-                            <span>{signals.length} signal</span>
+                )}
 
-                        </button>
-                    )}
-                    {auth.isAuthenticated && (
-                        !auth.loading && user === auth.user.pseudo && (<button
-                            onClick={e => deleteAnswer(remarkId, _id)}
-                            type="button"
-                            className="btn btn-danger"
-                        >
-                            delete
-                        </button>
-                        ))}
-                    {auth.isAuthenticated && auth.user.admin && (
-                        <button
-                            onClick={e => deleteAnswer(remarkId, _id)}
-                            type="button"
-                            className="btn btn-danger"
-                        >
-                            delete
-                        </button>
-                    )}
+                {/* SIGNAL */}
+                {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, signals) && (
+                    <button
+                        onClick={e => addAnswerSignal(remarkId, _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-light signal"
+                    >
+                        <span>{signals.length} <FaExclamationTriangle /></span>
+
+                    </button>
+                )}
+                {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, signals) && (
+                    <button
+                        onClick={e => removeAnswerSignal(remarkId, _id, auth.user.pseudo)}
+                        type="button"
+                        className="btn btn-signal"
+                    >
+                        <span>{signals.length} reports</span>
+
+                    </button>
+                )}
+
+                {/* DELETE */}
+                {auth.isAuthenticated && (
+                    !auth.loading && user === auth.user.pseudo && (<button
+                        onClick={e => deleteAnswer(remarkId, _id)}
+                        type="button"
+                        className="btn btn-danger"
+                    >
+                        delete
+                    </button>
+                    ))}
+                {auth.isAuthenticated && auth.user.admin && (
+                    <button
+                        onClick={e => deleteAnswer(remarkId, _id)}
+                        type="button"
+                        className="btn btn-danger"
+                    >
+                        delete
+                    </button>
+                )}
             </Card.Body>
         </Card>
-
-
-
-        // <div class="post bg-white p-1 my-1">
-        //     <div>
-        //         <h4>Catégorie :
-        //   <button type="button" className="btn btn-light">
-        //                 {categoryResponse}
-        //             </button></h4>
-        //         <p class="my-1">
-        //             {content} </p>
-        //         <p class="post-date">
-        //             Posted on {date} by {user}
-        //         </p>
-               
-        //     </div>
-        // </div>
     )
 
 
@@ -95,7 +104,7 @@ AnswerItem.defaultProps = {
 }
 
 AnswerItem.propTypes = {
-    remarkId: PropTypes.object.isRequired,
+    remarkId: PropTypes.string.isRequired,
     answer: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     deleteAnswer: PropTypes.func.isRequired
@@ -106,4 +115,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { addAnswerLike, removeAnswerLike, deleteAnswer, addAnswerSignal })(AnswerItem);
+export default connect(mapStateToProps, { addAnswerLike, removeAnswerLike, deleteAnswer, addAnswerSignal, removeAnswerSignal })(AnswerItem);
