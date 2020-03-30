@@ -12,8 +12,9 @@ import Alert from './component/layout/Alert';
 import Remarks from './component/remarks/Remarks';
 import RemarkForm from './component/remarks/RemarkForm';
 import Remark from './component/remark/Remark';
-import Users from './component/admin/Users'
+import Users from './component/admin/Users';
 import MyRemarks from './component/remarks/MyRemarks';
+import ReportedRemarks from './component/admin/ReportedRemarks';
 
 //redux
 import { Provider } from 'react-redux';
@@ -54,6 +55,7 @@ const App = () => {
               <Route exact path='/remarkForm' component={RemarkForm} />
               <Route exact path='/remarks/:id' component={Remark} />
               <Route exact path='/my-remarks' component={MyRemarks} />
+              <Route exact path='/reported-remarks' component={ReportedRemarks} />
             </Switch>
           </section>
         </Fragment>
