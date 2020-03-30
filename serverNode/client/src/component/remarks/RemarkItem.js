@@ -38,7 +38,7 @@ const RemarkItem = ({
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{idCategory}</Card.Subtitle>
                 <Card.Text>
-                    <p>{content}</p>
+                    {content}
                 </Card.Text>
 
                 {/* Full screen*/}

@@ -75,55 +75,96 @@ router.put('/:id', async (req, res) => {
     const id = req.params.id
     if (!newPseudo || !password) return res.status(400).json({ res: "incorrect", msg: "error syntax" })
     User.findById(id)
-    .then(user => {
-        if(!user) return res.status(400).json({res: "incorrect", msg: "user doesn't exist"});
+        .then(user => {
+            if (!user) return res.status(400).json({ res: "incorrect", msg: "user doesn't exist" });
 
-        //validate psw
-         bcrypt.compare(password, user.password)
-         .then(isMatch => {
-             if(!isMatch) return  res.status(400).json({res: "incorrect", msg: "invalid password"});
-             else{
-                User.findOneAndUpdate(
-                    {_id: id},
-                    {
-                        $set:{
-                            pseudo: newPseudo
-                        }
+            //validate psw
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if (!isMatch) return res.status(400).json({ res: "incorrect", msg: "invalid password" });
+                    else {
+                        User.findOneAndUpdate(
+                            { _id: id },
+                            {
+                                $set: {
+                                    pseudo: newPseudo
+                                }
+                            }
+                        ).then(user => res.json({ res: "correct", msg: "pseudo updated" }))
+                            .catch(err => res.status(404).json({ res: "incorrect", msg: 'pseudo already used' }))
                     }
-                ).then(user => res.json({res: "correct", msg:"pseudo updated"}))
-                .catch(err => res.status(404).json({ res: "incorrect", msg: 'pseudo already used' }))
-             }
-         })
-})})
+                })
+        })
+})
 
 //@route put api/users
-//@desc update user's pseudo
+//@desc update user's rights
 //@access Public
 router.put('/:id', async (req, res) => {
     const newAdmin = req.body.newAdmin;
     const id = req.params.id
     if (!newAdmin) return res.status(400).json({ res: "incorrect", msg: "error syntax" })
     User.findById(id)
-    .then(user => {
-        if(!user) return res.status(400).json({res: "incorrect", msg: "user doesn't exist"});
+        .then(user => {
+            if (!user) return res.status(400).json({ res: "incorrect", msg: "user doesn't exist" });
 
-        //validate psw
-        //  bcrypt.compare(password, user.password)
-        //  .then(isMatch => {
-             if(!isMatch) return  res.status(400).json({res: "incorrect", msg: "invalid password"});
+            //validate psw
+            //  bcrypt.compare(password, user.password)
+            //  .then(isMatch => {
+            if (!isMatch) return res.status(400).json({ res: "incorrect", msg: "invalid password" });
             //  else{
-                User.findOneAndUpdate(
-                    {_id: id},
-                    {
-                        $set:{
-                            admin: newAdmin
-                        }
+            User.findOneAndUpdate(
+                { _id: id },
+                {
+                    $set: {
+                        admin: newAdmin
                     }
-                ).then(user => res.json({res: "correct", msg:"admin updated"}))
+                }
+            ).then(user => res.json({ res: "correct", msg: "admin updated" }))
                 .catch(err => res.status(404).json({ res: "incorrect", msg: 'impossible to change admin status' }))
             //  }
-        //  })
-})})
+            //  })
+        })
+})
+
+//@route put api/users/updatePswd
+//@desc update user's pswd
+//@access Public
+router.put('/updatepsw/:id', async (req, res) => {
+    const newP = req.body.newPassword;
+    const password = req.body.password
+    const id = req.params.id
+    if (!newP || !password) return res.status(400).json({ res: "incorrect", msg: "error syntax" })
+    User.findById(id)
+        .then(user => {
+            if (!user) return res.status(400).json({ res: "incorrect", msg: "user doesn't exist" });
+
+            //validate psw
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if (!isMatch) return res.status(400).json({ res: "incorrect", msg: "invalid password" });
+                    else {
+                        //create salt & hash 
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(newP, salt, (err, hash) => {
+                                if (err) throw err;
+                                User.findOneAndUpdate(
+                                    { _id: id },
+                                    {
+                                        $set: {
+                                            password: hash
+                                        }
+                                    }
+                                ).then(user => res.json({ res: "correct", msg: "password changed" }))
+                                    .catch(err => res.status(404).
+                                    json({ res: "incorrect", msg: 'impossible to change your password' }))
+                            })
+                        })
+                        
+                    }
+                })
+        })
+})
 
 //@route GET api/users
 //@desc GET User by id

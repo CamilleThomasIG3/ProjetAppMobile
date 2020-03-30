@@ -25,7 +25,7 @@ export const loadUser = () => async dispatch => {
         });
 
     } catch (err) {
-        
+
         dispatch({
             type: AUTH_ERROR
         })
@@ -77,7 +77,7 @@ export const login = (email, password) => async dispatch => {
         dispatch(loadUser());
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -99,10 +99,33 @@ export const editPseudo = (id, newPseudo, password) => async dispatch => {
             payload: res.data
         });
         dispatch(loadUser());
-        
+        dispatch(setAlert(res.data.msg, 'success'))
+
     } catch (err) {
         const errors = err.response.data;
-        
+
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
+        dispatch({ type: EDIT_PSEUDO_ERROR });
+    }
+};
+
+export const editPassword = (id, newPassword, password) => async dispatch => {
+    const body = { newPassword, password };
+
+    try {
+        const res = await axios.put(`api/users/updatepsw/${id}`, body);
+        dispatch({
+            type: EDIT_PSEUDO_SUCCESS,
+            payload: res.data
+        });
+        dispatch(loadUser());
+        dispatch(setAlert(res.data.msg, 'success'))
+
+    } catch (err) {
+        const errors = err.response.data;
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -111,7 +134,7 @@ export const editPseudo = (id, newPseudo, password) => async dispatch => {
 };
 
 export const logout = () => dispatch => {
-    dispatch({type: LOGOUT});
+    dispatch({ type: LOGOUT });
 };
 
 

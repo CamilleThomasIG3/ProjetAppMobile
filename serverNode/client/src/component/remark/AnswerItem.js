@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteAnswer } from '../../actions/remark'
 import { addAnswerLike, removeAnswerLike } from '../../actions/likes'
-import { addAnswerSignal, removeAnswerSignal} from '../../actions/signal'
+import { addAnswerSignal, removeAnswerSignal } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
 
 import Moment from 'moment'
 import { FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa';
 
-const isAlreadyByUser = (pseudo, tab) => {    
+const isAlreadyByUser = (pseudo, tab) => {
     var res = false
-    tab.forEach(function(element) {
-        if(element.user===pseudo){
+    tab.forEach(function (element) {
+        if (element.user === pseudo) {
             res = true
         }
     })
@@ -35,14 +35,14 @@ const AnswerItem = ({
             <Card.Body>
                 <Card.Subtitle className="mb-2 text-muted">{categoryResponse}</Card.Subtitle>
                 <Card.Text>
-                    <p>{content}</p>
+                    {content}
                 </Card.Text>
 
                 {/* LIKE */}
                 {auth.isAuthenticated && !isAlreadyByUser(auth.user.pseudo, likes) && (
                     <button onClick={e => { if (auth.isAuthenticated) addAnswerLike(remarkId, _id, auth.user.pseudo) }}
                         type="button" className="btn btn-light like">
-                        <span>{likes.length} <FaThumbsUp/></span>
+                        <span>{likes.length} <FaThumbsUp /></span>
                     </button>
                 )}
                 {auth.isAuthenticated && isAlreadyByUser(auth.user.pseudo, likes) && (
@@ -59,7 +59,7 @@ const AnswerItem = ({
                         type="button"
                         className="btn btn-light signal"
                     >
-                        <span>{signals.length} <FaExclamationTriangle/></span>
+                        <span>{signals.length} <FaExclamationTriangle /></span>
 
                     </button>
                 )}
@@ -104,7 +104,7 @@ AnswerItem.defaultProps = {
 }
 
 AnswerItem.propTypes = {
-    remarkId: PropTypes.object.isRequired,
+    remarkId: PropTypes.string.isRequired,
     answer: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     deleteAnswer: PropTypes.func.isRequired
