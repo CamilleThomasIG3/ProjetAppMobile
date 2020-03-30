@@ -1,15 +1,53 @@
-import { GET_REMARK, GET_REMARKS,
-     ADD_REMARK, DELETE_REMARK,
-      REMARKS_LOADING, REMARK_ERROR,
-    ADD_ANSWER, REMOVE_ANSWER } from './types';
+import {
+    GET_REMARK, GET_REMARKS,
+    ADD_REMARK, DELETE_REMARK,
+    REMARKS_LOADING, REMARK_ERROR,
+    ADD_ANSWER, REMOVE_ANSWER
+} from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
 
 
-export const getRemarks = () => async dispatch => {
+export const getRemarks = (cat) => async dispatch => {
+    try {
+        var res = null
+        if (cat === 'all') {
+            res = await axios
+                .get('/api/remarks');
+            dispatch({
+                type: GET_REMARKS,
+                payload: res.data
+            });
+        }
+        else {
+            res = await axios
+                .get('/api/remarks/categorie/' + cat);
+            dispatch({
+                type: GET_REMARKS,
+                payload: res.data
+            });
+        }
+
+
+    } catch (err) {
+        const errors = err.response.data;
+
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
+        dispatch({
+            type: REMARK_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+
+};
+
+export const getMyRemarks = (user) => async dispatch => {
     try {
         const res = await axios
-            .get('/api/remarks');
+            .get('/api/remarks/user/'+user);
         dispatch({
             type: GET_REMARKS,
             payload: res.data
@@ -17,7 +55,7 @@ export const getRemarks = () => async dispatch => {
 
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -44,7 +82,7 @@ export const deleteRemark = (id) => dispatch => {
         dispatch(setAlert('remark removed', 'success'));
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -68,12 +106,12 @@ export const addRemark = (formData, cuser) => async dispatch => {
         const res = await axios.post('/api/remarks', body);
         dispatch({
             type: ADD_REMARK,
-            payload:res.data.remark
+            payload: res.data.remark
         })
         dispatch(setAlert('post created', 'success'));
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -96,7 +134,7 @@ export const getRemark = (id) => async dispatch => {
 
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -113,19 +151,19 @@ export const getRemark = (id) => async dispatch => {
 export const addAnswer = (id, formData, cuser) => async dispatch => {
     try {
         const body = {
-            content : formData.content,
+            content: formData.content,
             categoryResponse: formData.categoryResponse,
             pseudo: cuser.pseudo
         }
-        const res = await axios.post('/api/remarks/'+id+'/answers', body);
+        const res = await axios.post('/api/remarks/' + id + '/answers', body);
         dispatch({
             type: ADD_ANSWER,
-            payload:res.data.answers
+            payload: res.data.answers
         })
         dispatch(setAlert('answer created', 'success'));
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }
@@ -137,10 +175,10 @@ export const addAnswer = (id, formData, cuser) => async dispatch => {
     }
 };
 
-//add answer
+//delete answer
 export const deleteAnswer = (id, answerId) => async dispatch => {
     try {
-        const res = await axios.delete('/api/remarks/'+id+'/answers/'+answerId);
+        await axios.delete('/api/remarks/' + id + '/answers/' + answerId);
         dispatch({
             type: REMOVE_ANSWER,
             payload: answerId
@@ -148,7 +186,7 @@ export const deleteAnswer = (id, answerId) => async dispatch => {
         dispatch(setAlert('answer removed', 'success'));
     } catch (err) {
         const errors = err.response.data;
-        
+
         if (errors) {
             dispatch(setAlert(errors.msg, 'danger'));
         }

@@ -42,7 +42,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                     You already have an account? <Link to='/login'>Sign In</Link>
                 </p>
 
-                <form className="form" onSubmit={e => onSubmit(e)}>
+                <form className="form form-centered" onSubmit={e => onSubmit(e)}>
                     <div className="form-group">
                         <input type="text" placeholder="Pseudo" name="pseudo" value={pseudo} onChange={e => onChange(e)}  />
                     </div>
@@ -57,7 +57,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                             name="password"
                             value={password}
                             onChange={e => onChange(e) }
-                        // minLength="6"
+                            minLength="8"
                             //required
                             
                         />
@@ -69,7 +69,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
                             name="password2"
                             value={password2}
                             onChange={e => onChange(e) }
-                        // minLength="6"
+                            minLength="8"
                         // required
                         />
                     </div>

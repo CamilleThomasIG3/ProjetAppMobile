@@ -27,7 +27,7 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout, user }) => {
 
     const authLinks = (
         <div className="nav-right">
-            <Link onClick={handleToggle} to='/remarks/myRemarks'>My remarks</Link>
+            <Link onClick={handleToggle} to='/my-remarks'>My remarks</Link>
             <Link onClick={handleToggle} to='/profile'>Profile</Link>
             
             <Link onClick={logOut} to='/'>Logout</Link>

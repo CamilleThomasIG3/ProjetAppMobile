@@ -17,9 +17,10 @@ class Remarque: Decodable, Identifiable, CustomStringConvertible{
     var user : String
     var idCategory : String
     var likes : [[String:String]] = [[:]]
+    var signals : [[String:String]] = [[:]]
     var nbLikes : Int
     var description: String {return " \(self.title) "}
-    private enum CodingKeys: String, CodingKey { case _id, title, date, content, user, idCategory, likes }
+    private enum CodingKeys: String, CodingKey { case _id, title, date, content, user, idCategory, likes, signals }
     
     init(){
         self._id = ""
@@ -50,6 +51,7 @@ class Remarque: Decodable, Identifiable, CustomStringConvertible{
         user = try container.decode(String.self, forKey: .user)
         idCategory = try container.decode(String.self, forKey: .idCategory)
         likes = try container.decode([[String:String]].self, forKey: .likes)
+        signals = try container.decode([[String:String]].self, forKey: .signals)
         nbLikes = likes.count
     }
 }

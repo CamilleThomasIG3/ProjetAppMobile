@@ -27,34 +27,7 @@ class RemarqueDAO : ObservableObject{
             self.remarques = res
           }
         }.resume()
-    }
-    
-    
-    //INUTILE
-//    func getRemarqueByPersonne(pseudo : String){
-//        guard let url = URL(string: urlRemarques+"user/"+pseudo) else { return }
-//        URLSession.shared.dataTask(with: url){(data, _, _) in
-//          guard let data = data else { return }
-//          let res = try! JSONDecoder().decode([Remarque].self, from: data)
-//          DispatchQueue.main.async{
-//            self.remarques = res
-//          }
-//        }.resume()
-//    }
-//
-//    func getRemarqueByCategory(category : String){
-//        guard let url = URL(string: urlRemarques+"categorie/"+category) else { return }
-//        URLSession.shared.dataTask(with: url){(data, _, _) in
-//          guard let data = data else { return }
-//          let res = try! JSONDecoder().decode([Remarque].self, from: data)
-//          DispatchQueue.main.async{
-//            print("res")
-//            print(res)
-//            self.remarques = res
-//          }
-//        }.resume()
-//    }
-    
+    }    
     
     func getRemarqueById(id : String){
         guard let url = URL(string: urlRemarques+id) else { return }
@@ -153,6 +126,71 @@ class RemarqueDAO : ObservableObject{
                        }
                    }
                   }.resume()
+    }
+    
+    func deleteFrequence(idRemarque : String, pseudo : String){
+        guard let url = URL(string: urlRemarques+idRemarque+"/userlike/"+pseudo) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+            
+            _ = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+        }.resume()
+    }
+    
+    //SIGNAL
+    func addSignal(remarque : Remarque, pseudoUser : String, completionHandler: @escaping (Bool) -> ()) {
+        guard let url = URL(string : urlRemarques+remarque._id+"/signals") else { return }
+        
+        let newSignal : [String: Any] = [
+            "pseudo": pseudoUser
+        ]
+        
+        let body = try! JSONSerialization.data(withJSONObject: newSignal)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let data = data else { return }
+            
+            let resData = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+            if resData.res == "correct" {
+                DispatchQueue.main.async {
+                    completionHandler(true)
+                }
+            }
+            else{
+                DispatchQueue.main.async {
+                    completionHandler(false)
+                }
+            }
+        }.resume()
+    }
+    
+    
+    func deleteSignal(idRemarque : String, pseudo : String){
+        guard let url = URL(string: urlRemarques+idRemarque+"/usersignal/"+pseudo) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+            
+            _ = try! JSONDecoder().decode(ServerMessage.self, from: data)
+            
+        }.resume()
     }
 
 }

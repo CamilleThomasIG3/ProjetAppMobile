@@ -21,7 +21,7 @@ const Profile = ({isAuthenticated, editPseudo, user}) => {
     
     const [formdata, setFormData] = useState({
         modal: false,
-        newPseudo: user.pseudo,
+        newPseudo: '',
         password: ''
     });
 
@@ -89,7 +89,7 @@ const Profile = ({isAuthenticated, editPseudo, user}) => {
 
 Profile.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    editPseudo: PropTypes.func.isRequired
+    editPseudo: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
