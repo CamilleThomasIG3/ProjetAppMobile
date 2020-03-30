@@ -12,6 +12,7 @@ import Alert from './component/layout/Alert';
 import Remarks from './component/remarks/Remarks';
 import RemarkForm from './component/remarks/RemarkForm';
 import Remark from './component/remark/Remark';
+import Users from './component/admin/Users'
 
 //redux
 import { Provider } from 'react-redux';
@@ -44,6 +45,7 @@ const App = () => {
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/profile' component={Profile} />
+              <Route exact path='/users' component={Users} />
               <Route exact path='/remarks' component={Remarks}/>
               <Route exact path='/remarkForm' component={RemarkForm}/>
               <Route exact path='/remarks/:id' component={Remark}/>
