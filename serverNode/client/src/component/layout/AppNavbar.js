@@ -45,7 +45,7 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout, user }) => {
     const adminLinks = (
         <div className="nav-right">
             <Link onClick={handleToggle} to='/users'>Users</Link>
-            <Link onClick={handleToggle} to='/reportded-remarks'>Reported Remarks</Link>
+            <Link onClick={handleToggle} to='/reported-remarks'>Reported Remarks</Link>
         </div>
     )
 
