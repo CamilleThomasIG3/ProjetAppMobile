@@ -102,9 +102,9 @@ struct AccueilView: View {
                                         Text(remarque.title).font(.headline).lineLimit(1)
                                         Text(remarque.content).lineLimit(2)
                                     }.padding(10)
-                                    
-                                    Spacer()
-                                    Text(String(remarque.nbLikes)).padding(.trailing, 10)
+//                                    
+//                                    Spacer()
+//                                    Text(String(remarque.nbLikes)).padding(.trailing, 10)
                                 }
                             }
                         }

@@ -46,6 +46,12 @@ struct ProfilView: View {
                             Text("Modifier le pseudo").foregroundColor(Color.black).padding(5)
                         }
                     }
+                    NavigationLink(destination: ModifierMdpView()){
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).fill(Color("Gris_fonce")).frame(width: 220, height:40)
+                            Text("Modifier le mot de passe").foregroundColor(Color.black).padding(5)
+                        }
+                    }
                     Button(action: {
                         self.deleteAccount(id : self.myPersonne[0].id!)
                         self.presentation.wrappedValue.dismiss()

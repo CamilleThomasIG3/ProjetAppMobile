@@ -87,7 +87,6 @@ struct ListeReponses: View {
                     }
             }
             
-            
             //  Liste réponses
             List {
                 ForEach(self.tri()){ answer in
