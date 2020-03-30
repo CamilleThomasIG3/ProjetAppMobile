@@ -47,6 +47,8 @@ struct RemarqueCard: View {
             
             Text(remarque.content).multilineTextAlignment(.center).padding(10)
             
+            Text("Déjà entendu \(remarque.nbLikes) fois").italic().multilineTextAlignment(.center).padding(10).foregroundColor(Color.gray)
+            
             //Buttons "déjà entendu", "supprimer" et "signalement"
             HStack {
                 if (self.estConnecte) {
