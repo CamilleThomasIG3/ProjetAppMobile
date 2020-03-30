@@ -36,12 +36,6 @@ const AnswerForm = ({ remarkId, addAnswer, isAuthenticated, user }) => {
         setFormData({ modal: !modal })
     }
 
-    if (!isAuthenticated) {
-        return (
-            <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
-        )
-    }
-
     return (
         <div>
             <Button color="primary" onClick={toggle}>Add comment</Button>

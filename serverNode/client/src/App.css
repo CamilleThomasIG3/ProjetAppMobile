@@ -800,7 +800,7 @@ button {
 
 @media screen and (min-width: 700px) {
   .page-infos{
-    position: absolute;
+    /* position: absolute; */
     margin-left: 13%;
   }
 }

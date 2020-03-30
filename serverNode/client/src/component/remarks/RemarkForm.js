@@ -42,13 +42,6 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
         setFormData({ modal: !modal })
     }
 
-
-    if (!isAuthenticated) {
-        return (
-            <h4 className="page-infos">- you have to login to post / like / report remarks -</h4>
-        )
-    }
-
     return (
         <div>
             <Button className="add-remark" color="primary" onClick={toggle}>Add sexist remark</Button>

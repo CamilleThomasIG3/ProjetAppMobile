@@ -8,7 +8,7 @@ import RemarkForm from './RemarkForm';
 import {Input} from 'reactstrap'
 
 
-const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => {
+const Remarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks, loading } }) => {
 
     const [selectCat, handleChangeSelectCat] = useState('all')
     const [filter, handleChangeFilter] = useState('recent');
@@ -22,9 +22,15 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
             <h1 className="large text-primary">Remarks</h1>
 
             {/* responsive screen */}
-            <div  className="add-remark visible-mobile">
-                <RemarkForm/>
-            </div>
+            {isAuthenticated && (
+                <div  className="visible-mobile add-remark">
+                    <RemarkForm/>
+                </div>
+            )}
+
+            {!isAuthenticated && (
+                <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
+            )}
 
             {/* full screen */}
             <div className="hide-mobile sort-buttons">
@@ -61,9 +67,11 @@ const Remarks = ({ getRemarks, deleteRemark, remark: { remarks, loading } }) => 
                 </Input>
                 
                 {/* full screen */}
-                <div  className="hide-mobile">
-                    <RemarkForm/>
-                </div>  
+                {isAuthenticated && (
+                    <div  className="hide-mobile">
+                        <RemarkForm/>
+                    </div>
+                )}
             </div>
 
             {filter === 'recent' &&
@@ -101,7 +109,8 @@ Remarks.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    remark: state.remark
+    remark: state.remark,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
