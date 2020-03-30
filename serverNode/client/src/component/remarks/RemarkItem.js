@@ -116,7 +116,7 @@ const RemarkItem = ({
                             <span className='comment-count'>{answers.length}</span>
                         )}
                     </Link>
-                    {auth.isAuthenticated && (
+                    {auth.isAuthenticated && !auth.user.admin && (
                         !auth.loading && user === auth.user.pseudo && (<button
                             onClick={e => deleteRemark(_id)}
                             type="button"
