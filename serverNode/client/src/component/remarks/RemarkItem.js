@@ -53,7 +53,7 @@ const RemarkItem = ({
                     </Link>
 
                     {/* DELETE */}
-                    {auth.isAuthenticated && (
+                    {auth.isAuthenticated && !auth.user.admin && (
                         !auth.loading && user === auth.user.pseudo && (<button
                             onClick={e => deleteRemark(_id)}
                             type="button"

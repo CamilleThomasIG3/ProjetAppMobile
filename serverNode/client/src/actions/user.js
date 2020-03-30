@@ -1,13 +1,14 @@
 import {GET_USERS,
     DELETE_USER,
-    USERS_LOADING, USER_ERROR, UPDATE_ADMIN,
-   REMOVE_ADMIN_SUCCESS, REMOVE_ADMIN_ERROR } from './types';
+    USERS_LOADING, USER_ERROR, UPDATE_ADMIN} from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
 
 
 export const getUsers = () => async dispatch => {
+    console.log("test users ----");
    try {
+    console.log("test users");
        const res = await axios
            .get('/api/users/');
        dispatch({
@@ -18,7 +19,8 @@ export const getUsers = () => async dispatch => {
 
    } catch (err) {
        const errors = err.response.data;
-       
+        console.log(errors.msg);
+        
        if (errors) {
            dispatch(setAlert(errors.msg, 'danger'));
        }
@@ -82,7 +84,7 @@ export const removeAdmin = (id, newAdmin) => async dispatch => {
     const body = { newAdmin};
     try {
         const res = await axios
-            .put('/api/users/${id}', body);
+            .put(`/api/users/${id}`, body);
         dispatch({
             type: UPDATE_ADMIN,
             payload: {id, admin: res.data.admin}
