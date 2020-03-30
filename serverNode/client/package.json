@@ -2,6 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.13.4"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -9,10 +13,10 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "moment": "^2.24.0",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-burger-menu": "^2.6.13",
-    "react-dom": "^16.13.0",
+    "react-dom": "^16.13.1",
     "react-moment": "^0.9.7",
     "react-redux": "^7.2.0",
     "react-responsive-navbar": "^1.0.11",
