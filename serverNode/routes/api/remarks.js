@@ -295,8 +295,8 @@ router.delete('/:id/answers/:answerid/usersignal/:user', async (req, res) => {
     try {
         const remark = await Remark.findById(req.params.id);
         const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
-        const usignal = await remark.signals.find(signal => signal.user === req.params.user);
-        if (!usignal) return res.status(404).json({ res: "incorrect", msg: 'signal does not exit' });
+        const usignal = await answer.signals.find(signal => signal.user === req.params.user);
+        if (!usignal) return res.status(404).json({ res: "incorrect", msg: 'signal does not exit bro' });
 
         const removeIndex = answer.signals.map(signal => signal.id).indexOf(req.params.signalid);
         answer.signals.splice(removeIndex, 1);
