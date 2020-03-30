@@ -9,7 +9,7 @@ import { FaHome, FaBars } from 'react-icons/fa'; //icones
 //     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container
 // } from 'reactstrap';
 
-const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const AppNavbar = ({ auth: { isAuthenticated, loading }, logout, user }) => {
     const [formdata, setFormData] = useState({
         isExpanded: true
     });
@@ -42,6 +42,12 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </div>
     );
 
+    const adminLinks = (
+        <div className="nav-right">
+            <Link onClick={handleToggle} to='/users'>Users</Link>
+        </div>
+    )
+
     return (
         <div>
             <nav className="navbar bg-dark nav-long">
@@ -51,6 +57,9 @@ const AppNavbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                 </div>
                 
                 { !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>) }
+                { !loading && (<Fragment>{isAuthenticated && user.admin && (
+                    adminLinks
+                )}</Fragment>) }
             </nav>
             
             <nav className="navbar bg-dark nav-burger">
@@ -78,7 +87,8 @@ AppNavbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    user: state.auth.user
 });
 
 
