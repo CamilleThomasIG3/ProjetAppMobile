@@ -12,7 +12,7 @@ class ReponseDAO : ObservableObject {
     
     @Published var currentRemarque = [Remarque]()
     @Published var answers = [Reponse]()
-    let urlRemarques : String = "https://whispering-river-73122.herokuapp.com/api/remarks/"
+    let urlRemarques : String = "https://against-sexism.herokuapp.com/api/remarks/"
     
     func getAnswers(idRemarque : String){
         guard let url = URL(string: urlRemarques+idRemarque+"/answers") else { return }

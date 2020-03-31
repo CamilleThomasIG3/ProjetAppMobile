@@ -12,7 +12,7 @@ class RemarqueDAO : ObservableObject{
     @Published var remarques = [Remarque]()
     @Published var currentRemarque = [Remarque]()
     
-    let urlRemarques : String = "https://whispering-river-73122.herokuapp.com/api/remarks/"
+    let urlRemarques : String = "https://against-sexism.herokuapp.com/api/remarks/"
     
     init() {
         getAllRemaques()
