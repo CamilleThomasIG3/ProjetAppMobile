@@ -5,9 +5,6 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth'
 
 import { FaHome, FaBars } from 'react-icons/fa'; //icones
-// import {
-//     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Container
-// } from 'reactstrap';
 
 const AppNavbar = ({ auth: { isAuthenticated, loading }, logout, user }) => {
     const [formdata, setFormData] = useState({

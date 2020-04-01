@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 const PrivateRouteAdmin = ({ component: Component, user, loading, ...rest}) => (
-    <Route {...rest} render={props => user===null || !user.admin && !loading 
+    <Route {...rest} render={props => user===null || (!user.admin && !loading) 
         ? (<Redirect to = '/login'/>) 
         : (<Component {...props}/>)
     }/>

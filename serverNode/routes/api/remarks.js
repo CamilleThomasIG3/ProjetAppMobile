@@ -6,7 +6,6 @@ const auth = require('../../middleware/auth');
 //model
 const Remark = require('../../models/Remark');
 const User = require('../../models/User');
-const CategoryRemark = require('../../models/CategoryRemark');
 
 
 //--------remarks----------
@@ -308,6 +307,8 @@ router.delete('/:id/answers/:answerid/usersignal/:user', async (req, res) => {
         res.status(500).send('server error')
     }
 })
+
+
 //----------remarks/answers/signal----------
 
 
