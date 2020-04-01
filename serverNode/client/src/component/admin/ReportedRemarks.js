@@ -17,7 +17,7 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
     const [filterAnsw, handleChangeFilterAnsw] = useState('recent');
     useEffect(() => {
             getRemarks(selectCat);
-    }, [getRemarks, filter, selectCat, choice]);
+    }, [getRemarks, filter, selectCat, choice, selectCatAnsw, filterAnsw]);
 
 
     return loading ? <Spinner /> : (
@@ -124,7 +124,7 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
                     <div className="comments">
                         {remarks.map(r =>
                             r.answers.filter(answer => answer.signals.length > 0)
-                                        .filter(answer => (answer.categoryResponse === selectCat))
+                                        .filter(answer => (answer.categoryResponse === selectCatAnsw))
                                         .map(answer => <AnswerItem key={answer._id} answer={answer} remarkId={r._id} />) 
                         )}   
                     </div>}
