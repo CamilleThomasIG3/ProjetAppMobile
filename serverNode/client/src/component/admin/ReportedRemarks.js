@@ -13,6 +13,8 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
     const [selectCat, handleChangeSelectCat] = useState('all')
     const [filter, handleChangeFilter] = useState('recent');
     const [choice, handleChangeChoice] = useState('remarks');
+    const [selectCatAnsw, handleChangeSelectCatAnsw] = useState('all')
+    const [filterAnsw, handleChangeFilterAnsw] = useState('recent');
     useEffect(() => {
         // if (choice == 'remarks'){
             getRemarks(selectCat);
@@ -108,14 +110,59 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
                     <div>
                         <h2 className="reports text-primary">Reported answers</h2>
                     </div>
+                    <div className="add-comment selectGroup">
+                        {/* Sort */}
+                        <Input type="select" value={filter} onChange={e => handleChangeFilter(e.target.value)}>
+                            <option value='recent'>Sort by date</option>
+                            <option value='signals' >Sort by number of reports</option>
+                        </Input>
+                        {/* Filter */}
+                        <p className="filter-answers">Filter by category : </p>
+                        <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
+                            <option value='all'>All</option>
+                            <option value='Général'>General</option>
+                            <option value='Humour' >Humour</option>
+                            <option value='Loi' >Law</option>
+                            <option value='Citation'>Citation</option>
+                        </Input>
+                    </div>
+                    {/* sort: recent, filter : !all */}
+                    {filter === 'recent' && selectCat !== 'all' &&
                     <div className="comments">
-                        {remarks.map(r => 
-                            r.answers.filter(answer => answer.signals.length > 0).sort((a,b) => a.signals.length > b.signals.length ? -1 : 1).map(answer =>
-                                <AnswerItem key={answer._id} answer={answer} remarkId={r._id} /> 
-                        ))
-                        }
+                        {remarks.map(r =>
+                            r.answers.filter(answer => answer.signals.length > 0)
+                                        .filter(answer => (answer.categoryResponse === selectCat))
+                                        .map(answer => <AnswerItem key={answer._id} answer={answer} remarkId={r._id} />) 
+                        )}   
                     </div>}
-
+                    {/* sort : reports, filter: !all  */}
+                    {filter === 'signals' && selectCat !== 'all' &&
+                    <div className="comments">
+                        {remarks.map(r =>
+                            r.answers.filter(answer => answer.signals.length > 0)
+                            .sort((a, b) => a.signals.length > b.signals.length ? -1 : 1)
+                            .filter(answer => (answer.categoryResponse === selectCat))
+                            .map(answer => <AnswerItem key={answer._id} answer={answer} remarkId={r._id} />)
+                        )}
+                    </div>}
+                    {/* sort : recent, filter : all */}
+                    {filter === 'recent' && selectCat === 'all' &&
+                    <div className="comments">
+                        {remarks.map(r =>
+                            r.answers.filter(answer => answer.signals.length > 0)
+                            .map(answer => <AnswerItem key={answer._id} answer={answer} remarkId={r._id} />) 
+                        )}
+                    </div>}
+                    {/* sort: reports, filter : all */}
+                    {filter === 'signals' && selectCat === 'all' &&
+                    <div className="comments">
+                        {remarks.map(r =>
+                            r.answers.filter(answer => answer.signals.length > 0)
+                            .sort((a, b) => a.signals.length > b.signals.length ? -1 : 1)
+                            .map(answer =>
+                                <AnswerItem key={answer._id} answer={answer} remarkId={r._id} />)
+                        )}
+                    </div>}
                 </Fragment>
             }
 
