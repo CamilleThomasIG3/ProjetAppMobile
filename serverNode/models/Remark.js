@@ -24,7 +24,6 @@ const RemarkSchema = new Schema({
     likes: [
         {
             user: {
-                //type: Schema.Types.ObjectId,
                 type: String,
             }
         }
@@ -32,7 +31,6 @@ const RemarkSchema = new Schema({
     answers: [
         {
             user: {
-                //type: Schema.Types.ObjectId,
                 type: String,
             },
             content: {
@@ -45,14 +43,12 @@ const RemarkSchema = new Schema({
             },
 
             categoryResponse: {
-                //type : Schema.Types.ObjectId,
                 type: String
             },
 
             likes: [
                 {
                     user: {
-                        //type: Schema.Types.ObjectId,
                         type: String,
                     }
                 }
@@ -60,7 +56,6 @@ const RemarkSchema = new Schema({
             signals: [
                 {
                     user: {
-                        //type: Schema.Types.ObjectId,
                         type: String,
                     }
                 }

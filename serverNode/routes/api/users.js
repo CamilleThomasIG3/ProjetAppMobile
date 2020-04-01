@@ -208,15 +208,5 @@ router.delete('/:id', async (req, res) => {
 });
 
 
-//@route DELETE api/users
-//@desc DELETE users by email
-//@access Public
-// router.delete('/:email', async(req,res) =>{
-//     const email = req.params.email;
-//     User.findOne({email})
-//     .then(user => user.remove().then(() => res.json({res:"correct", msg:"user has been deleted"})))
-//     .catch(err => res.status(404).json({res:"incorrect", msg:"user not found"}));
-// } );
-
 module.exports = router;
 

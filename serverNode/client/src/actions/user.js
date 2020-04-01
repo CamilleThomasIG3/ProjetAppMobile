@@ -57,27 +57,6 @@ export const deleteUser = (id) => dispatch => {
    }
 };
 
-// export const removeAdmin = (id, newAdmin) => async dispatch => {
-//     const body = {newAdmin};
-
-//     try {
-//         const res = await axios.put(`api/users/${id}`, body);
-//         dispatch({
-//             type: REMOVE_ADMIN_SUCCESS,
-//             payload: res.data
-//         });
-//         dispatch(loadUser());
-        
-//     } catch (err) {
-//         const errors = err.response.data;
-        
-//         if (errors) {
-//             dispatch(setAlert(errors.msg, 'danger'));
-//         }
-//         dispatch({ type: REMOVE_ADMIN_ERROR });
-//     }
-// };
-
 export const removeAdmin = (id, newAdmin) => async dispatch => {
     const body = { newAdmin};
     try {
@@ -102,29 +81,6 @@ export const removeAdmin = (id, newAdmin) => async dispatch => {
 
 };
 
-// export const getRemark = (id) => async dispatch => {
-//    try {
-//        const res = await axios
-//            .get(`/api/remarks/${id}`);
-//        dispatch({
-//            type: GET_REMARK,
-//            payload: res.data
-//        });
-
-//    } catch (err) {
-//        const errors = err.response.data;
-       
-//        if (errors) {
-//            dispatch(setAlert(errors.msg, 'danger'));
-//        }
-//        dispatch({
-//            type: REMARK_ERROR,
-//            payload: { msg: err.response.statusText, status: err.response.status }
-//        });
-
-//    }
-
-// };
 
 
 export const setUsersLoading = () => {

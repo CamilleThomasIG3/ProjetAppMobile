@@ -8,7 +8,6 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken'
-//import { useCallback, useReducer } from 'react';
 
 
 export const loadUser = () => async dispatch => {
@@ -34,9 +33,6 @@ export const loadUser = () => async dispatch => {
 
 
 export const register = ({ pseudo, email, password }) => async dispatch => {
-    // const config = {
-    //     'Content-type': 'application/json'
-    // }
 
     const body = { pseudo, email, password };
 
@@ -62,9 +58,7 @@ export const register = ({ pseudo, email, password }) => async dispatch => {
 }
 
 export const login = (email, password) => async dispatch => {
-    // const config = {
-    //     'Content-type': 'application/json'
-    // }
+
 
     const body = { email, password };
 

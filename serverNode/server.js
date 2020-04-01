@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const config = require('config');
 const path = require('path')
 
-const items = require('./routes/api/items');
 const remarks = require('./routes/api/remarks');
 const users = require('./routes/api/users');
 
@@ -26,7 +25,6 @@ mongoose.connect(db,  { useNewUrlParser: true, useUnifiedTopology: true, useCrea
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/remarks', require('./routes/api/remarks'));
 app.use('/api/users', require('./routes/api/users'));
-app.use('/api/items', require('./routes/api/items'));
 
 //Serve static assets in production
 if(process.env.NODE_ENV === 'production'){

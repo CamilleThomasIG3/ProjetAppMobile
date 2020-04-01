@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-//import Moment from 'react-moment';
 import { connect } from 'react-redux';
+import { Card } from 'react-bootstrap'
+import Moment from 'moment'
+import { FaRegComment, FaTrashAlt, FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa'; //icones
+
 import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteRemark } from '../../actions/remark'
 import { addRemarkSignal, removeRemarkSignal } from '../../actions/signal'
-import { Card } from 'react-bootstrap'
 
-import Moment from 'moment'
-import { FaRegComment, FaTrashAlt, FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa'; //icones
 
 const isAlreadyByUser = (pseudo, tab) => {
     var res = false

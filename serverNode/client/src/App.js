@@ -18,13 +18,12 @@ import NotFound from './component/layout/NotFound';
 import PrivateRoute from './component/routing/PrivateRoute';
 import PrivateRouteAdmin from './component/routing/PrivateRouteAdmin';
 
-//redux
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken'
 
-
+//css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 

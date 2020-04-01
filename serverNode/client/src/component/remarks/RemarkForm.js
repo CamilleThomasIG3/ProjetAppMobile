@@ -12,8 +12,6 @@ import {
     Label,
     Input,
 } from 'reactstrap'
-// import { Button } from 'reactstrap';
-// import { Link} from 'react-router-dom';
 
 
 
@@ -34,7 +32,6 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
     const onSubmit = async e => {
         e.preventDefault();
         addRemark({ title, content, idCategory }, user);
-        // e.clear();
         toggle()
     };
 

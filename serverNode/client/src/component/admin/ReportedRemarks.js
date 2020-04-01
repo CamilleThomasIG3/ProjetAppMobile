@@ -14,14 +14,7 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
     const [filter, handleChangeFilter] = useState('recent');
     const [choice, handleChangeChoice] = useState('remarks');
     useEffect(() => {
-        // if (choice == 'remarks'){
             getRemarks(selectCat);
-        // }
-        // else {
-        //     getRemarks(selectCat).map(r =>
-        //         r.answers.map(answer =>
-        //             <AnswerItem key={answer._id} answer={answer} remarkId={r._id}/>))
-        // }
     }, [getRemarks, filter, selectCat, choice]);
 
 
