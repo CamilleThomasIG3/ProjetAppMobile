@@ -20,7 +20,7 @@ class PersonneDAO: ObservableObject{
     @Published var personnes = [User]()
     @Published var currentUser = [User]()
     
-    var urlPersonnes : String = "https://whispering-river-73122.herokuapp.com/api/users/"
+    var urlPersonnes : String = "https://against-sexism.herokuapp.com/api/users/"
     
     init() {
         getAllPersonnes()
@@ -62,7 +62,7 @@ class PersonneDAO: ObservableObject{
     }
     
     func authentification(email : String, password : String, completionHandler: @escaping (Bool) -> ()) {
-        guard let url = URL(string: "https://whispering-river-73122.herokuapp.com/api/auth/") else { return }
+        guard let url = URL(string: "https://against-sexism.herokuapp.com/api/auth/") else { return }
         
         let user:[String: Any] = [
             "email" : email,
