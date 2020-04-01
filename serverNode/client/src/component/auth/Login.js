@@ -27,10 +27,10 @@ const Login = ({login, isAuthenticated}) => {
     return (
         <Fragment>
             <div className="dark-overlay page-content">
-                <h1 className="large text-primary">Sign in</h1>
+                <h1 className="large text-primary">Login</h1>
                 
                 <p className="my-1">
-                    You don't have an account ? <Link to='/register'>Sign In</Link>
+                    You don't have an account ? <Link to='/register'>Register</Link>
                 </p>
                 <form className="form form-centered" onSubmit={e => onSubmit(e)}>
                     <div className="form-group">

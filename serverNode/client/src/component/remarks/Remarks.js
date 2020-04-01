@@ -29,7 +29,7 @@ const Remarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks,
             )}
 
             {!isAuthenticated && (
-                <h4 className="page-infos">- you have to login to post / like / report comments -</h4>
+                <h4 className="page-infos">- you have to login to post / like / report remarks -</h4>
             )}
 
             {/* full screen */}
@@ -38,7 +38,7 @@ const Remarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks,
                     Sort by date
                     </button>
                 <button className="btn" value={'likes'} onClick={e => handleChangeFilter(e.target.value)} >
-                    Sort by number of likes
+                    Sort by number of times heard
                     </button>
                 <button className="btn" value={'answers'} onClick={e => handleChangeFilter(e.target.value)}>
                     Sort by number of answers
@@ -50,7 +50,7 @@ const Remarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks,
                 <button className="btn" value={'recent'} onClick={e => handleChangeFilter(e.target.value)}>
                     Date</button>
                 <button className="btn" value={'likes'} onClick={e => handleChangeFilter(e.target.value)} >
-                    Likes</button>
+                    Times heard</button>
                 <button className="btn" value={'answers'} onClick={e => handleChangeFilter(e.target.value)}>
                     Answers</button>
             </div>
@@ -59,11 +59,11 @@ const Remarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks,
                 <p>Filter by category : </p>
                 <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
                     <option value='all'>All</option>
-                    <option value='Rue' >Rue</option>
-                    <option value='Travail'>Travail</option>
-                    <option value='Transports'>Transport</option>
-                    <option value='Famille'>Famille</option>
-                    <option value='Général'>Général</option>
+                    <option value='Général'>General</option>
+                    <option value='Rue' >Street</option>
+                    <option value='Travail'>Work</option>
+                    <option value='Transports'>Transports</option>
+                    <option value='Famille'>Family</option>
                 </Input>
                 
                 {/* full screen */}

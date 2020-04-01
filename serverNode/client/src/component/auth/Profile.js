@@ -117,7 +117,7 @@ const Profile = ({ isAuthenticated, editPseudo, editPassword, user }) => {
                                         onChange={e => onChange(e)} required />
 
                                     <Label for="newPassword2">Confirm new password</Label>
-                                    <Input type="password" name="newPassword2" id="newPassword2" placeholder="new password" value={newPassword2}
+                                    <Input type="password" name="newPassword2" id="newPassword2" placeholder="confirm new password" value={newPassword2}
                                         onChange={e => onChange(e)} required />
 
                                     <Button style={{ marginTop: '2rem' }} color="dark">Edit</Button>

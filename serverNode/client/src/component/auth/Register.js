@@ -36,10 +36,10 @@ const Register = ({setAlert, register, isAuthenticated}) => {
     return (
         <Fragment>
             <div className="dark-overlay page-content">
-                <h1 className="large text-primary">Sign Up</h1>
+                <h1 className="large text-primary">Register</h1>
                 
                 <p className="my-1">
-                    You already have an account? <Link to='/login'>Sign In</Link>
+                    You already have an account? <Link to='/login'>Login</Link>
                 </p>
 
                 <form className="form form-centered" onSubmit={e => onSubmit(e)}>

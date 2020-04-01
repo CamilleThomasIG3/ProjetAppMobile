@@ -57,11 +57,11 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
 
                             <Label for="idCategory">Category</Label>
                             <Input type="select" value={idCategory} onChange={e => handleChangeIdCategory(e.target.value)}>
-                                <option value='Général'>Général</option>
-                                <option value='Rue' >Rue</option>
-                                <option value='Travail'>Travail</option>
+                                <option value='Général'>General</option>
+                                <option value='Rue' >Street</option>
+                                <option value='Travail'>Work</option>
                                 <option value='Transports'>Transports</option>
-                                <option value='Famille'>Famille</option>
+                                <option value='Famille'>Family</option>
                             </Input>
                             <Input type="textarea" className="textarea" rows="5" placeholder="Write your sexist remark" name="content" value={content}
                                 onChange={e => onChange(e)}></Input>

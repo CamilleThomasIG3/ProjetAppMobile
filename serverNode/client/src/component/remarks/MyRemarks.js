@@ -47,11 +47,11 @@ const MyRemarks = ({ getRemarks, deleteRemark, remark: { remarks, loading }, aut
                 <p>Filter by category : </p>
                 <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
                     <option value='all'>All</option>
-                    <option value='Rue' >Rue</option>
-                    <option value='Travail'>Travail</option>
-                    <option value='Transports'>Transport</option>
-                    <option value='Famille'>Famille</option>
-                    <option value='Général'>Général</option>
+                    <option value='Général'>General</option>
+                    <option value='Rue' >Street</option>
+                    <option value='Travail'>Work</option>
+                    <option value='Transports'>Transports</option>
+                    <option value='Famille'>Family</option>
                 </Input>
             </div>
 

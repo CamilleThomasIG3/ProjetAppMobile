@@ -42,9 +42,9 @@ const Remark = ({ isAuthenticated, getRemark, remark: { remark, loading }, match
                     <p className="filter-answers">Filter by category : </p>
                     <Input type="select" value={selectCat} onChange={e => handleChangeSelectCat(e.target.value)}>
                         <option value='all'>All</option>
-                        <option value='Général'>Général</option>
+                        <option value='Général'>General</option>
                         <option value='Humour' >Humour</option>
-                        <option value='Loi' >Loi</option>
+                        <option value='Loi' >Law</option>
                         <option value='Citation'>Citation</option>
                     </Input>
 

@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
-//import {Container} from 'reactstrap';
+import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 // //Components
@@ -15,6 +14,9 @@ import Remark from './component/remark/Remark';
 import Users from './component/admin/Users';
 import MyRemarks from './component/remarks/MyRemarks';
 import ReportedRemarks from './component/admin/ReportedRemarks';
+import NotFound from './component/layout/NotFound';
+import PrivateRoute from './component/routing/PrivateRoute';
+import PrivateRouteAdmin from './component/routing/PrivateRouteAdmin';
 
 //redux
 import { Provider } from 'react-redux';
@@ -46,16 +48,14 @@ const App = () => {
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
-              <Route exact path='/profile' component={Profile} />
-              <Route exact path='/users' component={Users} />
+              <PrivateRoute exact path='/profile' component={Profile} />
+              <PrivateRouteAdmin path='/users' component={Users} />
               <Route exact path='/remarks' component={Remarks}/>
-              <Route exact path='/remarkForm' component={RemarkForm}/>
+              <PrivateRoute exact path='/remarkForm' component={RemarkForm}/>
               <Route exact path='/remarks/:id' component={Remark}/>
-              <Route exact path='/remarks' component={Remarks} />
-              <Route exact path='/remarkForm' component={RemarkForm} />
-              <Route exact path='/remarks/:id' component={Remark} />
-              <Route exact path='/my-remarks' component={MyRemarks} />
-              <Route exact path='/reported-remarks' component={ReportedRemarks} />
+              <PrivateRoute exact path='/my-remarks' component={MyRemarks} />
+              <PrivateRouteAdmin exact path='/reported-remarks' component={ReportedRemarks} />
+              <Route component={NotFound}/>
             </Switch>
           </section>
         </Fragment>
@@ -63,4 +63,5 @@ const App = () => {
     </Provider>
   )
 }
-export default App;
+
+export default App

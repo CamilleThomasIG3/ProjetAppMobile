@@ -48,10 +48,10 @@ const AnswerForm = ({ remarkId, addAnswer, isAuthenticated, user }) => {
                         <FormGroup>
                             <Label for="categoryResponse">Category</Label>
                             <Input type="select" value={categoryResponse} onChange={e => handleChangeCategoryResponse(e.target.value)}>
-                                <option value='Général'>général</option>
-                                <option value='Humour' >humour</option>
-                                <option value='Loi' >loi</option>
-                                <option value='Citation' >citation</option>
+                                <option value='Général'>General</option>
+                                <option value='Humour' >Humour</option>
+                                <option value='Loi' >Law</option>
+                                <option value='Citation' >Citation</option>
                             </Input>
                             <Input type="textarea" className="textarea" rows="5" placeholder="Write your answer" name="content" value={content}
                                 onChange={e => onChange(e)}></Input>

@@ -40,7 +40,7 @@ const UserItem = ({
                                     type="button"
                                     className="btn btn-danger"
                             >
-                                Revoke Admin
+                                Revoke admin
                             </button>  
                         </div>                 
                     )}

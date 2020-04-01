@@ -49,7 +49,7 @@ const ReportedRemarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { 
                             Sort by date
                             </button>
                         <button className="btn" value={'signals'} onClick={e => handleChangeFilter(e.target.value)} >
-                            Sort by number of Signals
+                            Sort by number of reports
                             </button>
                         <button className="btn" value={'answers'} onClick={e => handleChangeFilter(e.target.value)}>
                             Sort by number of answers
