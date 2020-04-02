@@ -8,7 +8,7 @@ import { FaRegComment, FaTrashAlt, FaThumbsUp, FaExclamationTriangle } from 'rea
 
 import { addRemarkLike, removeRemarkLike } from '../../actions/likes'
 import { deleteRemark } from '../../actions/remark'
-import { addRemarkSignal, removeRemarkSignal } from '../../actions/signal'
+import { addRemarkSignal, removeRemarkSignal, deleteSignals } from '../../actions/signal'
 
 
 const isAlreadyByUser = (pseudo, tab) => {
@@ -27,6 +27,7 @@ const RemarkItem = ({
     removeRemarkLike,
     addRemarkSignal,
     removeRemarkSignal,
+    deleteSignals,
     auth,
     showActions,
     remark: { _id, title, content, user, date, likes, answers, idCategory, signals } }) =>
@@ -105,6 +106,16 @@ const RemarkItem = ({
                         <span>{signals.length} reports</span>
                     </button>
                 )}
+                {auth.isAuthenticated && auth.user.admin && signals.length>0 && (
+                        <button
+                            onClick={e => deleteSignals(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                            clean signals
+                        </button>
+
+                    )}
             </div> 
 
             {/* Responsive screen*/}
@@ -165,6 +176,16 @@ const RemarkItem = ({
                         <span>{signals.length} <FaExclamationTriangle/></span>
                     </button>
                 )}
+                {auth.isAuthenticated && auth.user.admin && signals.length>0 && (
+                        <button
+                            onClick={e => deleteSignals(_id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                        <FaTrashAlt/> signals
+                        </button>
+
+                    )}
             </div> 
 
             </Card.Body>
@@ -187,4 +208,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark, addRemarkSignal, removeRemarkSignal })(RemarkItem);
+export default connect(mapStateToProps, { addRemarkLike, removeRemarkLike, deleteRemark, addRemarkSignal, removeRemarkSignal, deleteSignals })(RemarkItem);

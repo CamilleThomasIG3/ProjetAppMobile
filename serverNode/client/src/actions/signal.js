@@ -54,6 +54,30 @@ export const removeRemarkSignal = (id, user) => async dispatch => {
     
 };
 
+export const deleteSignals = (id) => async dispatch => {
+    try {
+        await axios
+            .delete('/api/remarks/'+id+'/signals');
+        dispatch({
+            type: UPDATE_SIGNALS,
+            payload: id
+        });
+        
+    } catch (err) {
+        const errors = err.response.data;
+        
+        if (errors) {
+            dispatch(setAlert(errors.msg, 'danger'));
+        }
+        dispatch({
+            type: REMARK_ERROR,
+            payload: {msg: err.response.statusText, status: err.response.status}
+        });
+
+}
+    
+};
+
 //------------answer---------
 
 export const addAnswerSignal = (remarkId, answerId, user) => async dispatch => {

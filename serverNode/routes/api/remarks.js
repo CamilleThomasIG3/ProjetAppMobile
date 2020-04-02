@@ -359,6 +359,23 @@ router.delete('/:id/answers/:answerid/signals/:signalid', async(req,res) =>{
 } );
 
 
+//@route DELETE api/remarks/answer/signals
+//@desc DELETE signals of answer
+//@access private
+router.delete('/:id/answers/:answerid/signals', async(req,res) =>{
+    try{
+    const remark = await Remark.findById(req.params.id);
+    const answer = await remark.answers.find(answer => answer.id === req.params.answerid);
+
+    answer.signals = []
+    await remark.save();
+
+    res.json({res:"correct", msg:"signals removed"});}
+    catch(err){
+        res.status(500).send('server error')
+    }
+} );
+
 
 
 //----------remarks/likes----------
@@ -484,6 +501,25 @@ router.delete('/:id/usersignal/:user', async (req, res) => {
         res.status(500).send('server error')
     }
 });
+
+
+//@route DELETE api/remarks/signal
+//@desc DELETE signals of remarks
+//@access public
+router.delete('/:id/signals', async (req, res) => {
+    try {
+        const remark = await Remark.findById(req.params.id);
+
+        remark.signals = []
+        await remark.save();
+
+        res.json({res: "correct", msg: "signals removed" });
+    }
+    catch (err) {
+        res.status(500).send('server error')
+    }
+});
+
 
 //@route DELETE api/remarks/likes
 //@desc DELETE like by user
