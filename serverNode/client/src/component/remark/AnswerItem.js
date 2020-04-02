@@ -5,6 +5,7 @@ import { deleteAnswer } from '../../actions/remark'
 import { addAnswerLike, removeAnswerLike } from '../../actions/likes'
 import { addAnswerSignal, removeAnswerSignal } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 import Moment from 'moment'
 import { FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa';
@@ -31,7 +32,9 @@ const AnswerItem = ({
     removeAnswerSignal
 }) => (
         <Card className="post-content">
-            <Card.Header>Posted by <i>{user}</i> on <i>{Moment(date).format('MM-DD-YYYY')}</i> </Card.Header>
+            <Card.Header><Link to={`/remarks/${remarkId}`} className="btn btn-dark">
+                        
+                    Posted by <i>{user}</i> on <i>{Moment(date).format('MM-DD-YYYY')}</i></Link> </Card.Header>
             <Card.Body>
                 <Card.Subtitle className="mb-2 text-muted">{categoryResponse}</Card.Subtitle>
                 <Card.Text>
