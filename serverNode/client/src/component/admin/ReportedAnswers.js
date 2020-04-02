@@ -1,9 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getRemarks, deleteRemark } from '../../actions/remark';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
-import RemarkItem from '../remarks/RemarkItem';
 import {Input} from 'reactstrap'
 import AnswerItem from '../remark/AnswerItem';
 
@@ -11,7 +10,7 @@ import AnswerItem from '../remark/AnswerItem';
 const ReportedAnswers = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks, loading } }) => {
     const [selectCatAnsw, handleChangeSelectCatAnsw] = useState('all');
     const [filterAnsw, handleChangeFilterAnsw] = useState('recent');
-    const [selectCat, handleChangeSelectCat] = useState('all');
+    const [selectCat] = useState('all');
     useEffect(() => {
             getRemarks(selectCat);
     }, [getRemarks, selectCat, selectCatAnsw, filterAnsw]);

@@ -9,7 +9,7 @@ import ReportedAnswers from './ReportedAnswers';
 
 const Reports = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks, loading } }) => {
     const [choice, handleChangeChoice] = useState('remarks');
-    const [selectCat, handleChangeSelectCat] = useState('all')
+    const [selectCat] = useState('all')
     useEffect(() => {
             getRemarks(selectCat);
     }, [getRemarks, selectCat, choice]);

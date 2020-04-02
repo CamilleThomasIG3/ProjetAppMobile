@@ -50,7 +50,7 @@ const Remarks = ({ isAuthenticated, getRemarks, deleteRemark, remark: { remarks,
                 <button className="btn" value={'recent'} onClick={e => handleChangeFilter(e.target.value)}>
                     Date</button>
                 <button className="btn" value={'likes'} onClick={e => handleChangeFilter(e.target.value)} >
-                    Times heard</button>
+                    Heard</button>
                 <button className="btn" value={'answers'} onClick={e => handleChangeFilter(e.target.value)}>
                     Answers</button>
             </div>
