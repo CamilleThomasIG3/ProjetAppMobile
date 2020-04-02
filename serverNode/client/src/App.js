@@ -13,7 +13,7 @@ import RemarkForm from './component/remarks/RemarkForm';
 import Remark from './component/remark/Remark';
 import Users from './component/admin/Users';
 import MyRemarks from './component/remarks/MyRemarks';
-import ReportedRemarks from './component/admin/ReportedRemarks';
+import Reports from './component/admin/Reports';
 import NotFound from './component/layout/NotFound';
 import PrivateRoute from './component/routing/PrivateRoute';
 import PrivateRouteAdmin from './component/routing/PrivateRouteAdmin';
@@ -53,7 +53,7 @@ const App = () => {
               <PrivateRoute exact path='/remarkForm' component={RemarkForm}/>
               <Route exact path='/remarks/:id' component={Remark}/>
               <PrivateRoute exact path='/my-remarks' component={MyRemarks} />
-              <PrivateRouteAdmin exact path='/reported-remarks' component={ReportedRemarks} />
+              <PrivateRouteAdmin exact path='/reports' component={Reports} />
               <Route component={NotFound}/>
             </Switch>
           </section>
