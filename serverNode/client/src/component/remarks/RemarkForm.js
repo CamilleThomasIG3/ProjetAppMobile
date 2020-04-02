@@ -22,7 +22,7 @@ const RemarkForm = ({ addRemark, isAuthenticated, user }) => {
         title: '',
         content: ''
     });
-    const [idCategory, handleChangeIdCategory] = useState('')
+    const [idCategory, handleChangeIdCategory] = useState('Général')
 
 
     const { modal, title, content } = formData;
