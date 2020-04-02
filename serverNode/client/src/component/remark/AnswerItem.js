@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteAnswer } from '../../actions/remark'
 import { addAnswerLike, removeAnswerLike } from '../../actions/likes'
-import { addAnswerSignal, removeAnswerSignal } from '../../actions/signal'
+import { addAnswerSignal, removeAnswerSignal, deleteAnswerSignals } from '../../actions/signal'
 import { Card } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 import Moment from 'moment'
-import { FaThumbsUp, FaExclamationTriangle } from 'react-icons/fa';
+import { FaThumbsUp, FaExclamationTriangle, FaTrashAlt } from 'react-icons/fa';
 
 const isAlreadyByUser = (pseudo, tab) => {
     var res = false
@@ -29,6 +29,7 @@ const AnswerItem = ({
     addAnswerLike,
     removeAnswerLike,
     addAnswerSignal,
+    deleteAnswerSignals,
     removeAnswerSignal
 }) => (
         <Card className="post-content">
@@ -96,6 +97,16 @@ const AnswerItem = ({
                         delete
                     </button>
                 )}
+                {auth.isAuthenticated && auth.user.admin && signals.length>0 && (
+                        <button
+                            onClick={e => deleteAnswerSignals(remarkId, _id)}
+                            type="button"
+                            className="btn btn-danger"
+                        >
+                        <FaTrashAlt/> signals
+                        </button>
+
+                    )}
             </Card.Body>
         </Card>
     )
@@ -118,4 +129,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { addAnswerLike, removeAnswerLike, deleteAnswer, addAnswerSignal, removeAnswerSignal })(AnswerItem);
+export default connect(mapStateToProps, { addAnswerLike, removeAnswerLike, deleteAnswer, addAnswerSignal, removeAnswerSignal, deleteAnswerSignals })(AnswerItem);
